@@ -12,9 +12,14 @@ struct EqualizerButtonView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                Rectangle()
-                    .foregroundColor(.gray)
-                    .cornerRadius(15)
+//                Rectangle()
+//                    .foregroundColor(.gray)
+//                    .cornerRadius(15)
+                
+                Image("earphone-background1")
+                    .resizable()
+                    .renderingMode(.original)
+                    .cornerRadius(10)
                 
                 VStack{
                     HStack {
@@ -30,6 +35,7 @@ struct EqualizerButtonView: View {
                     Spacer()
                 }
             }
+            .frame(height: 300)
         }
     }
 }

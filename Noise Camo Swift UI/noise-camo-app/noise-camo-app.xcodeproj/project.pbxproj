@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E793796324674FAB00260C17 /* GlobalTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E793796224674FAB00260C17 /* GlobalTabView.swift */; };
 		E7D0ECBC2457776A00A942C7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D0ECBB2457776A00A942C7 /* AppDelegate.swift */; };
 		E7D0ECBE2457776A00A942C7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D0ECBD2457776A00A942C7 /* SceneDelegate.swift */; };
 		E7D0ECC02457776B00A942C7 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D0ECBF2457776B00A942C7 /* Home.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E793796224674FAB00260C17 /* GlobalTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalTabView.swift; sourceTree = "<group>"; };
 		E7D0ECB82457776A00A942C7 /* noise-camo-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "noise-camo-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7D0ECBB2457776A00A942C7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7D0ECBD2457776A00A942C7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				E7FCF005245F7590001A938D /* Models */,
 				E7D0ECBB2457776A00A942C7 /* AppDelegate.swift */,
 				E7D0ECBD2457776A00A942C7 /* SceneDelegate.swift */,
+				E793796224674FAB00260C17 /* GlobalTabView.swift */,
 				E7D0ECBF2457776B00A942C7 /* Home.swift */,
 				E7FCF000245F37C3001A938D /* EqualizerView.swift */,
 				E7FCEFFE245F227E001A938D /* EqualizerButtonView.swift */,
@@ -310,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E793796324674FAB00260C17 /* GlobalTabView.swift in Sources */,
 				E7D0ECBC2457776A00A942C7 /* AppDelegate.swift in Sources */,
 				E7D0ECBE2457776A00A942C7 /* SceneDelegate.swift in Sources */,
 				E7FCF00A245F88C9001A938D /* BackgroundView.swift in Sources */,

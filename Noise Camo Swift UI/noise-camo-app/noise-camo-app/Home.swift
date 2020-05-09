@@ -17,25 +17,18 @@ struct Home: View {
                 VStack(alignment: .center) {
                     
                     NavigationLink(destination: EqualizerView()) {
+                        
                         EqualizerButtonView()
                             .foregroundColor(.black)
-                            .frame(height: 300.0, alignment: .top)
-                            .padding()
+                            .frame(height: 300.0)
+                            .padding(10)
                     }
                     
                     Spacer()
-                    
                 }
             }
-            .navigationBarItems(leading:
-                HStack {
-                    Text("NOISE")
-                        .fontWeight(.regular)
-                    
-                    Text("CAMO")
-                    .fontWeight(.medium)
-                }.font(.title),
-            trailing:
+        .navigationBarTitle("NOISE CAMO")
+        .navigationBarItems(trailing:
                 HStack {
                     NavigationLink(destination: EqualizerView()) {
                        Image(systemName: "person.circle")
@@ -43,7 +36,24 @@ struct Home: View {
                         .padding(.trailing, 20)
                         .foregroundColor(.black)
                     }
-            })
+                })
+//            .navigationBarItems(leading:
+//                HStack {
+//                    Text("NOISE")
+//                        .fontWeight(.regular)
+//
+//                    Text("CAMO")
+//                    .fontWeight(.medium)
+//                }.font(.title),
+//            trailing:
+//                HStack {
+//                    NavigationLink(destination: EqualizerView()) {
+//                       Image(systemName: "person.circle")
+//                        .font(.system(size: 30, weight: .regular))
+//                        .padding(.trailing, 20)
+//                        .foregroundColor(.black)
+//                    }
+//                })
         }
     }
 }
