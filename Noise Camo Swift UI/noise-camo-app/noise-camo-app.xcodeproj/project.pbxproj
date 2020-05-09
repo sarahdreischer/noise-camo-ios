@@ -20,6 +20,7 @@
 		E7FCF001245F37C3001A938D /* EqualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FCF000245F37C3001A938D /* EqualizerView.swift */; };
 		E7FCF004245F7396001A938D /* song.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E7FCF003245F7396001A938D /* song.mp3 */; };
 		E7FCF007245F7C77001A938D /* EqualizerLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FCF006245F7C77001A938D /* EqualizerLogic.swift */; };
+		E7FCF00A245F88C9001A938D /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FCF009245F88C9001A938D /* BackgroundView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		E7FCF000245F37C3001A938D /* EqualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerView.swift; sourceTree = "<group>"; };
 		E7FCF003245F7396001A938D /* song.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = song.mp3; path = ../../../../sounds/song.mp3; sourceTree = "<group>"; };
 		E7FCF006245F7C77001A938D /* EqualizerLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerLogic.swift; sourceTree = "<group>"; };
+		E7FCF009245F88C9001A938D /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +111,8 @@
 		E7D0ECBA2457776A00A942C7 /* noise-camo-app */ = {
 			isa = PBXGroup;
 			children = (
-				E7FCF005245F7590001A938D /* New Group */,
+				E7FCF008245F889F001A938D /* Supporting Views */,
+				E7FCF005245F7590001A938D /* Models */,
 				E7D0ECBB2457776A00A942C7 /* AppDelegate.swift */,
 				E7D0ECBD2457776A00A942C7 /* SceneDelegate.swift */,
 				E7D0ECBF2457776B00A942C7 /* Home.swift */,
@@ -159,12 +162,20 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
-		E7FCF005245F7590001A938D /* New Group */ = {
+		E7FCF005245F7590001A938D /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				E7FCF006245F7C77001A938D /* EqualizerLogic.swift */,
 			);
-			path = "New Group";
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E7FCF008245F889F001A938D /* Supporting Views */ = {
+			isa = PBXGroup;
+			children = (
+				E7FCF009245F88C9001A938D /* BackgroundView.swift */,
+			);
+			path = "Supporting Views";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -301,6 +312,7 @@
 			files = (
 				E7D0ECBC2457776A00A942C7 /* AppDelegate.swift in Sources */,
 				E7D0ECBE2457776A00A942C7 /* SceneDelegate.swift in Sources */,
+				E7FCF00A245F88C9001A938D /* BackgroundView.swift in Sources */,
 				E7D0ECEC24577E0000A942C7 /* Instruction.swift in Sources */,
 				E7FCF001245F37C3001A938D /* EqualizerView.swift in Sources */,
 				E7FCF007245F7C77001A938D /* EqualizerLogic.swift in Sources */,

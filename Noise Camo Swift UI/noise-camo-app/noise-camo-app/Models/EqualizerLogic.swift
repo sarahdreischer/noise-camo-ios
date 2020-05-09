@@ -24,26 +24,18 @@ struct EqualizerLogic {
             
             let bands = equalizer.bands
             let freqs = [60, 230, 910, 4000, 14000]
+        
             
+
             audioEngine.connect(audioPlayerNode, to: equalizer, format: nil)
             audioEngine.connect(equalizer, to: audioEngine.outputNode, format: nil)
             
             for i in 0...(bands.count - 1) {
                 bands[i].frequency  = Float(freqs[i])
                 bands[i].bypass     = false
-                bands[i].filterType = .parametric
+                bands[i].gain = Float(gains[0])
+                bands[i].filterType = self.getShelf(gains[i])
             }
-            
-        bands[0].gain = Float(gains[0])
-        bands[0].filterType = self.getShelf(gains[0])
-        bands[1].gain = Float(gains[1])
-            bands[1].filterType = self.getShelf(gains[1])
-        bands[2].gain = Float(gains[2])
-            bands[2].filterType = self.getShelf(gains[2])
-        bands[3].gain = Float(gains[3])
-            bands[3].filterType = self.getShelf(gains[3])
-        bands[4].gain = Float(gains[4])
-            bands[4].filterType = self.getShelf(gains[4])
             
         do {
             audioEngine.prepare()
