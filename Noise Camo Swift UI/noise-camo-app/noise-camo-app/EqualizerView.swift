@@ -28,12 +28,15 @@ struct EqualizerView: View {
 
             VStack {
                 Text("Equalizer").font(.title).foregroundColor(Color.white)
-                ForEach(0..<customGains.count) { index in
-                    VStack {
+                
+                Spacer()
+                
+                HStack {
+                    ForEach(0..<customGains.count) { index in
                         EQSlider(sliderValue: self.$customGains[index])
                             .foregroundColor(.white)
                     }
-                }
+                }.frame(height: 400)
                 
                 Spacer()
                 

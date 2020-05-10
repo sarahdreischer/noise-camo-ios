@@ -12,9 +12,16 @@ struct EQSlider: View {
     @Binding var sliderValue: Double
     
     var body: some View {
-        HStack {
+        VStack {
             Text("-10dB")
-            Slider(value: $sliderValue, in: -10...10, step: 1)
+            GeometryReader { geometry in
+                HStack {
+                    Slider(value: self.$sliderValue, in: -10...10, step: 1)
+                        .accentColor(.orange)
+                        .rotationEffect(.degrees(-90), anchor: .center)
+                        .frame(width: geometry.size.height, height: geometry.size.width)
+                }
+            }
             Text("+10dB")
         }
     }
