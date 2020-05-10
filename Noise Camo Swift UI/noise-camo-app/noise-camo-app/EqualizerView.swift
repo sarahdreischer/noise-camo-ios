@@ -14,18 +14,9 @@ struct EqualizerView: View {
     @State private var customGains
         = Array(repeating: 0.0, count: EqualizerSettings().frequencies.count)
     
-    @State private var celsius: Double = 0
-    
     @State private var play = false
 
-    @State private var audioEngine: AVAudioEngine = AVAudioEngine()
-
-    @State private var audioPlayerNode: AVAudioPlayerNode = AVAudioPlayerNode()
-
-    @State private var equalizer: AVAudioUnitEQ
-        = AVAudioUnitEQ(numberOfBands: EqualizerSettings().frequencies.count)
-    
-    @State private var audioFile: AVAudioFile!
+    @EnvironmentObject var eqSettings: EqualizerSettings
         
     var body: some View {
         
@@ -39,8 +30,7 @@ struct EqualizerView: View {
                 Text("Equalizer").font(.title).foregroundColor(Color.white)
                 ForEach(0..<customGains.count) { index in
                     VStack {
-                        Slider(value: self.$customGains[index], in: -10...10, step: 1)
-                        Text("\(self.customGains[index]) is the current value")
+                        EQSlider(sliderValue: self.$customGains[index])
                             .foregroundColor(.white)
                     }
                 }
@@ -69,15 +59,7 @@ struct EqualizerView: View {
                 
                 Button(action: {
                     self.play.toggle()
-                    
-                    // TODO - Replace later with audio player
-                    self.setUpAudioFile(song: "song")
-                    
-                    EqualizerLogic(
-                        audioEngine: self.$audioEngine,
-                        audioPlayerNode: self.$audioPlayerNode,
-                        equalizer: self.$equalizer)
-                        .startEqualizer(self.play, audioFile: self.audioFile, gains: self.customGains)
+                    self.startEqualizer(self.play, gains: self.customGains)
                 }) {
                     Text("Apply settings + play")
                         .foregroundColor(.white)
@@ -93,23 +75,17 @@ struct EqualizerView: View {
         }
     }
     
-    func setUpAudioFile(song:String) {
-        do {
-            if let filepath = Bundle.main.path(forResource: song, ofType: "mp3") {
-                
-                let filepathURL = NSURL.fileURL(withPath: filepath)
-                
-                audioFile = try AVAudioFile(forReading: filepathURL)
-            }
-        } catch {
-            print("Something went wrong when setting up the AudioFile")
-        }
+    func startEqualizer(_ play:Bool, gains:Array<Double>) {
+        EqualizerLogic().setBands(bands: self.eqSettings.equalizer.bands, gains: self.customGains)
+        
+        self.eqSettings.playEqualizedSong(play, gains: gains)
     }
 }
     
 
 struct EqualizerView_Previews: PreviewProvider {
+    static let eqSettings = EqualizerSettings()
     static var previews: some View {
-        EqualizerView()
+        EqualizerView().environmentObject(eqSettings)
     }
 }
