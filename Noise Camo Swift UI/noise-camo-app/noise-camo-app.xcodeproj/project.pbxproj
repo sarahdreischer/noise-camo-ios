@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E793796324674FAB00260C17 /* GlobalTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E793796224674FAB00260C17 /* GlobalTabView.swift */; };
+		E78E2BDF246830CB00A054A9 /* EqualizerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78E2BDE246830CB00A054A9 /* EqualizerSettings.swift */; };
+		E793796324674FAB00260C17 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = E793796224674FAB00260C17 /* Home.swift */; };
 		E7D0ECBC2457776A00A942C7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D0ECBB2457776A00A942C7 /* AppDelegate.swift */; };
 		E7D0ECBE2457776A00A942C7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D0ECBD2457776A00A942C7 /* SceneDelegate.swift */; };
-		E7D0ECC02457776B00A942C7 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D0ECBF2457776B00A942C7 /* Home.swift */; };
+		E7D0ECC02457776B00A942C7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D0ECBF2457776B00A942C7 /* HomeView.swift */; };
 		E7D0ECC22457776D00A942C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7D0ECC12457776D00A942C7 /* Assets.xcassets */; };
 		E7D0ECC52457776D00A942C7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7D0ECC42457776D00A942C7 /* Preview Assets.xcassets */; };
 		E7D0ECC82457776D00A942C7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7D0ECC62457776D00A942C7 /* LaunchScreen.storyboard */; };
@@ -42,11 +43,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E793796224674FAB00260C17 /* GlobalTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalTabView.swift; sourceTree = "<group>"; };
+		E78E2BDE246830CB00A054A9 /* EqualizerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerSettings.swift; sourceTree = "<group>"; };
+		E793796224674FAB00260C17 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		E7D0ECB82457776A00A942C7 /* noise-camo-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "noise-camo-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7D0ECBB2457776A00A942C7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7D0ECBD2457776A00A942C7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E7D0ECBF2457776B00A942C7 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		E7D0ECBF2457776B00A942C7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E7D0ECC12457776D00A942C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E7D0ECC42457776D00A942C7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E7D0ECC72457776D00A942C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -117,8 +119,8 @@
 				E7FCF005245F7590001A938D /* Models */,
 				E7D0ECBB2457776A00A942C7 /* AppDelegate.swift */,
 				E7D0ECBD2457776A00A942C7 /* SceneDelegate.swift */,
-				E793796224674FAB00260C17 /* GlobalTabView.swift */,
-				E7D0ECBF2457776B00A942C7 /* Home.swift */,
+				E793796224674FAB00260C17 /* Home.swift */,
+				E7D0ECBF2457776B00A942C7 /* HomeView.swift */,
 				E7FCF000245F37C3001A938D /* EqualizerView.swift */,
 				E7FCEFFE245F227E001A938D /* EqualizerButtonView.swift */,
 				E7D0ECEB24577E0000A942C7 /* Instruction.swift */,
@@ -169,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				E7FCF006245F7C77001A938D /* EqualizerLogic.swift */,
+				E78E2BDE246830CB00A054A9 /* EqualizerSettings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -313,14 +316,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E793796324674FAB00260C17 /* GlobalTabView.swift in Sources */,
+				E793796324674FAB00260C17 /* Home.swift in Sources */,
 				E7D0ECBC2457776A00A942C7 /* AppDelegate.swift in Sources */,
 				E7D0ECBE2457776A00A942C7 /* SceneDelegate.swift in Sources */,
 				E7FCF00A245F88C9001A938D /* BackgroundView.swift in Sources */,
 				E7D0ECEC24577E0000A942C7 /* Instruction.swift in Sources */,
+				E78E2BDF246830CB00A054A9 /* EqualizerSettings.swift in Sources */,
 				E7FCF001245F37C3001A938D /* EqualizerView.swift in Sources */,
 				E7FCF007245F7C77001A938D /* EqualizerLogic.swift in Sources */,
-				E7D0ECC02457776B00A942C7 /* Home.swift in Sources */,
+				E7D0ECC02457776B00A942C7 /* HomeView.swift in Sources */,
 				E7FCEFFF245F227E001A938D /* EqualizerButtonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

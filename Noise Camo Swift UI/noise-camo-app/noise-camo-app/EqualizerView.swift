@@ -11,7 +11,8 @@ import AVFoundation
 
 struct EqualizerView: View {
     
-    @State private var equalizerValues = Array(repeating: 0.0, count: 5)
+    @State private var customGains
+        = Array(repeating: 0.0, count: EqualizerSettings().frequencies.count)
     
     @State private var celsius: Double = 0
     
@@ -20,20 +21,47 @@ struct EqualizerView: View {
     @State private var audioEngine: AVAudioEngine = AVAudioEngine()
 
     @State private var audioPlayerNode: AVAudioPlayerNode = AVAudioPlayerNode()
-    @State private var equalizer: AVAudioUnitEQ = AVAudioUnitEQ(numberOfBands: 5)
+
+    @State private var equalizer: AVAudioUnitEQ
+        = AVAudioUnitEQ(numberOfBands: EqualizerSettings().frequencies.count)
+    
     @State private var audioFile: AVAudioFile!
         
     var body: some View {
         
         ZStack {
-            BackgroundView()
+            Rectangle()
+               .foregroundColor(.black)
+               .edgesIgnoringSafeArea(.all)
             
+
             VStack {
-                Text("Equalizer").font(.title)
-                ForEach(0..<equalizerValues.count) { index in
+                Text("Equalizer").font(.title).foregroundColor(Color.white)
+                ForEach(0..<customGains.count) { index in
                     VStack {
-                        Slider(value: self.$equalizerValues[index], in: -10...10, step: 1)
-                        Text("\(self.equalizerValues[index]) is the current value")
+                        Slider(value: self.$customGains[index], in: -10...10, step: 1)
+                        Text("\(self.customGains[index]) is the current value")
+                            .foregroundColor(.white)
+                    }
+                }
+                
+                Spacer()
+                
+                HStack {
+                    
+                    ForEach(EqualizerSettings().gainsSettings.keys.sorted(), id: \.self) { key in
+                        Button(action: {
+                            self.customGains = EqualizerSettings().gainsSettings[key]!
+                            }) {
+                                Text(key)
+                                    .foregroundColor(.white)
+                                    .fontWeight(.medium)
+                                    .font(.custom("Avenir", size: 25))
+                                    .padding([.leading, .trailing], 20)
+                                    .padding([.top, .bottom], 5)
+                                    .background(Color.gray)
+                                    .cornerRadius(15)
+                            }
                     }
                 }
                 
@@ -42,20 +70,23 @@ struct EqualizerView: View {
                 Button(action: {
                     self.play.toggle()
                     
+                    // TODO - Replace later with audio player
                     self.setUpAudioFile(song: "song")
                     
                     EqualizerLogic(
                         audioEngine: self.$audioEngine,
                         audioPlayerNode: self.$audioPlayerNode,
                         equalizer: self.$equalizer)
-                        .startEqualizer(self.play, audioFile: self.audioFile, gains: self.equalizerValues)
+                        .startEqualizer(self.play, audioFile: self.audioFile, gains: self.customGains)
                 }) {
                     Text("Apply settings + play")
                         .foregroundColor(.white)
                         .padding()
                         .background(Color.blue)
                         .cornerRadius(15)
-                }
+                }.padding()
+                
+                
                 Spacer()
                 
             }
