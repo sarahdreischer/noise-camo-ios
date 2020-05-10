@@ -48,7 +48,6 @@ struct HomeView: View {
                         .foregroundColor(.white)
                     }
                 })
-            
         }
     }
 }

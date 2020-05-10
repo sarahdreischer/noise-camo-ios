@@ -23,7 +23,7 @@ struct EQSlider: View {
                 }
             }
             Text("+10dB")
-        }
+        }.font(.custom("Avenir", size: 15))
     }
 }
 
