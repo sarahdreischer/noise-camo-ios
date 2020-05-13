@@ -25,65 +25,58 @@ struct EqualizerView: View {
     }
         
     var body: some View {
-        
-        NavigationView {
-        
-            ZStack {
-                Rectangle()
-                   .foregroundColor(.black)
-                   .edgesIgnoringSafeArea(.all)
+        ZStack {
+            BackgroundView()
 
-                VStack {
-                    Spacer()
-                    
-                    HStack {
-                        ForEach(0..<customGains.count) { index in
-                            EQSlider(sliderValue: self.$customGains[index])
-                                .foregroundColor(.white)
-                        }
-                    }.frame(height: 400)
-                    
-                    Spacer()
-                    
-                    HStack(spacing: 30) {
-                        ForEach(EqualizerSettings().gainsSettings.keys.sorted(), id: \.self) { key in
-                            Button(action: {
-                                self.customGains = EqualizerSettings().gainsSettings[key]!
-                                }) {
-                                    EQButton(buttonText: key)
-                                }
-                        }
-                    }
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        self.play.toggle()
-                        self.startEqualizer(self.play, gains: self.customGains)
-                    }) {
-                        Text("play")
-                            .foregroundColor(.white)
-                            .padding([.trailing, .leading], 20)
-                            .padding()
-                            .background(Color.red)
-                            .cornerRadius(15)
-                    }.padding()
-                    
-                    
-                    Spacer()
-                    
-                }
-            }
-            .navigationBarTitle("Equalizer")
-            .navigationBarItems(trailing:
+            VStack {
                 HStack {
-                    NavigationLink(destination: EqualizerView()) {
-                       Image(systemName: "person.circle")
-                        .font(.system(size: 30, weight: .regular))
-                        .padding(.trailing, 20)
+                    Text("EQUALIZER")
+                        .font(.title)
                         .foregroundColor(.white)
+                        .fontWeight(.bold)
+                        .padding()
+                    Spacer()
+                }
+                
+                Spacer()
+                
+                HStack {
+                    ForEach(0..<customGains.count) { index in
+                        EQSlider(sliderValue: self.$customGains[index], label: String(self.eqSettings.frequencies[index]) + "kHz")
+                            .foregroundColor(.white)
                     }
-                })
+                }.frame(height: 300)
+                    .padding()
+                
+                Spacer()
+                
+                GridStack(value: EqualizerSettings().gainsSettings, columns: 3) { key, col in
+                    Button(action: {
+                        self.customGains = EqualizerSettings().gainsSettings[key]!
+                    }) {
+                        EQButton(buttonText: key)
+                    }
+                }.padding()
+                
+                Spacer()
+                
+                Button(action: {
+                    self.play.toggle()
+                    self.startEqualizer(self.play, gains: self.customGains)
+                }) {
+                    Text("play")
+                        .foregroundColor(.white)
+                        .padding([.trailing, .leading], 20)
+                        .padding()
+                        .background(Color.red)
+                        .cornerRadius(15)
+                }.padding()
+                
+                
+                Spacer()
+                Spacer()
+                
+            }
         }
     }
     

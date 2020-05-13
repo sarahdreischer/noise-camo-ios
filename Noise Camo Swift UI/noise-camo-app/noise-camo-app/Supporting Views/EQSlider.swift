@@ -11,6 +11,8 @@ import SwiftUI
 struct EQSlider: View {
     @Binding var sliderValue: Double
     
+    let label: String
+    
     var body: some View {
         VStack {
             Text("-10dB")
@@ -23,12 +25,14 @@ struct EQSlider: View {
                 }
             }
             Text("+10dB")
-        }.font(.custom("Avenir", size: 15))
+            Text(label)
+                .foregroundColor(.gray)
+        }.font(.custom("Avenir", size: 10))
     }
 }
 
 struct EQSlider_Previews: PreviewProvider {
     static var previews: some View {
-        EQSlider(sliderValue: Binding.constant(1.0))
+        EQSlider(sliderValue: Binding.constant(1.0), label: "5kHz")
     }
 }

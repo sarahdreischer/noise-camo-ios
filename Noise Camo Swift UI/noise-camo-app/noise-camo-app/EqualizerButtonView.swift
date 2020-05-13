@@ -12,26 +12,18 @@ struct EqualizerButtonView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                Image("earphone-background1")
-                    .resizable()
-                    .renderingMode(.original)
-                    .cornerRadius(10)
+                Rectangle()
+                    .foregroundColor(.gray)
                 
-                VStack{
-                    HStack {
+                VStack {
+                    HStack(alignment: .center) {
                         Text("equalizer")
-                            .font(.title)
-                            .fontWeight(.semibold)
-                            .padding(5)
-                            .background(Color.white.opacity(0.7))
+                            .font(.custom("Avenir", size: 30))
+                            .foregroundColor(.black)
                             .cornerRadius(15)
-                            .padding([.top, .leading], 20)
-                        Spacer()
                     }
-                    Spacer()
                 }
             }
-            .frame(height: 300)
         }
     }
 }

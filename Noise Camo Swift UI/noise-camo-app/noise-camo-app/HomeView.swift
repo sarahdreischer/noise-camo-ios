@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct HomeView: View {
+    let sections = ["instructions", "music player", "blog"]
+    
     init() {
         UINavigationBar
             .appearance()
@@ -22,16 +24,30 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Rectangle()
-                    .foregroundColor(.black)
-                    .edgesIgnoringSafeArea(.all)
+                BackgroundView()
                 
                 VStack(alignment: .center) {
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                         HStack(alignment: .top, spacing: 0) {
+                             ForEach(0..<sections.count) { index in
+                                 ZStack {
+                                     Rectangle()
+                                         .foregroundColor(.gray)
+                                         .cornerRadius(15)
+                                         .frame(width: 150, height: 150)
+                                         .padding(5)
+                                     
+                                     Text(self.sections[index])
+                                 }
+                             }
+                         }
+                    }
                     
                     NavigationLink(destination: EqualizerView()) {
                         EqualizerButtonView()
                             .foregroundColor(.white)
-                            .frame(height: 300)
+                            .cornerRadius(15)
                             .padding(10)
                     }
                     

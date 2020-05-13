@@ -8,6 +8,16 @@
 
 import SwiftUI
 
+extension View {
+    func inExpandingRectangle() -> some View {
+        ZStack {
+            Rectangle()
+                .fill(Color.clear)
+            self
+        }
+    }
+}
+
 struct EQButton: View {
     let buttonText: String
     
@@ -15,10 +25,12 @@ struct EQButton: View {
         Text(buttonText)
             .foregroundColor(.white)
             .fontWeight(.medium)
-            .font(.custom("Avenir", size: 20))
-            .frame(width: 100, height: 45)
+            .font(.custom("Avenir", size: 15))
+            .inExpandingRectangle()
+            .frame(height: 35)
+            .fixedSize(horizontal: false, vertical: true)
             .background(Color.orange)
-            .cornerRadius(20)
+            .cornerRadius(5)
     }
 }
 

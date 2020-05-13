@@ -17,17 +17,15 @@ struct BackgroundView: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(LinearGradient(
-                    gradient: .init(colors: [Self.gradientPoint1, Self.gradientPoint2, Self.gradientPoint3, Self.gradientPoint4]),
-                startPoint: .init(x: 0.5, y: 0),
-                endPoint: .init(x: 0.5, y: 1)))
+                .foregroundColor(.black)
                 .edgesIgnoringSafeArea(.all)
             
             Rectangle()
             .fill(LinearGradient(
-                gradient: .init(colors: [Self.gradientPoint4, Self.gradientPoint3, Self.gradientPoint2, Self.gradientPoint1]),
+                gradient: .init(colors: [.blue, .black]),
             startPoint: .init(x: 0.5, y: 0),
-            endPoint: .init(x: 0.5, y: 1)))
+            endPoint: .init(x: 0.5, y: 0.3)))
+                .opacity(0.4)
             .edgesIgnoringSafeArea(.all)
         }
     }
