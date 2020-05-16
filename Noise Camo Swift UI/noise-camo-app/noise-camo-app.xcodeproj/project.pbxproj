@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E779A755247053CA008FCA27 /* EqualizerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E779A754247053CA008FCA27 /* EqualizerButton.swift */; };
+		E779A75724705694008FCA27 /* MediaPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E779A75624705694008FCA27 /* MediaPlayerView.swift */; };
 		E78E2BDF246830CB00A054A9 /* EqualizerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78E2BDE246830CB00A054A9 /* EqualizerSettings.swift */; };
 		E78E2BE2246842B500A054A9 /* EQSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78E2BE1246842B500A054A9 /* EQSlider.swift */; };
 		E78E2BE82468614800A054A9 /* EQButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78E2BE72468614800A054A9 /* EQButton.swift */; };
@@ -46,6 +47,7 @@
 
 /* Begin PBXFileReference section */
 		E779A754247053CA008FCA27 /* EqualizerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerButton.swift; sourceTree = "<group>"; };
+		E779A75624705694008FCA27 /* MediaPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerView.swift; sourceTree = "<group>"; };
 		E78E2BDE246830CB00A054A9 /* EqualizerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerSettings.swift; sourceTree = "<group>"; };
 		E78E2BE1246842B500A054A9 /* EQSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSlider.swift; sourceTree = "<group>"; };
 		E78E2BE72468614800A054A9 /* EQButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQButton.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				E793796224674FAB00260C17 /* Home.swift */,
 				E7D0ECBF2457776B00A942C7 /* HomeView.swift */,
 				E7FCF000245F37C3001A938D /* EqualizerView.swift */,
+				E779A75624705694008FCA27 /* MediaPlayerView.swift */,
 				E7D0ECEB24577E0000A942C7 /* Instruction.swift */,
 				E7D0ECC12457776D00A942C7 /* Assets.xcassets */,
 				E7D0ECC62457776D00A942C7 /* LaunchScreen.storyboard */,
@@ -331,6 +334,7 @@
 				E7D0ECEC24577E0000A942C7 /* Instruction.swift in Sources */,
 				E78E2BDF246830CB00A054A9 /* EqualizerSettings.swift in Sources */,
 				E7FCF001245F37C3001A938D /* EqualizerView.swift in Sources */,
+				E779A75724705694008FCA27 /* MediaPlayerView.swift in Sources */,
 				E7D0ECC02457776B00A942C7 /* HomeView.swift in Sources */,
 				E78E2BE82468614800A054A9 /* EQButton.swift in Sources */,
 				E779A755247053CA008FCA27 /* EqualizerButton.swift in Sources */,
