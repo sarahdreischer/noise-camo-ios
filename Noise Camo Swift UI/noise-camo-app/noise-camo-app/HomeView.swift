@@ -21,22 +21,10 @@ struct HomeView: View {
             .titleTextAttributes = [.foregroundColor: UIColor.white]
     }
     
-    var body: some View {
-        ZStack {
-            BackgroundView()
-            ZStack {
-                Rectangle()
-                .foregroundColor(.black)
-                .opacity(0.4)
-                
-                VStack(alignment: .center) {
-                    Text("Set up your device")
-                        .foregroundColor(.white)
-                    
-                }
-            }
-            .cornerRadius(20)
-            .padding()
+    var body: some View {        
+        VStack(alignment: .center) {
+            Text("Set up your device")
+                .foregroundColor(.white)
         }
     }
 }
@@ -44,5 +32,6 @@ struct HomeView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
+            .modifier(PageViewWrapper())
     }
 }

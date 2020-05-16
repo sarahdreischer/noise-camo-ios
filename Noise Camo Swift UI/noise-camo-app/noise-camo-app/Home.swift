@@ -17,18 +17,21 @@ struct Home: View {
     var body: some View {
         TabView {
             HomeView()
+            .modifier(PageViewWrapper())
             .tabItem {
                 Image(systemName: "house.fill")
                 Text("Home")
             }
             
             EqualizerView()
+            .modifier(PageViewWrapper())
             .tabItem {
                 Image(systemName: "slider.horizontal.3")
                 Text("EQ")
             }
             
             MediaPlayerView()
+            .modifier(PageViewWrapper())
             .tabItem {
                 Image(systemName: "music.note")
                 Text("Music")

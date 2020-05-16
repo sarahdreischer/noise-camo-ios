@@ -8,26 +8,19 @@
 
 import SwiftUI
 
-struct PageViewWrapper: View {
-    let view: UIView
-    var body: some View {
+struct PageViewWrapper: ViewModifier {
+    func body(content: Content) -> some View {
         ZStack {
             BackgroundView()
             ZStack {
                 Rectangle()
-                    .foregroundColor(.black)
-                    .opacity(0.4)
-                self.view
+                .foregroundColor(.black)
+                .opacity(0.4)
                 
+                content
             }
             .cornerRadius(20)
             .padding()
         }
-    }
-}
-
-struct PageViewWrapper_Previews: PreviewProvider {
-    static var previews: some View {
-        PageViewWrapper(view: HomeView())
     }
 }
