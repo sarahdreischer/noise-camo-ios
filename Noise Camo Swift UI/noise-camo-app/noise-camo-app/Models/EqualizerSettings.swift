@@ -14,6 +14,8 @@ class EqualizerSettings: ObservableObject {
     
     let gainsSettings = ["bass": [10.0, -10.0, -8.0, -10.0, -8.0, -8.0], "pop": [0.0, 4.0, 5.0, 6.0, 4.0, 0.0], "flat": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "set1": [1.0, 2.0, 3.0, 4.0, 5.0, 6.0], "set2": [6.0, 5.0, 4.0, 3.0, 2.0, 1.0], "set3": [-1.0, -2.0, -3.0, 3.0, 2.0, 1.0], "set4": [-1.0, -2.0, -3.0, 3.0, 2.0, 1.0]]
     
+    @Published var currentGain: Array<Double>
+    
     @Published var audioEngine: AVAudioEngine = AVAudioEngine()
 
     @Published var audioPlayerNode: AVAudioPlayerNode = AVAudioPlayerNode()
@@ -23,6 +25,7 @@ class EqualizerSettings: ObservableObject {
     
     @Published var audioFile: AVAudioFile!
     init() {
+        currentGain = Array(repeating: 0.0, count: 6)
         do {
             if let filepath = Bundle.main.path(forResource: "song", ofType: "mp3") {
                 
@@ -40,7 +43,8 @@ class EqualizerSettings: ObservableObject {
         audioEngine.connect(equalizer, to: audioEngine.outputNode, format: nil)
     }
     
-    func playEqualizedSong(_ play:Bool, gains:Array<Double>) {
+    func playEqualizedSong(_ play:Bool) {
+        setBands(bands: equalizer.bands)
         do {
             self.audioEngine.prepare()
             try self.audioEngine.start()
@@ -62,12 +66,12 @@ class EqualizerSettings: ObservableObject {
         return AVAudioUnitEQFilterType.highShelf
     }
     
-    func setBands(bands: [AVAudioUnitEQFilterParameters], gains:Array<Double>) {
+    func setBands(bands: [AVAudioUnitEQFilterParameters]) {
            for i in 0...(bands.count - 1) {
-               bands[i].frequency  = Float(EqualizerSettings().frequencies[i])
+               bands[i].frequency  = Float(frequencies[i])
                bands[i].bypass     = false
-               bands[i].gain = Float(gains[0])
-               bands[i].filterType = getShelf(gains[i])
+               bands[i].gain = Float(currentGain[0])
+               bands[i].filterType = getShelf(currentGain[i])
            }
     }
 }

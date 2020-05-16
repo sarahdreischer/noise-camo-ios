@@ -27,6 +27,12 @@ struct Home: View {
                 Image(systemName: "slider.horizontal.3")
                 Text("EQ")
             }
+            
+            MediaPlayerView()
+            .tabItem {
+                Image(systemName: "music.note")
+                Text("Music")
+            }
         }
         .font(.system(size: 25))
     }
