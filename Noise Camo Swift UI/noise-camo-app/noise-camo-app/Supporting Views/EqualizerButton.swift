@@ -1,14 +1,14 @@
 //
-//  EqualizerButtonView.swift
+//  EqualizerButton.swift
 //  noise-camo-app
 //
-//  Created by Sarah Dreischer on 03/05/2020.
+//  Created by Sarah Dreischer on 16/05/2020.
 //  Copyright © 2020 Sarah Dreischer. All rights reserved.
 //
 
 import SwiftUI
 
-struct EqualizerButtonView: View {
+struct EqualizerButton: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -28,8 +28,8 @@ struct EqualizerButtonView: View {
     }
 }
 
-struct EqualizerButtonView_Previews: PreviewProvider {
+struct EqualizerButton_Previews: PreviewProvider {
     static var previews: some View {
-        EqualizerButtonView()
+        EqualizerButton()
     }
 }

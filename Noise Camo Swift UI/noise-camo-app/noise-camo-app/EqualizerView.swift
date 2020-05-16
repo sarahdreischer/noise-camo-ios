@@ -11,74 +11,76 @@ import AVFoundation
 
 struct EqualizerView: View {
     
-    @State private var equalizerValues = Array(repeating: 0.0, count: 5)
-    
-    @State private var celsius: Double = 0
+    @State private var customGains
+        = Array(repeating: 0.0, count: EqualizerSettings().frequencies.count)
     
     @State private var play = false
 
-    @State private var audioEngine: AVAudioEngine = AVAudioEngine()
-
-    @State private var audioPlayerNode: AVAudioPlayerNode = AVAudioPlayerNode()
-    @State private var equalizer: AVAudioUnitEQ = AVAudioUnitEQ(numberOfBands: 5)
-    @State private var audioFile: AVAudioFile!
+    @EnvironmentObject var eqSettings: EqualizerSettings
+    
+    init() {
+        UINavigationBar
+            .appearance()
+            .titleTextAttributes = [.foregroundColor: UIColor.white]
+    }
         
     var body: some View {
-        
         ZStack {
             BackgroundView()
-            
-            VStack {
-                Text("Equalizer").font(.title)
-                ForEach(0..<equalizerValues.count) { index in
-                    VStack {
-                        Slider(value: self.$equalizerValues[index], in: -10...10, step: 1)
-                        Text("\(self.equalizerValues[index]) is the current value")
-                    }
-                }
+            ZStack {
+                Rectangle()
+                .foregroundColor(.black)
+                .opacity(0.4)
                 
-                Spacer()
-                
-                Button(action: {
-                    self.play.toggle()
+                VStack {
+                    HStack {
+                        ForEach(0..<customGains.count) { index in
+                            EQSlider(sliderValue: self.$customGains[index], label: String(self.eqSettings.frequencies[index]) + "kHz")
+                                .foregroundColor(.white)
+                        }
+                    }.frame(height: 300).padding(.top, 20)
                     
-                    self.setUpAudioFile(song: "song")
+                    GridStack(value: EqualizerSettings().gainsSettings, columns: 3) { key, col in
+                        Button(action: {
+                            self.customGains = EqualizerSettings().gainsSettings[key]!
+                        }) {
+                            EQButton(buttonText: key)
+                        }
+                    }.padding()
                     
-                    EqualizerLogic(
-                        audioEngine: self.$audioEngine,
-                        audioPlayerNode: self.$audioPlayerNode,
-                        equalizer: self.$equalizer)
-                        .startEqualizer(self.play, audioFile: self.audioFile, gains: self.equalizerValues)
-                }) {
-                    Text("Apply settings + play")
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.blue)
-                        .cornerRadius(15)
+                    Spacer()
+                    
+    //                Button(action: {
+    //                    self.play.toggle()
+    //                    self.startEqualizer(self.play, gains: self.customGains)
+    //                }) {
+    //                    Text("play")
+    //                        .foregroundColor(.white)
+    //                        .padding([.trailing, .leading], 20)
+    //                        .padding()
+    //                        .background(Color.red)
+    //                        .cornerRadius(15)
+    //                }.padding()
                 }
-                Spacer()
-                
             }
+            .cornerRadius(20)
+            .padding()
         }
     }
     
-    func setUpAudioFile(song:String) {
-        do {
-            if let filepath = Bundle.main.path(forResource: song, ofType: "mp3") {
-                
-                let filepathURL = NSURL.fileURL(withPath: filepath)
-                
-                audioFile = try AVAudioFile(forReading: filepathURL)
-            }
-        } catch {
-            print("Something went wrong when setting up the AudioFile")
-        }
+    func startEqualizer(_ play:Bool, gains:Array<Double>) {
+        self.eqSettings.setBands(bands: self.eqSettings.equalizer.bands, gains: self.customGains)
+        
+        self.eqSettings.playEqualizedSong(play, gains: gains)
     }
 }
     
 
 struct EqualizerView_Previews: PreviewProvider {
+    static let eqSettings = EqualizerSettings()
     static var previews: some View {
-        EqualizerView()
+        TabView {
+            EqualizerView().environmentObject(eqSettings)
+        }
     }
 }
