@@ -10,7 +10,7 @@ import SwiftUI
 
 struct GridStack<Content: View>: View {
     let columns: Int
-    let value: Dictionary<String, Any>
+    var value: Dictionary<String, Any>
     let content: (String, Int) -> Content
     
     private var rows: Int
@@ -19,12 +19,13 @@ struct GridStack<Content: View>: View {
 
     var body: some View {
         VStack {
-            ForEach(value.keys.sorted(), id: \.self) { key in
-                HStack(spacing: 20) {
-                    ForEach(0 ..< self.columns, id: \.self) { column in
-                        self.content(key, column)
+            ForEach(0..<self.value.keys.count/self.columns) { row in
+                HStack {
+                    ForEach(0..<self.columns) { column in
+                        self.content(Array(self.value.keys)[row * self.columns + column], column)
                     }
                 }
+                
             }
         }
     }

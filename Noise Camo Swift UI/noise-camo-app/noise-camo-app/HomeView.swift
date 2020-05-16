@@ -22,7 +22,7 @@ struct HomeView: View {
     }
     
     var body: some View {
-        NavigationView {
+//        NavigationView {
             ZStack {
                 BackgroundView()
                 
@@ -56,15 +56,15 @@ struct HomeView: View {
             }
         .navigationBarTitle("NOISE CAMO")
         .navigationBarItems(trailing:
-                HStack {
-                    NavigationLink(destination: EqualizerView()) {
-                       Image(systemName: "person.circle")
-                        .font(.system(size: 30, weight: .regular))
-                        .padding(.trailing, 20)
-                        .foregroundColor(.white)
-                    }
-                })
-        }
+            HStack {
+                NavigationLink(destination: EqualizerView()) {
+                   Image(systemName: "person.circle")
+                    .font(.system(size: 30, weight: .regular))
+                    .padding(.trailing, 20)
+                    .foregroundColor(.white)
+                }
+            }
+        )
     }
 }
 

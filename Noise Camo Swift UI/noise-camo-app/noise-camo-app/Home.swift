@@ -11,13 +11,18 @@ import SwiftUI
 struct Home: View {
     var body: some View {
         TabView {
-            HomeView()
+            NavigationView {
+                HomeView()
+               
+            }
             .tabItem {
                 Image(systemName: "house.fill")
                 Text("Home")
             }
             
-            EqualizerView()
+            NavigationView {
+                EqualizerView()
+            }
             .tabItem {
                 Image(systemName: "slider.horizontal.3")
                 Text("EQ")
@@ -28,7 +33,8 @@ struct Home: View {
 }
 
 struct GlobalTabView_Previews: PreviewProvider {
+    static let eqSettings = EqualizerSettings()
     static var previews: some View {
-        Home()
+        Home().environmentObject(eqSettings)
     }
 }

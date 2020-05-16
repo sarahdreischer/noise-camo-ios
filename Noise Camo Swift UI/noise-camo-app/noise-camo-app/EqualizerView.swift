@@ -27,28 +27,14 @@ struct EqualizerView: View {
     var body: some View {
         ZStack {
             BackgroundView()
-
+            
             VStack {
-                HStack {
-                    Text("EQUALIZER")
-                        .font(.title)
-                        .foregroundColor(.white)
-                        .fontWeight(.bold)
-                        .padding()
-                    Spacer()
-                }
-                
-                Spacer()
-                
                 HStack {
                     ForEach(0..<customGains.count) { index in
                         EQSlider(sliderValue: self.$customGains[index], label: String(self.eqSettings.frequencies[index]) + "kHz")
                             .foregroundColor(.white)
                     }
-                }.frame(height: 300)
-                    .padding()
-                
-                Spacer()
+                }.frame(height: 300).padding(.top, 20)
                 
                 GridStack(value: EqualizerSettings().gainsSettings, columns: 3) { key, col in
                     Button(action: {
@@ -60,24 +46,20 @@ struct EqualizerView: View {
                 
                 Spacer()
                 
-                Button(action: {
-                    self.play.toggle()
-                    self.startEqualizer(self.play, gains: self.customGains)
-                }) {
-                    Text("play")
-                        .foregroundColor(.white)
-                        .padding([.trailing, .leading], 20)
-                        .padding()
-                        .background(Color.red)
-                        .cornerRadius(15)
-                }.padding()
-                
-                
-                Spacer()
-                Spacer()
-                
+//                Button(action: {
+//                    self.play.toggle()
+//                    self.startEqualizer(self.play, gains: self.customGains)
+//                }) {
+//                    Text("play")
+//                        .foregroundColor(.white)
+//                        .padding([.trailing, .leading], 20)
+//                        .padding()
+//                        .background(Color.red)
+//                        .cornerRadius(15)
+//                }.padding()
             }
         }
+        .navigationBarTitle("Equalizer")
     }
     
     func startEqualizer(_ play:Bool, gains:Array<Double>) {
@@ -91,6 +73,10 @@ struct EqualizerView: View {
 struct EqualizerView_Previews: PreviewProvider {
     static let eqSettings = EqualizerSettings()
     static var previews: some View {
-        EqualizerView().environmentObject(eqSettings)
+        TabView {
+            NavigationView {
+                EqualizerView().environmentObject(eqSettings)
+            }
+        }
     }
 }
