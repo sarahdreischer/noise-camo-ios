@@ -22,49 +22,22 @@ struct HomeView: View {
     }
     
     var body: some View {
-//        NavigationView {
+        ZStack {
+            BackgroundView()
             ZStack {
-                BackgroundView()
+                Rectangle()
+                .foregroundColor(.black)
+                .opacity(0.4)
                 
                 VStack(alignment: .center) {
+                    Text("Set up your device")
+                        .foregroundColor(.white)
                     
-                    ScrollView(.horizontal, showsIndicators: false) {
-                         HStack(alignment: .top, spacing: 0) {
-                             ForEach(0..<sections.count) { index in
-                                 ZStack {
-                                     Rectangle()
-                                         .foregroundColor(.gray)
-                                         .cornerRadius(15)
-                                         .frame(width: 150, height: 150)
-                                         .padding(5)
-                                     
-                                     Text(self.sections[index])
-                                 }
-                             }
-                         }
-                    }
-                    
-                    NavigationLink(destination: EqualizerView()) {
-                        EqualizerButtonView()
-                            .foregroundColor(.white)
-                            .cornerRadius(15)
-                            .padding(10)
-                    }
-                    
-                    Spacer()
                 }
             }
-        .navigationBarTitle("NOISE CAMO")
-        .navigationBarItems(trailing:
-            HStack {
-                NavigationLink(destination: EqualizerView()) {
-                   Image(systemName: "person.circle")
-                    .font(.system(size: 30, weight: .regular))
-                    .padding(.trailing, 20)
-                    .foregroundColor(.white)
-                }
-            }
-        )
+            .cornerRadius(20)
+            .padding()
+        }
     }
 }
 

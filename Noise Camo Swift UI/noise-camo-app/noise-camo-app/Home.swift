@@ -9,20 +9,20 @@
 import SwiftUI
 
 struct Home: View {
+    init() {
+        UITabBar.appearance().isTranslucent = false
+        UITabBar.appearance().barTintColor = UIColor.black
+    }
+    
     var body: some View {
         TabView {
-            NavigationView {
-                HomeView()
-               
-            }
+            HomeView()
             .tabItem {
                 Image(systemName: "house.fill")
                 Text("Home")
             }
             
-            NavigationView {
-                EqualizerView()
-            }
+            EqualizerView()
             .tabItem {
                 Image(systemName: "slider.horizontal.3")
                 Text("EQ")
