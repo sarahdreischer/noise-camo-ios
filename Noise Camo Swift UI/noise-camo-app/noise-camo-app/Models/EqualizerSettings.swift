@@ -9,10 +9,37 @@
 import SwiftUI
 import AVFoundation
 
+extension AVAudioPlayerNode{
+    var currentTime: TimeInterval{
+        if let nodeTime = lastRenderTime, let playerTime = playerTime(forNodeTime: nodeTime) {
+            return Double(playerTime.sampleTime) / playerTime.sampleRate
+        }
+        return 0
+    }
+    
+    var sampleRate: Double {
+        if let nodeTime = lastRenderTime, let playerTime = playerTime(forNodeTime: nodeTime) {
+            return playerTime.sampleRate
+        }
+        return 0
+    }
+}
+
 class EqualizerSettings: ObservableObject {
     let frequencies = [60, 150, 400, 1000, 2400, 15000]
     
-    let gainsSettings = ["bass": [10.0, -10.0, -8.0, -10.0, -8.0, -8.0], "pop": [0.0, 4.0, 5.0, 6.0, 4.0, 0.0], "flat": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "set1": [1.0, 2.0, 3.0, 4.0, 5.0, 6.0], "set2": [6.0, 5.0, 4.0, 3.0, 2.0, 1.0], "set3": [-1.0, -2.0, -3.0, 3.0, 2.0, 1.0], "set4": [-1.0, -2.0, -3.0, 3.0, 2.0, 1.0]]
+    let gainsSettings = [
+        "bass": [10.0, -10.0, -8.0, -10.0, -8.0, -8.0],
+        "pop": [0.0, 4.0, 5.0, 6.0, 4.0, 0.0],
+        "flat": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+        "set1": [1.0, 2.0, 3.0, 4.0, 5.0, 6.0],
+        "set2": [6.0, 5.0, 4.0, 3.0, 2.0, 1.0],
+        "set3": [-1.0, -2.0, -3.0, 3.0, 2.0, 1.0],
+        "set4": [-1.0, -2.0, -3.0, 3.0, 2.0, 1.0],
+        "set5": [-1.0, -2.0, -3.0, 3.0, 2.0, 1.0],
+        "set6": [-1.0, -2.0, -3.0, 3.0, 2.0, 1.0]]
+    
+    @Published var playing = false
     
     @Published var currentGain: Array<Double>
     
@@ -26,16 +53,7 @@ class EqualizerSettings: ObservableObject {
     @Published var audioFile: AVAudioFile!
     init() {
         currentGain = Array(repeating: 0.0, count: 6)
-        do {
-            if let filepath = Bundle.main.path(forResource: "song", ofType: "mp3") {
-                
-                let filepathURL = NSURL.fileURL(withPath: filepath)
-                
-                audioFile = try AVAudioFile(forReading: filepathURL)
-            }
-        } catch {
-            print("Something went wrong when setting up the AudioFile")
-        }
+
         
         audioEngine.attach(audioPlayerNode)
         audioEngine.attach(equalizer)
@@ -43,22 +61,23 @@ class EqualizerSettings: ObservableObject {
         audioEngine.connect(equalizer, to: audioEngine.outputNode, format: nil)
     }
     
-    func playEqualizedSong(_ play:Bool) {
+    func playOrPauseSong() -> Bool {
         setBands(bands: equalizer.bands)
         do {
             self.audioEngine.prepare()
             try self.audioEngine.start()
-            self.audioPlayerNode.scheduleFile(self.audioFile, at: nil, completionHandler: nil)
-            
-            if play {
-                self.audioPlayerNode.play()
+            if self.audioPlayerNode.isPlaying {
+                self.audioPlayerNode.pause()
+                return false
             } else {
-                self.audioPlayerNode.stop()
+                self.audioPlayerNode.play()
+                return true
             }
         }
         catch _ {
             print("Something went wrong at equalization.")
         }
+        return false
     }
     
     func getShelf(_ gain:Double) -> AVAudioUnitEQFilterType {
@@ -73,5 +92,23 @@ class EqualizerSettings: ObservableObject {
                bands[i].gain = Float(currentGain[0])
                bands[i].filterType = getShelf(currentGain[i])
            }
+    }
+    
+    func getAudioFile(fileName: String, fileType: String) {
+        do {
+            if let filepath = Bundle.main.path(forResource: fileName, ofType: fileType) {
+
+                let filepathURL = NSURL.fileURL(withPath: filepath)
+
+                audioFile = try AVAudioFile(forReading: filepathURL)
+            }
+        } catch {
+            print("Something went wrong when setting up the AudioFile")
+        }
+    }
+    
+    func durationOfNodePlayer() -> TimeInterval {
+        let audioNodeFileLength = AVAudioFrameCount(self.audioFile.length)
+        return Double(Double(audioNodeFileLength) / self.audioPlayerNode.sampleRate)
     }
 }
