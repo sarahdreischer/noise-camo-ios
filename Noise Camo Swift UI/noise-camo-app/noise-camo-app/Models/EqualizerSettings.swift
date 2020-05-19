@@ -10,7 +10,7 @@ import SwiftUI
 import AVFoundation
 
 extension AVAudioPlayerNode{
-    var currentTime: TimeInterval{
+    var currentTime: TimeInterval {
         if let nodeTime = lastRenderTime, let playerTime = playerTime(forNodeTime: nodeTime) {
             return Double(playerTime.sampleTime) / playerTime.sampleRate
         }
@@ -22,6 +22,25 @@ extension AVAudioPlayerNode{
             return playerTime.sampleRate
         }
         return 0
+    }
+    
+    func seekTo(value: Float, audioFile: AVAudioFile, duration: Float) {
+        if self.lastRenderTime != nil {
+            let sampleRate = self.outputFormat(forBus: 0).sampleRate
+            let newsampletime = AVAudioFramePosition(Int(sampleRate * Double(value)))
+            let length = duration - value
+            let framestoplay = AVAudioFrameCount(Float(sampleRate) * length)
+            self.stop()
+
+            if framestoplay > 1000 {
+                self.scheduleSegment(audioFile, startingFrame: newsampletime, frameCount: framestoplay, at: nil,completionHandler: nil)
+            }
+        }
+        self.play()
+    }
+    
+    func duration(fileLength: Double) -> TimeInterval {
+        return Double(fileLength / self.sampleRate)
     }
 }
 
@@ -38,6 +57,9 @@ class EqualizerSettings: ObservableObject {
         "set4": [-1.0, -2.0, -3.0, 3.0, 2.0, 1.0],
         "set5": [-1.0, -2.0, -3.0, 3.0, 2.0, 1.0],
         "set6": [-1.0, -2.0, -3.0, 3.0, 2.0, 1.0]]
+    
+    var audioNodeFileLength: AVAudioFrameCount = 0
+    var sampleRate: Float = 0
     
     @Published var playing = false
     
@@ -61,25 +83,6 @@ class EqualizerSettings: ObservableObject {
         audioEngine.connect(equalizer, to: audioEngine.outputNode, format: nil)
     }
     
-    func playOrPauseSong() -> Bool {
-        setBands(bands: equalizer.bands)
-        do {
-            self.audioEngine.prepare()
-            try self.audioEngine.start()
-            if self.audioPlayerNode.isPlaying {
-                self.audioPlayerNode.pause()
-                return false
-            } else {
-                self.audioPlayerNode.play()
-                return true
-            }
-        }
-        catch _ {
-            print("Something went wrong at equalization.")
-        }
-        return false
-    }
-    
     func getShelf(_ gain:Double) -> AVAudioUnitEQFilterType {
         if gain<0 { return AVAudioUnitEQFilterType.lowShelf }
         return AVAudioUnitEQFilterType.highShelf
@@ -101,14 +104,13 @@ class EqualizerSettings: ObservableObject {
                 let filepathURL = NSURL.fileURL(withPath: filepath)
 
                 audioFile = try AVAudioFile(forReading: filepathURL)
+                
+                self.audioNodeFileLength = AVAudioFrameCount(audioFile.length)
+                self.sampleRate = Float(audioFile.fileFormat.sampleRate)
+                print("Sample rate \(self.sampleRate)")
             }
         } catch {
             print("Something went wrong when setting up the AudioFile")
         }
-    }
-    
-    func durationOfNodePlayer() -> TimeInterval {
-        let audioNodeFileLength = AVAudioFrameCount(self.audioFile.length)
-        return Double(Double(audioNodeFileLength) / self.audioPlayerNode.sampleRate)
     }
 }
