@@ -9,18 +9,18 @@
 import SwiftUI
 
 struct PageViewWrapper: ViewModifier {
+    
+    let pageTitle: String
+    let screenWidth = UIScreen.main.bounds.width - 30
+    
     func body(content: Content) -> some View {
         ZStack {
             BackgroundView()
-            ZStack {
-                Rectangle()
-                .foregroundColor(.black)
-                .opacity(0.4)
-                
-                content
+            VStack {
+                TopBar(pageTitle: pageTitle)
+                content.padding()
+                Spacer()
             }
-            .cornerRadius(20)
-            .padding()
         }
     }
 }

@@ -47,7 +47,7 @@ struct EqualizerView_Previews: PreviewProvider {
         TabView {
             EqualizerView()
                 .environmentObject(eqSettings)
-                .modifier(PageViewWrapper())
+                .modifier(PageViewWrapper(pageTitle: "Equalizer"))
         }
     }
 }

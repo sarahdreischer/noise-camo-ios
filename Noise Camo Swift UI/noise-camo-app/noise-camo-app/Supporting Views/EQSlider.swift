@@ -19,7 +19,7 @@ struct EQSlider: View {
             GeometryReader { geometry in
                 HStack {
                     Slider(value: self.$sliderValue, in: -10...10, step: 1)
-                        .accentColor(.orange)
+                        .accentColor(Color("top"))
                         .rotationEffect(.degrees(-90), anchor: .center)
                         .frame(width: geometry.size.height, height: geometry.size.width)
                 }

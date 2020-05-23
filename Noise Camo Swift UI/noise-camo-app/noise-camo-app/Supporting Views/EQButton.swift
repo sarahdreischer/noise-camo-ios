@@ -29,7 +29,7 @@ struct EQButton: View {
             .inExpandingRectangle()
             .frame(height: 35)
             .fixedSize(horizontal: false, vertical: true)
-            .background(Color.orange)
+            .background(Color("top"))
             .cornerRadius(5)
     }
 }

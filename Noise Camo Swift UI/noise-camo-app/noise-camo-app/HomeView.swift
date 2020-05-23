@@ -25,6 +25,8 @@ struct HomeView: View {
         VStack(alignment: .center) {
             Text("Set up your device")
                 .foregroundColor(.white)
+
+            Spacer()
         }
     }
 }
@@ -32,6 +34,6 @@ struct HomeView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
-            .modifier(PageViewWrapper())
+            .modifier(PageViewWrapper(pageTitle: "Home"))
     }
 }

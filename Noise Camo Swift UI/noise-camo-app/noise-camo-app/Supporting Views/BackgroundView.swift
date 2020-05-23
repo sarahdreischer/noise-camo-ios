@@ -16,21 +16,19 @@ struct BackgroundView: View {
     
     var body: some View {
         ZStack {
-            Rectangle()
-                .foregroundColor(.black)
+            Color(.black)
                 .edgesIgnoringSafeArea(.all)
             
-            Rectangle()
-            .fill(LinearGradient(
+            LinearGradient(
                 gradient: .init(colors: [.blue, .black]),
-            startPoint: .init(x: 0.5, y: 0),
-            endPoint: .init(x: 0.5, y: 0.3)))
+                startPoint: .init(x: 0.5, y: 0),
+                endPoint: .init(x: 0.5, y: 0.3)
+            )
                 .opacity(0.4)
-            .edgesIgnoringSafeArea(.all)
+                .edgesIgnoringSafeArea(.all)
         }
     }
 }
-
 struct BackgroundView_Previews: PreviewProvider {
     static var previews: some View {
         BackgroundView()

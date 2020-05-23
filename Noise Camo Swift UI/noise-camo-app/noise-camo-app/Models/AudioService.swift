@@ -63,6 +63,10 @@ class AudioService: ObservableObject {
     
     @Published var currentSongIndex = 0
     
+    @Published var songBarWidth: CGFloat = 0
+    
+    let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+    
     init() {
         audioData = .init(count: 0)
         audioTitle = ""
@@ -90,11 +94,20 @@ class AudioService: ObservableObject {
             format: nil)
     }
     
-    func getSongBarWidth(barWidth: CGFloat) -> CGFloat {
+    
+    // For media player only
+    func updateBarWidth(maxBarWidth: CGFloat) {
         let songDuration = self.audioPlayerNode.duration(fileLength: Double(self.songFileLength))
         let widthFactor = (self.audioPlayerNode.currentTime + self.songTimeAdjustment) / songDuration
-        
-        return (self.audioPlayerNode.isPlaying) ? barWidth * CGFloat(widthFactor) : barWidth * CGFloat((self.songTimeAdjustment / songDuration))
+        self.songBarWidth = (self.audioPlayerNode.isPlaying) ? maxBarWidth * CGFloat(widthFactor) : maxBarWidth * CGFloat((self.songTimeAdjustment / songDuration))
+    }
+    
+    func getActualSongTime(at: Double) -> Double {
+        return self.audioPlayerNode.currentTime + self.songTimeAdjustment + at
+    }
+    
+    func getActualSongDuration() -> Double {
+        return self.audioPlayerNode.duration(fileLength: Double(self.songFileLength))
     }
     
     func prepareToPlay() {
@@ -107,6 +120,7 @@ class AudioService: ObservableObject {
         }
     }
     
+    // for media player only
     func extractAudioData() {
        let asset = AVAsset(url: self.audioFile.url)
        for i in asset.commonMetadata {

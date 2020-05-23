@@ -31,6 +31,8 @@
 		E7FE314F2479907D0075F6A4 /* EqualizerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE314E2479907D0075F6A4 /* EqualizerService.swift */; };
 		E7FE31512479A7A30075F6A4 /* bad.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E7FE31502479A7A30075F6A4 /* bad.mp3 */; };
 		E7FE31532479A7AA0075F6A4 /* black.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E7FE31522479A7AA0075F6A4 /* black.mp3 */; };
+		E7FE31552479BB9C0075F6A4 /* Corners.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE31542479BB9C0075F6A4 /* Corners.swift */; };
+		E7FE31572479BC2E0075F6A4 /* TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE31562479BC2E0075F6A4 /* TopBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +83,8 @@
 		E7FE314E2479907D0075F6A4 /* EqualizerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerService.swift; sourceTree = "<group>"; };
 		E7FE31502479A7A30075F6A4 /* bad.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bad.mp3; sourceTree = "<group>"; };
 		E7FE31522479A7AA0075F6A4 /* black.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = black.mp3; sourceTree = "<group>"; };
+		E7FE31542479BB9C0075F6A4 /* Corners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Corners.swift; sourceTree = "<group>"; };
+		E7FE31562479BC2E0075F6A4 /* TopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +208,8 @@
 				E78E2BEB246A08D300A054A9 /* GridStack.swift */,
 				E779A754247053CA008FCA27 /* EqualizerButton.swift */,
 				E779A75A24708C72008FCA27 /* PageViewWrapper.swift */,
+				E7FE31542479BB9C0075F6A4 /* Corners.swift */,
+				E7FE31562479BC2E0075F6A4 /* TopBar.swift */,
 			);
 			path = "Supporting Views";
 			sourceTree = "<group>";
@@ -351,6 +357,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E793796324674FAB00260C17 /* Home.swift in Sources */,
+				E7FE31572479BC2E0075F6A4 /* TopBar.swift in Sources */,
 				E779A75B24708C72008FCA27 /* PageViewWrapper.swift in Sources */,
 				E7FE314C24798EC20075F6A4 /* EqualizerData.swift in Sources */,
 				E7D0ECBC2457776A00A942C7 /* AppDelegate.swift in Sources */,
@@ -362,6 +369,7 @@
 				E7D0ECEC24577E0000A942C7 /* Instruction.swift in Sources */,
 				E78E2BDF246830CB00A054A9 /* AudioService.swift in Sources */,
 				E7FCF001245F37C3001A938D /* EqualizerView.swift in Sources */,
+				E7FE31552479BB9C0075F6A4 /* Corners.swift in Sources */,
 				E779A75724705694008FCA27 /* MediaPlayerView.swift in Sources */,
 				E7D0ECC02457776B00A942C7 /* HomeView.swift in Sources */,
 				E78E2BE82468614800A054A9 /* EQButton.swift in Sources */,

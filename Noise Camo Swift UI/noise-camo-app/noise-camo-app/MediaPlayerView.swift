@@ -14,9 +14,7 @@ struct MediaPlayerView: View {
     @EnvironmentObject var audioService: AudioService
     @EnvironmentObject var eqService: EqualizerService
     
-    @State private var width: CGFloat = 0
-    let timer = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()
-
+    private let screenWidth = UIScreen.main.bounds.width - 30
     
     var body: some View {
         
@@ -36,37 +34,34 @@ struct MediaPlayerView: View {
                 Capsule()
                     .fill(Color.white.opacity(0.6))
                     .frame(height: 8)
-                
                 Capsule()
-                    .fill(Color.red)
-                    .onReceive(timer) { _ in
-                        self.width = self.audioService.getSongBarWidth(barWidth: UIScreen.main.bounds.width - 30)
+                    .fill(Color("top"))
+                    .onReceive(self.audioService.timer) { _ in
+                        self.audioService.updateBarWidth(maxBarWidth: self.screenWidth)
                     }
-                    .frame(width: self.width, height: 8)
+                    .frame(width: self.audioService.songBarWidth, height: 8)
             }
             .padding(.top)
             
             HStack(spacing: UIScreen.main.bounds.width / 5 - 30) {
                 Button(action: {
-                    
+                    if self.audioService.currentSongIndex > 0 {
+                        self.audioService.currentSongIndex -= 1
+                        self.changeSongs()
+                    }
                 }) {
                     Image(systemName: "backward.fill")
                         .font(.title)
                 }
                 Button(action: {
-                    let decrease = self.audioService.audioPlayerNode.currentTime + self.audioService.songTimeAdjustment - 15
-                    let duration = self.audioService.audioPlayerNode.duration(fileLength: Double(self.audioService.songFileLength))
-                    
-                    print("Decrease time \(decrease)")
-                    
+                    let decrease = self.audioService.getActualSongTime(at: -15)
+                    let duration = self.audioService.getActualSongDuration()
                     self.audioService.audioPlayerNode.seekTo(
                         value: Float((decrease < 0) ? 0 : decrease),
                         audioFile: self.audioService.audioFile,
                         duration: Float(duration + self.audioService.songTimeAdjustment)
                     )
-                    
                     self.audioService.songTimeAdjustment = (decrease < 0) ? 0 : decrease
-                    
                 }) {
                     Image(systemName: "gobackward.15")
                         .font(.title)
@@ -84,16 +79,14 @@ struct MediaPlayerView: View {
                 }
                 
                 Button(action: {
-                    let increase = self.audioService.audioPlayerNode.currentTime + self.audioService.songTimeAdjustment + 15
-                    
-                    let duration = self.audioService.audioPlayerNode.duration(fileLength: Double(self.audioService.songFileLength))
-                        
-                        self.audioService.audioPlayerNode.seekTo(
-                            value: (increase < duration) ? Float(increase) : Float(duration),
-                            audioFile: self.audioService.audioFile,
-                            duration: Float(duration)
-                        )
-                        self.audioService.songTimeAdjustment += 15
+                    let increase = self.audioService.getActualSongTime(at: 15)
+                    let duration = self.audioService.getActualSongDuration()
+                    self.audioService.audioPlayerNode.seekTo(
+                        value: (increase < duration) ? Float(increase) : Float(duration),
+                        audioFile: self.audioService.audioFile,
+                        duration: Float(duration)
+                    )
+                    self.audioService.songTimeAdjustment += 15
                 }) {
                     Image(systemName: "goforward.15")
                         .font(.title)
@@ -111,32 +104,31 @@ struct MediaPlayerView: View {
             }
             .padding(.top, 25)
             .foregroundColor(.white)
+            
+            Spacer()
          
         }
         .onAppear {
-            // MARK: Attach Equalizer to AudioEngine
             self.eqService.setBands(bands: self.eqService.equalizer.bands)
             self.audioService.attachEqualizer(equalizer: self.eqService.equalizer)
-            
-            // MARK: Load song.mp3
             self.audioService.setAudioFile(fileName: self.audioService.songs[self.audioService.currentSongIndex], fileType: "mp3")
             self.audioService.prepareToPlay()
             self.audioService.extractAudioData()
         }
     }
-    
+
     func changeSongs() {
         self.audioService.audioPlayerNode.stop()
         self.audioService.setAudioFile(
             fileName: self.audioService.songs[self.audioService.currentSongIndex], fileType: "mp3")
-        // reset values
         self.audioService.audioData = .init(count: 0)
         self.audioService.audioTitle = ""
         self.audioService.prepareToPlay()
         self.audioService.extractAudioData()
-        self.width = 0
+        self.audioService.songBarWidth = 0
         self.audioService.audioPlayerNode.play()
         
+        print("Song Bar Width: \(self.audioService.songBarWidth)")
     }
 }
 
@@ -146,7 +138,7 @@ struct MediaPlayerView_Previews: PreviewProvider {
     static var previews: some View {
         MediaPlayerView()
             .environmentObject(audioService)
-        .environmentObject(eqService)
-            .modifier(PageViewWrapper())
+            .environmentObject(eqService)
+            .modifier(PageViewWrapper(pageTitle: "Media Player"))
     }
 }
