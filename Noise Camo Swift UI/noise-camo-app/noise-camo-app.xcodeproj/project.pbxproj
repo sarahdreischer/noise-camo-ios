@@ -10,7 +10,7 @@
 		E779A755247053CA008FCA27 /* EqualizerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E779A754247053CA008FCA27 /* EqualizerButton.swift */; };
 		E779A75724705694008FCA27 /* MediaPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E779A75624705694008FCA27 /* MediaPlayerView.swift */; };
 		E779A75B24708C72008FCA27 /* PageViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E779A75A24708C72008FCA27 /* PageViewWrapper.swift */; };
-		E78E2BDF246830CB00A054A9 /* EqualizerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78E2BDE246830CB00A054A9 /* EqualizerSettings.swift */; };
+		E78E2BDF246830CB00A054A9 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78E2BDE246830CB00A054A9 /* AudioService.swift */; };
 		E78E2BE2246842B500A054A9 /* EQSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78E2BE1246842B500A054A9 /* EQSlider.swift */; };
 		E78E2BE82468614800A054A9 /* EQButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78E2BE72468614800A054A9 /* EQButton.swift */; };
 		E78E2BEC246A08D300A054A9 /* GridStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78E2BEB246A08D300A054A9 /* GridStack.swift */; };
@@ -27,6 +27,10 @@
 		E7FCF001245F37C3001A938D /* EqualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FCF000245F37C3001A938D /* EqualizerView.swift */; };
 		E7FCF004245F7396001A938D /* song.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E7FCF003245F7396001A938D /* song.mp3 */; };
 		E7FCF00A245F88C9001A938D /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FCF009245F88C9001A938D /* BackgroundView.swift */; };
+		E7FE314C24798EC20075F6A4 /* EqualizerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE314B24798EC20075F6A4 /* EqualizerData.swift */; };
+		E7FE314F2479907D0075F6A4 /* EqualizerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE314E2479907D0075F6A4 /* EqualizerService.swift */; };
+		E7FE31512479A7A30075F6A4 /* bad.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E7FE31502479A7A30075F6A4 /* bad.mp3 */; };
+		E7FE31532479A7AA0075F6A4 /* black.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E7FE31522479A7AA0075F6A4 /* black.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +54,7 @@
 		E779A754247053CA008FCA27 /* EqualizerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerButton.swift; sourceTree = "<group>"; };
 		E779A75624705694008FCA27 /* MediaPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerView.swift; sourceTree = "<group>"; };
 		E779A75A24708C72008FCA27 /* PageViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewWrapper.swift; sourceTree = "<group>"; };
-		E78E2BDE246830CB00A054A9 /* EqualizerSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerSettings.swift; sourceTree = "<group>"; };
+		E78E2BDE246830CB00A054A9 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		E78E2BE1246842B500A054A9 /* EQSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQSlider.swift; sourceTree = "<group>"; };
 		E78E2BE72468614800A054A9 /* EQButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EQButton.swift; sourceTree = "<group>"; };
 		E78E2BEB246A08D300A054A9 /* GridStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridStack.swift; sourceTree = "<group>"; };
@@ -73,6 +77,10 @@
 		E7FCF000245F37C3001A938D /* EqualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerView.swift; sourceTree = "<group>"; };
 		E7FCF003245F7396001A938D /* song.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = song.mp3; path = ../../../../sounds/song.mp3; sourceTree = "<group>"; };
 		E7FCF009245F88C9001A938D /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		E7FE314B24798EC20075F6A4 /* EqualizerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerData.swift; sourceTree = "<group>"; };
+		E7FE314E2479907D0075F6A4 /* EqualizerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerService.swift; sourceTree = "<group>"; };
+		E7FE31502479A7A30075F6A4 /* bad.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bad.mp3; sourceTree = "<group>"; };
+		E7FE31522479A7AA0075F6A4 /* black.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = black.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +131,7 @@
 		E7D0ECBA2457776A00A942C7 /* noise-camo-app */ = {
 			isa = PBXGroup;
 			children = (
+				E7FE314D2479903C0075F6A4 /* Service */,
 				E7FCF008245F889F001A938D /* Supporting Views */,
 				E7FCF005245F7590001A938D /* Models */,
 				E7D0ECBB2457776A00A942C7 /* AppDelegate.swift */,
@@ -170,6 +179,8 @@
 		E7FCF002245F736F001A938D /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				E7FE31522479A7AA0075F6A4 /* black.mp3 */,
+				E7FE31502479A7A30075F6A4 /* bad.mp3 */,
 				E7FCF003245F7396001A938D /* song.mp3 */,
 			);
 			path = Sounds;
@@ -178,7 +189,8 @@
 		E7FCF005245F7590001A938D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E78E2BDE246830CB00A054A9 /* EqualizerSettings.swift */,
+				E78E2BDE246830CB00A054A9 /* AudioService.swift */,
+				E7FE314B24798EC20075F6A4 /* EqualizerData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -194,6 +206,14 @@
 				E779A75A24708C72008FCA27 /* PageViewWrapper.swift */,
 			);
 			path = "Supporting Views";
+			sourceTree = "<group>";
+		};
+		E7FE314D2479903C0075F6A4 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				E7FE314E2479907D0075F6A4 /* EqualizerService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,7 +320,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7FE31512479A7A30075F6A4 /* bad.mp3 in Resources */,
 				E7D0ECC82457776D00A942C7 /* LaunchScreen.storyboard in Resources */,
+				E7FE31532479A7AA0075F6A4 /* black.mp3 in Resources */,
 				E7FCF004245F7396001A938D /* song.mp3 in Resources */,
 				E7D0ECC52457776D00A942C7 /* Preview Assets.xcassets in Resources */,
 				E7D0ECC22457776D00A942C7 /* Assets.xcassets in Resources */,
@@ -330,13 +352,15 @@
 			files = (
 				E793796324674FAB00260C17 /* Home.swift in Sources */,
 				E779A75B24708C72008FCA27 /* PageViewWrapper.swift in Sources */,
+				E7FE314C24798EC20075F6A4 /* EqualizerData.swift in Sources */,
 				E7D0ECBC2457776A00A942C7 /* AppDelegate.swift in Sources */,
+				E7FE314F2479907D0075F6A4 /* EqualizerService.swift in Sources */,
 				E78E2BEC246A08D300A054A9 /* GridStack.swift in Sources */,
 				E78E2BE2246842B500A054A9 /* EQSlider.swift in Sources */,
 				E7D0ECBE2457776A00A942C7 /* SceneDelegate.swift in Sources */,
 				E7FCF00A245F88C9001A938D /* BackgroundView.swift in Sources */,
 				E7D0ECEC24577E0000A942C7 /* Instruction.swift in Sources */,
-				E78E2BDF246830CB00A054A9 /* EqualizerSettings.swift in Sources */,
+				E78E2BDF246830CB00A054A9 /* AudioService.swift in Sources */,
 				E7FCF001245F37C3001A938D /* EqualizerView.swift in Sources */,
 				E779A75724705694008FCA27 /* MediaPlayerView.swift in Sources */,
 				E7D0ECC02457776B00A942C7 /* HomeView.swift in Sources */,

@@ -11,24 +11,23 @@ import AVKit
 
 struct MediaPlayerView: View {
     
+    @EnvironmentObject var audioService: AudioService
+    @EnvironmentObject var eqService: EqualizerService
     
-    @EnvironmentObject var eqSettings: EqualizerSettings
-    
-    @State var data: Data = .init(count: 0)
-    @State var title = ""
-//    @State private var playing = false
     @State private var width: CGFloat = 0
+    let timer = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()
+
     
     var body: some View {
         
         VStack(spacing: 20) {
             
-            Image(uiImage: self.data.count == 0 ? UIImage(named: "earphone-background1")! : UIImage(data: self.data)!)
+            Image(uiImage: self.audioService.audioData.count == 0 ? UIImage(named: "itunes")! : UIImage(data: self.audioService.audioData)!)
                 .resizable()
-                .frame(width: self.data.count == 0 ? 250 : nil, height: 250)
+                .frame(width: self.audioService.audioData.count == 0 ? 250 : nil, height: 250)
                 .cornerRadius(15)
                 
-            Text(self.title)
+            Text(self.audioService.audioTitle)
                 .font(.title)
                 .foregroundColor(.white)
                 .padding(.top)
@@ -37,10 +36,15 @@ struct MediaPlayerView: View {
                 Capsule()
                     .fill(Color.white.opacity(0.6))
                     .frame(height: 8)
+                
                 Capsule()
                     .fill(Color.red)
+                    .onReceive(timer) { _ in
+                        self.width = self.audioService.getSongBarWidth(barWidth: UIScreen.main.bounds.width - 30)
+                    }
                     .frame(width: self.width, height: 8)
-            }.padding(.top)
+            }
+            .padding(.top)
             
             HStack(spacing: UIScreen.main.bounds.width / 5 - 30) {
                 Button(action: {
@@ -50,50 +54,56 @@ struct MediaPlayerView: View {
                         .font(.title)
                 }
                 Button(action: {
-                    let decrease = self.eqSettings.audioPlayerNode.currentTime - 15
-                    let duration = self.eqSettings.audioPlayerNode.duration(fileLength: Double(self.eqSettings.audioNodeFileLength))
+                    let decrease = self.audioService.audioPlayerNode.currentTime + self.audioService.songTimeAdjustment - 15
+                    let duration = self.audioService.audioPlayerNode.duration(fileLength: Double(self.audioService.songFileLength))
                     
-                    self.eqSettings.audioPlayerNode.seekTo(
-                        value: Float((decrease > 0) ? decrease : 0),
-                        audioFile: self.eqSettings.audioFile,
-                        duration: Float(duration)
+                    print("Decrease time \(decrease)")
+                    
+                    self.audioService.audioPlayerNode.seekTo(
+                        value: Float((decrease < 0) ? 0 : decrease),
+                        audioFile: self.audioService.audioFile,
+                        duration: Float(duration + self.audioService.songTimeAdjustment)
                     )
+                    
+                    self.audioService.songTimeAdjustment = (decrease < 0) ? 0 : decrease
+                    
                 }) {
                     Image(systemName: "gobackward.15")
                         .font(.title)
                 }
                 
                 Button(action: {
-                    if self.eqSettings.audioPlayerNode.isPlaying {
-                        self.eqSettings.audioPlayerNode.pause()
-                        self.eqSettings.playing = false
+                    if self.audioService.audioPlayerNode.isPlaying {
+                        self.audioService.audioPlayerNode.pause()
                     } else {
-                        self.eqSettings.setBands(bands: self.eqSettings.equalizer.bands)
-                        self.eqSettings.audioPlayerNode.play()
-                        self.eqSettings.playing = true
+                        self.audioService.audioPlayerNode.play()
                     }
                 }) {
-                    Image(systemName: self.eqSettings.playing ? "pause.fill" : "play.fill")
+                    Image(systemName: self.audioService.audioPlayerNode.isPlaying ? "pause.fill" : "play.fill")
                         .font(.title)
                 }
                 
                 Button(action: {
-                    let increase = self.eqSettings.audioPlayerNode.currentTime + 15
+                    let increase = self.audioService.audioPlayerNode.currentTime + self.audioService.songTimeAdjustment + 15
                     
-                    let duration = self.eqSettings.audioPlayerNode.duration(fileLength: Double(self.eqSettings.audioNodeFileLength))
-                    
-                    self.eqSettings.audioPlayerNode.seekTo(
-                        value: Float((increase<duration) ? increase : duration),
-                        audioFile: self.eqSettings.audioFile,
-                        duration: Float(duration)
-                    )
+                    let duration = self.audioService.audioPlayerNode.duration(fileLength: Double(self.audioService.songFileLength))
+                        
+                        self.audioService.audioPlayerNode.seekTo(
+                            value: (increase < duration) ? Float(increase) : Float(duration),
+                            audioFile: self.audioService.audioFile,
+                            duration: Float(duration)
+                        )
+                        self.audioService.songTimeAdjustment += 15
                 }) {
                     Image(systemName: "goforward.15")
                         .font(.title)
                 }
                 
                 Button(action: {
-                    
+                    if self.audioService.songs.count - 1 != self.audioService.currentSongIndex {
+                        self.audioService.currentSongIndex += 1
+                        self.changeSongs()
+                    }
                 }) {
                     Image(systemName: "forward.fill")
                         .font(.title)
@@ -104,52 +114,39 @@ struct MediaPlayerView: View {
          
         }
         .onAppear {
-            self.eqSettings.getAudioFile(fileName: "song", fileType: "mp3")
-            self.eqSettings.audioPlayerNode.scheduleFile(self.eqSettings.audioFile, at: nil, completionHandler: nil)
+            // MARK: Attach Equalizer to AudioEngine
+            self.eqService.setBands(bands: self.eqService.equalizer.bands)
+            self.audioService.attachEqualizer(equalizer: self.eqService.equalizer)
             
-            self.eqSettings.audioEngine.prepare()
-            do {
-            try self.eqSettings.audioEngine.start()
-            } catch _ {
-                print("Something went wrong at equalization.")
-            }
-            self.getData()
-            
-            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { (_) in
-                if self.eqSettings.audioPlayerNode.isPlaying {
-                    let screen = UIScreen.main.bounds.width - 30
-                    let value = self.eqSettings.audioPlayerNode.currentTime / self.eqSettings.audioPlayerNode.duration(fileLength: Double(self.eqSettings.audioNodeFileLength))
-                    self.width = screen * CGFloat(value)
-                }
-            }
+            // MARK: Load song.mp3
+            self.audioService.setAudioFile(fileName: self.audioService.songs[self.audioService.currentSongIndex], fileType: "mp3")
+            self.audioService.prepareToPlay()
+            self.audioService.extractAudioData()
         }
     }
     
-    
-    
-    func getData() {
-        let asset = AVAsset(url: self.eqSettings.audioFile.url)
-        for i in asset.commonMetadata {
-            if i.commonKey?.rawValue == "artwork" {
-                let data = i.value as! Data
-                self.data = data
-            }
-            if i.commonKey?.rawValue == "title" {
-                let title = i.value as! String
-                self.title = title
-            }
-        }
+    func changeSongs() {
+        self.audioService.audioPlayerNode.stop()
+        self.audioService.setAudioFile(
+            fileName: self.audioService.songs[self.audioService.currentSongIndex], fileType: "mp3")
+        // reset values
+        self.audioService.audioData = .init(count: 0)
+        self.audioService.audioTitle = ""
+        self.audioService.prepareToPlay()
+        self.audioService.extractAudioData()
+        self.width = 0
+        self.audioService.audioPlayerNode.play()
+        
     }
 }
 
 struct MediaPlayerView_Previews: PreviewProvider {
-    static let eqSettings = EqualizerSettings()
+    static let audioService = AudioService()
+    static let eqService = EqualizerService()
     static var previews: some View {
-        NavigationView {
-            MediaPlayerView()
-                .environmentObject(eqSettings)
-                .modifier(PageViewWrapper())
-            .navigationBarTitle("Music Player")
-        }
+        MediaPlayerView()
+            .environmentObject(audioService)
+        .environmentObject(eqService)
+            .modifier(PageViewWrapper())
     }
 }

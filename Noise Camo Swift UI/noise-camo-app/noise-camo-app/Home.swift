@@ -42,8 +42,11 @@ struct Home: View {
 }
 
 struct GlobalTabView_Previews: PreviewProvider {
-    static let eqSettings = EqualizerSettings()
+    static let audioSerivce = AudioService()
+    static let eqService = EqualizerService()
     static var previews: some View {
-        Home().environmentObject(eqSettings)
+        Home()
+            .environmentObject(audioSerivce)
+            .environmentObject(eqService)
     }
 }

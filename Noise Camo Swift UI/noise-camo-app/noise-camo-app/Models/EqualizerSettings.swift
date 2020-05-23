@@ -44,24 +44,10 @@ extension AVAudioPlayerNode{
     }
 }
 
-class EqualizerSettings: ObservableObject {
-    let frequencies = [60, 150, 400, 1000, 2400, 15000]
-    
-    let gainsSettings = [
-        "bass": [10.0, -10.0, -8.0, -10.0, -8.0, -8.0],
-        "pop": [0.0, 4.0, 5.0, 6.0, 4.0, 0.0],
-        "flat": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-        "set1": [1.0, 2.0, 3.0, 4.0, 5.0, 6.0],
-        "set2": [6.0, 5.0, 4.0, 3.0, 2.0, 1.0],
-        "set3": [-1.0, -2.0, -3.0, 3.0, 2.0, 1.0],
-        "set4": [-1.0, -2.0, -3.0, 3.0, 2.0, 1.0],
-        "set5": [-1.0, -2.0, -3.0, 3.0, 2.0, 1.0],
-        "set6": [-1.0, -2.0, -3.0, 3.0, 2.0, 1.0]]
-    
-    var audioNodeFileLength: AVAudioFrameCount = 0
+class AudioService: ObservableObject {
+    var songFileLength: AVAudioFrameCount = 0
     var sampleRate: Float = 0
-    
-    @Published var playing = false
+    var songTimeAdjustment: Double = 0
     
     @Published var currentGain: Array<Double>
     
@@ -74,9 +60,7 @@ class EqualizerSettings: ObservableObject {
     
     @Published var audioFile: AVAudioFile!
     init() {
-        currentGain = Array(repeating: 0.0, count: 6)
-
-        
+        currentGain = Array(repeating: 0.0, count: EqualizerData().frequencies.count)
         audioEngine.attach(audioPlayerNode)
         audioEngine.attach(equalizer)
         audioEngine.connect(audioPlayerNode, to: equalizer, format: nil)
@@ -90,7 +74,7 @@ class EqualizerSettings: ObservableObject {
     
     func setBands(bands: [AVAudioUnitEQFilterParameters]) {
            for i in 0...(bands.count - 1) {
-               bands[i].frequency  = Float(frequencies[i])
+            bands[i].frequency  = Float(EqualizerData().frequencies[i])
                bands[i].bypass     = false
                bands[i].gain = Float(currentGain[0])
                bands[i].filterType = getShelf(currentGain[i])
@@ -105,7 +89,7 @@ class EqualizerSettings: ObservableObject {
 
                 audioFile = try AVAudioFile(forReading: filepathURL)
                 
-                self.audioNodeFileLength = AVAudioFrameCount(audioFile.length)
+                self.songFileLength = AVAudioFrameCount(audioFile.length)
                 self.sampleRate = Float(audioFile.fileFormat.sampleRate)
                 print("Sample rate \(self.sampleRate)")
             }
