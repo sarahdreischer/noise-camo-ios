@@ -29,8 +29,8 @@ struct TopBar: View {
             }
         }
         .padding(.horizontal, 35)
-        .padding(.top, 60)
-        .padding(.bottom, 50)
+        .padding(.top, 50)
+        .padding(.bottom, 40)
         .background(Color("top"))
         .clipShape(Corners(corner: .bottomRight, size: CGSize(width: 50, height: 50)))
         .edgesIgnoringSafeArea(.all)

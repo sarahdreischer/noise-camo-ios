@@ -36,9 +36,6 @@ struct MediaPlayerView: View {
                     .frame(height: 8)
                 Capsule()
                     .fill(Color("top"))
-                    .onReceive(self.audioService.timer) { _ in
-                        self.audioService.updateBarWidth(maxBarWidth: self.screenWidth)
-                    }
                     .frame(width: self.audioService.songBarWidth, height: 8)
             }
             .padding(.top)
@@ -114,6 +111,11 @@ struct MediaPlayerView: View {
             self.audioService.setAudioFile(fileName: self.audioService.songs[self.audioService.currentSongIndex], fileType: "mp3")
             self.audioService.prepareToPlay()
             self.audioService.extractAudioData()
+            
+            Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+                self.audioService.updateBarWidth(maxBarWidth: self.screenWidth)
+                
+            }
         }
     }
 
@@ -126,9 +128,8 @@ struct MediaPlayerView: View {
         self.audioService.prepareToPlay()
         self.audioService.extractAudioData()
         self.audioService.songBarWidth = 0
+        self.audioService.songTimeAdjustment = 0
         self.audioService.audioPlayerNode.play()
-        
-        print("Song Bar Width: \(self.audioService.songBarWidth)")
     }
 }
 

@@ -65,8 +65,6 @@ class AudioService: ObservableObject {
     
     @Published var songBarWidth: CGFloat = 0
     
-    let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
-    
     init() {
         audioData = .init(count: 0)
         audioTitle = ""
