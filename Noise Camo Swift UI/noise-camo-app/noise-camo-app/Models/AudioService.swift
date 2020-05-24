@@ -25,7 +25,7 @@ extension AVAudioPlayerNode{
     }
     
     func seekTo(value: Float, audioFile: AVAudioFile, duration: Float) {
-        if self.lastRenderTime != nil {
+        if self.lastRenderTime != nil && duration != Float.infinity {
             let sampleRate = self.outputFormat(forBus: 0).sampleRate
             let newsampletime = AVAudioFramePosition(Int(sampleRate * Double(value)))
             let length = duration - value
@@ -63,7 +63,11 @@ class AudioService: ObservableObject {
     
     @Published var currentSongIndex = 0
     
+    @Published var playing: Bool = false
+    
     @Published var songBarWidth: CGFloat = 0
+    
+    @Published var barWidthAtPause: CGFloat = 0
     
     init() {
         audioData = .init(count: 0)

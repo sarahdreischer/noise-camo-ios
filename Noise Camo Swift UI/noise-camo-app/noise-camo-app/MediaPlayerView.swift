@@ -14,6 +14,10 @@ struct MediaPlayerView: View {
     @EnvironmentObject var audioService: AudioService
     @EnvironmentObject var eqService: EqualizerService
     
+    @State var finished: Bool = false
+    @State var paused: Bool = false
+    @State var timer: Timer? = .init()
+    
     private let screenWidth = UIScreen.main.bounds.width - 30
     
     var body: some View {
@@ -66,9 +70,18 @@ struct MediaPlayerView: View {
                 
                 Button(action: {
                     if self.audioService.audioPlayerNode.isPlaying {
+                        self.audioService.barWidthAtPause = self.audioService.songBarWidth
                         self.audioService.audioPlayerNode.pause()
+                        self.paused = true
+                        self.audioService.playing = false
                     } else {
-                        self.audioService.audioPlayerNode.play()
+                        if self.finished {
+                            self.changeSongs()
+                        } else {
+                            self.paused = false
+                            self.audioService.audioPlayerNode.play()
+                            self.audioService.playing = true
+                        }
                     }
                 }) {
                     Image(systemName: self.audioService.audioPlayerNode.isPlaying ? "pause.fill" : "play.fill")
@@ -112,9 +125,17 @@ struct MediaPlayerView: View {
             self.audioService.prepareToPlay()
             self.audioService.extractAudioData()
             
-            Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+            self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
                 self.audioService.updateBarWidth(maxBarWidth: self.screenWidth)
-                
+                if self.paused {
+                    self.audioService.songBarWidth = self.audioService.barWidthAtPause
+                }
+                if self.audioService.songBarWidth >= self.screenWidth {
+                    self.audioService.songBarWidth = self.screenWidth
+
+                    self.audioService.audioPlayerNode.stop()
+                    self.finished = true
+                }
             }
         }
     }
@@ -130,6 +151,8 @@ struct MediaPlayerView: View {
         self.audioService.songBarWidth = 0
         self.audioService.songTimeAdjustment = 0
         self.audioService.audioPlayerNode.play()
+        self.audioService.playing = true
+        self.finished = false
     }
 }
 
