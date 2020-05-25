@@ -25,7 +25,9 @@ struct EqualizerView: View {
                     EQSlider(sliderValue: self.$eqService.currentGain[index], label: String(EqualizerData().frequencies[index]) + "kHz")
                         .foregroundColor(.white)
                 }
-            }.frame(height: 300).padding(.top, 20)
+            }.frame(height: 300)
+                .padding(.top, 20)
+                .padding(.horizontal, 20)
             
             GridStack(value: EqualizerData().gainsSettings, columns: 3) { key, col in
                 Button(action: {
@@ -33,10 +35,11 @@ struct EqualizerView: View {
                 }) {
                     EQButton(buttonText: key)
                 }
-            }.padding()
+            }.padding(.horizontal, 30)
             
             Spacer()
-        }.padding()
+            
+        }
     }
 }
     

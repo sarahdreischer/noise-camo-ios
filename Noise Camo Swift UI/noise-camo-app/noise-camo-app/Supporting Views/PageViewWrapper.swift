@@ -18,10 +18,9 @@ struct PageViewWrapper: ViewModifier {
             BackgroundView()
             VStack {
                 TopBar(pageTitle: pageTitle)
-                content.padding()
-                Spacer()
+                content.padding(30)
                 TapBar(index: pageIndex)
-            }.edgesIgnoringSafeArea(.all)
+            }.edgesIgnoringSafeArea(.vertical)
         }
     }
 }

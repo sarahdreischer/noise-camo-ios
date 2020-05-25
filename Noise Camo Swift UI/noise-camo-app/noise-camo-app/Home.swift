@@ -15,13 +15,13 @@ struct Home: View {
         ZStack {
             if index == 0 {
                 HomeView()
-                    .modifier(PageViewWrapper(pageIndex: $index, pageTitle: "Home"))
+                    .modifier(PageViewWrapper(pageIndex: $index, pageTitle: "HOME"))
             } else if index == 1 {
                 EqualizerView()
-                    .modifier(PageViewWrapper(pageIndex: $index, pageTitle: "Equalizer"))
+                    .modifier(PageViewWrapper(pageIndex: $index, pageTitle: "EQUALIZER"))
             } else {
                 MediaPlayerView()
-                    .modifier(PageViewWrapper(pageIndex: $index, pageTitle: "Media Player"))
+                    .modifier(PageViewWrapper(pageIndex: $index, pageTitle: "PLAYER"))
             }
         }
     }

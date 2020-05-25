@@ -17,9 +17,10 @@ struct TopBar: View {
         VStack {
             HStack {
                 Text(pageTitle)
-                    .foregroundColor(.white)
-                    .font(.title)
+                    .foregroundColor(Color("gray-1"))
+                    .font(.system(size: 20))
                     .fontWeight(.bold)
+                    .padding(.leading, 10)
                 
                 Spacer()
                 
@@ -28,18 +29,17 @@ struct TopBar: View {
                 }) {
                     Image(systemName: "person.circle")
                         .font(.system(size: 26, weight: .regular))
-                        .foregroundColor(.white)
+                        .foregroundColor(Color("gray-1"))
                 }
             }
             .padding(.horizontal, 35)
             .padding(.top, 50)
-//            .padding(.bottom,)
             .background(Color("top").opacity(0.01))
             
             Rectangle()
                 .frame(width: self.screenWidth, height: 1.0, alignment: .bottom)
                 .foregroundColor(Color("gray"))
-        }
+        }.padding(.horizontal)
     }
 }
 

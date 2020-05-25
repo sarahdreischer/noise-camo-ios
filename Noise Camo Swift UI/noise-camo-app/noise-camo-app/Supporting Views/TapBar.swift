@@ -18,24 +18,25 @@ struct TapBar: View {
                 self.index.wrappedValue = 0
             })
             
-            Spacer(minLength: 15)
+            Spacer(minLength: 10)
             
             TapButton(systemImageName: "slider.horizontal.3", tapped: (self.index.wrappedValue == 1), action: {
                 self.index.wrappedValue = 1
             })
             
-            Spacer(minLength: 15)
+            Spacer(minLength: 10)
             
             TapButton(systemImageName: "music.note", tapped: (self.index.wrappedValue == 2), action: {
                 self.index.wrappedValue = 2
             })
             
-            Spacer(minLength: 15)
+            Spacer(minLength: 10)
             
             TapButton(systemImageName: "person", tapped: (self.index.wrappedValue == 3), action: {
                 self.index.wrappedValue = 3
             })
         }
+        .padding(.bottom, 20)
         .padding(.top, -30)
         .padding(.horizontal, 25)
         .background(Color.gray.opacity(0.1))
