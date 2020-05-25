@@ -59,6 +59,8 @@ class AudioService: ObservableObject {
     
     @Published var audioTitle: String
     
+    @Published var audioArtist: String
+    
     @Published var songs = ["song", "black", "bad"]
     
     @Published var currentSongIndex = 0
@@ -72,6 +74,7 @@ class AudioService: ObservableObject {
     init() {
         audioData = .init(count: 0)
         audioTitle = ""
+        audioArtist = ""
     }
     
     func setAudioFile(fileName: String, fileType: String) {
@@ -126,14 +129,18 @@ class AudioService: ObservableObject {
     func extractAudioData() {
        let asset = AVAsset(url: self.audioFile.url)
        for i in asset.commonMetadata {
-           if i.commonKey?.rawValue == "artwork" {
+            if i.commonKey?.rawValue == "artwork" {
                let data = i.value as! Data
                self.audioData = data
-           }
-           if i.commonKey?.rawValue == "title" {
+            }
+            if i.commonKey?.rawValue == "title" {
                let title = i.value as! String
                self.audioTitle = title
-           }
+            }
+            if i.commonKey?.rawValue == "artist" {
+               let artist = i.value as! String
+                self.audioArtist = artist
+            }
        }
     }
 }

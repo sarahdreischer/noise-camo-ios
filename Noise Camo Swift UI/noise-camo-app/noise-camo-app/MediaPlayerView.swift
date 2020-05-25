@@ -22,17 +22,27 @@ struct MediaPlayerView: View {
     
     var body: some View {
         
-        VStack(spacing: 20) {
+        VStack(spacing: 10) {
             
             Image(uiImage: self.audioService.audioData.count == 0 ? UIImage(named: "itunes")! : UIImage(data: self.audioService.audioData)!)
                 .resizable()
                 .frame(width: self.audioService.audioData.count == 0 ? 250 : nil, height: 250)
                 .cornerRadius(15)
                 
-            Text(self.audioService.audioTitle)
-                .font(.title)
-                .foregroundColor(.white)
-                .padding(.top)
+            // Mark: Song Title + Artist
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(self.audioService.audioTitle)
+                        .font(.system(size: 24))
+                        .foregroundColor(.white)
+                        .padding(.top)
+                    Text(self.audioService.audioArtist)
+                        .font(.system(size: 16))
+                        .foregroundColor(Color("gray-1"))
+                        .padding(.top)
+                }.padding(.leading, 30)
+                Spacer()
+            }
             
             ZStack(alignment: .leading) {
                 Capsule()
@@ -85,7 +95,7 @@ struct MediaPlayerView: View {
                     }
                 }) {
                     Image(systemName: self.audioService.audioPlayerNode.isPlaying ? "pause.fill" : "play.fill")
-                        .font(.title)
+                        .font(.system(size: 50))
                 }
                 
                 Button(action: {
@@ -146,6 +156,7 @@ struct MediaPlayerView: View {
             fileName: self.audioService.songs[self.audioService.currentSongIndex], fileType: "mp3")
         self.audioService.audioData = .init(count: 0)
         self.audioService.audioTitle = ""
+        self.audioService.audioArtist = ""
         self.audioService.prepareToPlay()
         self.audioService.extractAudioData()
         self.audioService.songBarWidth = 0

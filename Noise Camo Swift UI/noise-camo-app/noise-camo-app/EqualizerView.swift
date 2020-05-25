@@ -54,3 +54,52 @@ struct EqualizerView_Previews: PreviewProvider {
         }
     }
 }
+
+struct EQSlider: View {
+    @Binding var sliderValue: Double
+    
+    let label: String
+    
+    var body: some View {
+        VStack {
+            Text("-10dB")
+            GeometryReader { geometry in
+                HStack {
+                    Slider(value: self.$sliderValue, in: -10...10, step: 1)
+                        .accentColor(Color.orange)
+                        .rotationEffect(.degrees(-90), anchor: .center)
+                        .frame(width: geometry.size.height, height: geometry.size.width)
+                }
+            }
+            Text("+10dB")
+            Text(label)
+                .foregroundColor(.gray)
+        }.font(.custom("Avenir", size: 10))
+    }
+}
+
+extension View {
+    func inExpandingRectangle() -> some View {
+        ZStack {
+            Rectangle()
+                .fill(Color.clear)
+            self
+        }
+    }
+}
+
+struct EQButton: View {
+    let buttonText: String
+    
+    var body: some View {
+        Text(buttonText)
+            .foregroundColor(.white)
+            .fontWeight(.medium)
+            .font(.custom("Avenir", size: 15))
+            .inExpandingRectangle()
+            .frame(height: 35)
+            .fixedSize(horizontal: false, vertical: true)
+            .background(Color("gray"))
+            .cornerRadius(5)
+    }
+}
