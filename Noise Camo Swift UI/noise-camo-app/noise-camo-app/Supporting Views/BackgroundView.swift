@@ -19,13 +19,13 @@ struct BackgroundView: View {
             Color(.black)
                 .edgesIgnoringSafeArea(.all)
             
-            LinearGradient(
-                gradient: .init(colors: [.blue, .black]),
-                startPoint: .init(x: 0.5, y: 0),
-                endPoint: .init(x: 0.5, y: 0.3)
-            )
-                .opacity(0.4)
-                .edgesIgnoringSafeArea(.all)
+//            LinearGradient(
+//                gradient: .init(colors: [.blue, .black]),
+//                startPoint: .init(x: 0.5, y: 0),
+//                endPoint: .init(x: 0.5, y: 0.3)
+//            )
+//                .opacity(0.4)
+//                .edgesIgnoringSafeArea(.all)
         }
     }
 }

@@ -13,69 +13,28 @@ struct TapBar: View {
     
     var body: some View {
         HStack {
-        
-            Button(action: {
+            
+            TapButton(systemImageName: "house", tapped: (self.index.wrappedValue == 0), action: {
                 self.index.wrappedValue = 0
-            }) {
-                VStack {
-                    Image(systemName: "house")
-                        .font(.system(size: 16, weight: .regular))
-                        .foregroundColor(.white)
-                        .padding()
-                        .background((index.wrappedValue == 0) ? Color.orange : Color("top"))
-                        .clipShape(Circle())
-                        .padding(5)
-                        .overlay(
-                            Circle()
-                                .stroke(Color.white.opacity(0.5), lineWidth: 2)
-                        )
-                }.padding()
-            }
+            })
             
             Spacer(minLength: 15)
-
-            Button(action: {
+            
+            TapButton(systemImageName: "slider.horizontal.3", tapped: (self.index.wrappedValue == 1), action: {
                 self.index.wrappedValue = 1
-            }) {
-                VStack {
-                    Image(systemName: "slider.horizontal.3")
-                        .font(.system(size: 20, weight: .regular))
-                        .foregroundColor(.white)
-                        .padding()
-                        .background((index.wrappedValue == 1) ? Color.orange : Color("top"))
-                        .
-                        clipShape(Circle())
-                        .padding(5)
-                        .overlay(
-                            Circle()
-                                .stroke(Color.white.opacity(0.5), lineWidth: 2)
-                        )
-                }
-                .padding()
-            }
+            })
             
             Spacer(minLength: 15)
             
-            Button(action: {
+            TapButton(systemImageName: "music.note", tapped: (self.index.wrappedValue == 2), action: {
                 self.index.wrappedValue = 2
-            }) {
-                VStack {
-                    Image(systemName: "music.note")
-                        .font(.system(size: 16, weight: .regular))
-                        .foregroundColor(.white)
-                        .padding()
-                        .background((index.wrappedValue == 2) ? Color.orange : Color("top"))
-                        .
-                        clipShape(Circle())
-                        .padding(5)
-                        .overlay(
-                            Circle()
-                                .stroke(Color.white.opacity(0.5), lineWidth: 2)
-                        )
-                }.padding()
-            }
+            })
             
+            Spacer(minLength: 15)
             
+            TapButton(systemImageName: "person", tapped: (self.index.wrappedValue == 3), action: {
+                self.index.wrappedValue = 3
+            })
         }
         .padding(.top, -30)
         .padding(.horizontal, 25)
@@ -87,5 +46,30 @@ struct TapBar: View {
 struct TapBar_Previews: PreviewProvider {
     static var previews: some View {
         TapBar(index: Binding.constant(2))
+    }
+}
+
+struct TapButton: View {
+    var systemImageName: String
+    var tapped: Bool
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: self.action) {
+            VStack {
+                Image(systemName: self.systemImageName)
+                   .font(.system(size: 16, weight: .regular))
+                   .foregroundColor(.white)
+                   .padding()
+                    .background((self.tapped) ? Color.orange : Color("top"))
+                   .
+                   clipShape(Circle())
+                   .padding(5)
+                   .overlay(
+                       Circle()
+                           .stroke(Color.white.opacity(0.5), lineWidth: 2)
+                   )
+           }.padding()
+        }
     }
 }
