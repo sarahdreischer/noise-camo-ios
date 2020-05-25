@@ -33,7 +33,9 @@ struct HomeView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
-            .modifier(PageViewWrapper(pageTitle: "Home"))
+        ZStack {
+            BackgroundView()
+            HomeView()
+        }
     }
 }

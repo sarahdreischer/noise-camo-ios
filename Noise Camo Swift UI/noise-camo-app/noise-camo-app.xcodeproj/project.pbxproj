@@ -33,6 +33,7 @@
 		E7FE31532479A7AA0075F6A4 /* black.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E7FE31522479A7AA0075F6A4 /* black.mp3 */; };
 		E7FE31552479BB9C0075F6A4 /* Corners.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE31542479BB9C0075F6A4 /* Corners.swift */; };
 		E7FE31572479BC2E0075F6A4 /* TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE31562479BC2E0075F6A4 /* TopBar.swift */; };
+		E7FE3159247AC2E10075F6A4 /* TapBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE3158247AC2E10075F6A4 /* TapBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		E7FE31522479A7AA0075F6A4 /* black.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = black.mp3; sourceTree = "<group>"; };
 		E7FE31542479BB9C0075F6A4 /* Corners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Corners.swift; sourceTree = "<group>"; };
 		E7FE31562479BC2E0075F6A4 /* TopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBar.swift; sourceTree = "<group>"; };
+		E7FE3158247AC2E10075F6A4 /* TapBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +212,7 @@
 				E779A75A24708C72008FCA27 /* PageViewWrapper.swift */,
 				E7FE31542479BB9C0075F6A4 /* Corners.swift */,
 				E7FE31562479BC2E0075F6A4 /* TopBar.swift */,
+				E7FE3158247AC2E10075F6A4 /* TapBar.swift */,
 			);
 			path = "Supporting Views";
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				E78E2BEC246A08D300A054A9 /* GridStack.swift in Sources */,
 				E78E2BE2246842B500A054A9 /* EQSlider.swift in Sources */,
 				E7D0ECBE2457776A00A942C7 /* SceneDelegate.swift in Sources */,
+				E7FE3159247AC2E10075F6A4 /* TapBar.swift in Sources */,
 				E7FCF00A245F88C9001A938D /* BackgroundView.swift in Sources */,
 				E7D0ECEC24577E0000A942C7 /* Instruction.swift in Sources */,
 				E78E2BDF246830CB00A054A9 /* AudioService.swift in Sources */,

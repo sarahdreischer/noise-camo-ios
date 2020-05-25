@@ -9,35 +9,21 @@
 import SwiftUI
 
 struct Home: View {
-    init() {
-        UITabBar.appearance().isTranslucent = false
-        UITabBar.appearance().barTintColor = UIColor.black
-    }
+    @State var index: Int = 0
     
     var body: some View {
-        TabView {
-            HomeView()
-                .modifier(PageViewWrapper(pageTitle: "Home"))
-            .tabItem {
-                Image(systemName: "house.fill")
-                Text("Home")
-            }
-            
-            EqualizerView()
-                .modifier(PageViewWrapper(pageTitle: "Equalizer"))
-            .tabItem {
-                Image(systemName: "slider.horizontal.3")
-                Text("EQ")
-            }
-            
-            MediaPlayerView()
-                .modifier(PageViewWrapper(pageTitle: "Media Player"))
-            .tabItem {
-                Image(systemName: "music.note")
-                Text("Music")
+        ZStack {
+            if index == 0 {
+                HomeView()
+                    .modifier(PageViewWrapper(pageIndex: $index, pageTitle: "Home"))
+            } else if index == 1 {
+                EqualizerView()
+                    .modifier(PageViewWrapper(pageIndex: $index, pageTitle: "Equalizer"))
+            } else {
+                MediaPlayerView()
+                    .modifier(PageViewWrapper(pageIndex: $index, pageTitle: "Media Player"))
             }
         }
-        .font(.system(size: 25))
     }
 }
 

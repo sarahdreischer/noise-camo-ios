@@ -44,10 +44,10 @@ struct EqualizerView: View {
 struct EqualizerView_Previews: PreviewProvider {
     static let eqSettings = EqualizerService()
     static var previews: some View {
-        TabView {
+        ZStack {
+            BackgroundView()
             EqualizerView()
                 .environmentObject(eqSettings)
-                .modifier(PageViewWrapper(pageTitle: "Equalizer"))
         }
     }
 }

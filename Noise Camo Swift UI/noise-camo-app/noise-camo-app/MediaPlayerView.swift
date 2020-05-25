@@ -18,7 +18,7 @@ struct MediaPlayerView: View {
     @State var paused: Bool = false
     @State var timer: Timer? = .init()
     
-    private let screenWidth = UIScreen.main.bounds.width - 30
+    private let screenWidth = UIScreen.main.bounds.width - 50
     
     var body: some View {
         
@@ -37,14 +37,14 @@ struct MediaPlayerView: View {
             ZStack(alignment: .leading) {
                 Capsule()
                     .fill(Color.white.opacity(0.6))
-                    .frame(height: 8)
+                    .frame(width: self.screenWidth, height: 8)
                 Capsule()
                     .fill(Color("top"))
                     .frame(width: self.audioService.songBarWidth, height: 8)
             }
             .padding(.top)
             
-            HStack(spacing: UIScreen.main.bounds.width / 5 - 30) {
+            HStack(spacing: UIScreen.main.bounds.width / 5 - 50) {
                 Button(action: {
                     if self.audioService.currentSongIndex > 0 {
                         self.audioService.currentSongIndex -= 1
@@ -160,9 +160,11 @@ struct MediaPlayerView_Previews: PreviewProvider {
     static let audioService = AudioService()
     static let eqService = EqualizerService()
     static var previews: some View {
-        MediaPlayerView()
-            .environmentObject(audioService)
-            .environmentObject(eqService)
-            .modifier(PageViewWrapper(pageTitle: "Media Player"))
+        ZStack {
+            BackgroundView()
+            MediaPlayerView()
+                .environmentObject(audioService)
+                .environmentObject(eqService)
+        }
     }
 }

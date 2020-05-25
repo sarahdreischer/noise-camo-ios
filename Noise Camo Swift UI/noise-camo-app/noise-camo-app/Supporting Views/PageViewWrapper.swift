@@ -10,8 +10,8 @@ import SwiftUI
 
 struct PageViewWrapper: ViewModifier {
     
+    var pageIndex: Binding<Int>
     let pageTitle: String
-    let screenWidth = UIScreen.main.bounds.width - 30
     
     func body(content: Content) -> some View {
         ZStack {
@@ -20,7 +20,8 @@ struct PageViewWrapper: ViewModifier {
                 TopBar(pageTitle: pageTitle)
                 content.padding()
                 Spacer()
-            }
+                TapBar(index: pageIndex)
+            }.edgesIgnoringSafeArea(.all)
         }
     }
 }
