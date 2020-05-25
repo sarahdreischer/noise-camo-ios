@@ -11,33 +11,43 @@ import SwiftUI
 struct TopBar: View {
     let pageTitle: String
     
+    private let screenWidth = UIScreen.main.bounds.width - 30
+    
     var body: some View {
-        HStack {
-            Text(pageTitle)
-                .foregroundColor(.white)
-                .font(.title)
-                .fontWeight(.bold)
-            
-            Spacer()
-            
-            Button(action: {
-                
-            }) {
-                Image(systemName: "person")
-                    .font(.system(size: 32, weight: .regular))
+        VStack {
+            HStack {
+                Text(pageTitle)
                     .foregroundColor(.white)
+                    .font(.title)
+                    .fontWeight(.bold)
+                
+                Spacer()
+                
+                Button(action: {
+                    
+                }) {
+                    Image(systemName: "person.circle")
+                        .font(.system(size: 26, weight: .regular))
+                        .foregroundColor(.white)
+                }
             }
+            .padding(.horizontal, 35)
+            .padding(.top, 50)
+//            .padding(.bottom,)
+            .background(Color("top").opacity(0.01))
+            
+            Rectangle()
+                .frame(width: self.screenWidth, height: 1.0, alignment: .bottom)
+                .foregroundColor(Color("gray"))
         }
-        .padding(.horizontal, 35)
-        .padding(.top, 50)
-        .padding(.bottom)
-        .background(Color("top").opacity(0.01))
-//        .clipShape(Corners(corner: .bottomRight, size: CGSize(width: 50, height: 50)))
     }
 }
 
 struct TopBar_Previews: PreviewProvider {
     static var previews: some View {
-        TopBar(pageTitle: "Test")
+        ZStack {
+            BackgroundView()
+            TopBar(pageTitle: "Test")
+        }
     }
 }

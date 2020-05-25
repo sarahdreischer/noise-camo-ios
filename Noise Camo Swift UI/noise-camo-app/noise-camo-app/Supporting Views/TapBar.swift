@@ -61,15 +61,16 @@ struct TapButton: View {
                    .font(.system(size: 16, weight: .regular))
                    .foregroundColor(.white)
                    .padding()
-                    .background((self.tapped) ? Color.orange : Color("top"))
+                    .background((self.tapped) ? Color.orange : Color("gray"))
                    .
                    clipShape(Circle())
                    .padding(5)
-                   .overlay(
-                       Circle()
-                           .stroke(Color.white.opacity(0.5), lineWidth: 2)
-                   )
+//                   .overlay(
+//                       Circle()
+//                           .stroke(Color.white.opacity(0.5), lineWidth: 2)
+//                   )
            }.padding()
+            .shadow(radius: 5)
         }
     }
 }

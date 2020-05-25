@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E779A755247053CA008FCA27 /* EqualizerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E779A754247053CA008FCA27 /* EqualizerButton.swift */; };
 		E779A75724705694008FCA27 /* MediaPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E779A75624705694008FCA27 /* MediaPlayerView.swift */; };
 		E779A75B24708C72008FCA27 /* PageViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E779A75A24708C72008FCA27 /* PageViewWrapper.swift */; };
 		E78E2BDF246830CB00A054A9 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78E2BDE246830CB00A054A9 /* AudioService.swift */; };
@@ -54,7 +53,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E779A754247053CA008FCA27 /* EqualizerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerButton.swift; sourceTree = "<group>"; };
 		E779A75624705694008FCA27 /* MediaPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerView.swift; sourceTree = "<group>"; };
 		E779A75A24708C72008FCA27 /* PageViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewWrapper.swift; sourceTree = "<group>"; };
 		E78E2BDE246830CB00A054A9 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
@@ -208,7 +206,6 @@
 				E78E2BE1246842B500A054A9 /* EQSlider.swift */,
 				E78E2BE72468614800A054A9 /* EQButton.swift */,
 				E78E2BEB246A08D300A054A9 /* GridStack.swift */,
-				E779A754247053CA008FCA27 /* EqualizerButton.swift */,
 				E779A75A24708C72008FCA27 /* PageViewWrapper.swift */,
 				E7FE31542479BB9C0075F6A4 /* Corners.swift */,
 				E7FE31562479BC2E0075F6A4 /* TopBar.swift */,
@@ -377,7 +374,6 @@
 				E779A75724705694008FCA27 /* MediaPlayerView.swift in Sources */,
 				E7D0ECC02457776B00A942C7 /* HomeView.swift in Sources */,
 				E78E2BE82468614800A054A9 /* EQButton.swift in Sources */,
-				E779A755247053CA008FCA27 /* EqualizerButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

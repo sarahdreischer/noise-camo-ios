@@ -36,7 +36,7 @@ struct EqualizerView: View {
             }.padding()
             
             Spacer()
-        }
+        }.padding()
     }
 }
     
