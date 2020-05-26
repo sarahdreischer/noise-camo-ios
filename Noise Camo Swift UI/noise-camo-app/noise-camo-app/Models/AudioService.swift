@@ -63,6 +63,10 @@ class AudioService: ObservableObject {
     
     @Published var songs = ["song", "black", "bad"]
     
+    @Published var paused = false
+    
+    @Published var finished = false
+    
     @Published var currentSongIndex = 0
     
     @Published var playing: Bool = false
@@ -143,4 +147,14 @@ class AudioService: ObservableObject {
             }
        }
     }
+    
+//    func instantiateTimer() {
+//        self.timer = Timer.publish (every: 1, on: .main, in: .common)
+//        return
+//    }
+//
+//    func cancelTimer() {
+//        self.timer.connect().cancel()
+//        return
+//    }
 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct TopBar: View {
     let pageTitle: String
     
-    private let screenWidth = UIScreen.main.bounds.width - 30
+    private let screenWidth = UIScreen.main.bounds.width - 40
     
     var body: some View {
         VStack {
@@ -38,7 +38,7 @@ struct TopBar: View {
             
             Rectangle()
                 .frame(width: self.screenWidth, height: 1.0, alignment: .bottom)
-                .foregroundColor(Color("gray"))
+                .foregroundColor(.white)
         }.padding(.horizontal)
     }
 }
