@@ -12,35 +12,43 @@ struct TapBar: View {
     var index: Binding<Int>
     
     var body: some View {
-        HStack {
+        VStack {
             
-            TapButton(systemImageName: "house", tapped: (self.index.wrappedValue == 0), action: {
-                self.index.wrappedValue = 0
-            })
+            Rectangle()
+                .frame(width: UIScreen.main.bounds.width, height: 1.0, alignment: .bottom)
+                .foregroundColor(.white)
+                .padding(.bottom)
             
-            Spacer(minLength: 10)
-            
-            TapButton(systemImageName: "slider.horizontal.3", tapped: (self.index.wrappedValue == 1), action: {
-                self.index.wrappedValue = 1
-            })
-            
-            Spacer(minLength: 10)
-            
-            TapButton(systemImageName: "music.note", tapped: (self.index.wrappedValue == 2), action: {
-                self.index.wrappedValue = 2
-            })
-            
-            Spacer(minLength: 10)
-            
-            TapButton(systemImageName: "person", tapped: (self.index.wrappedValue == 3), action: {
-                self.index.wrappedValue = 3
-            })
-        }
-        .padding(.bottom, 20)
-        .padding(.top, -30)
-        .padding(.horizontal, 25)
-        .background(Color.gray.opacity(0.1))
-        .animation(.spring())
+            HStack {
+                
+                TapButton(systemImageName: "house", tapped: (self.index.wrappedValue == 0), action: {
+                    self.index.wrappedValue = 0
+                })
+                
+                Spacer(minLength: 10)
+                
+                TapButton(systemImageName: "slider.horizontal.3", tapped: (self.index.wrappedValue == 1), action: {
+                    self.index.wrappedValue = 1
+                })
+                
+                Spacer(minLength: 10)
+                
+                TapButton(systemImageName: "music.note", tapped: (self.index.wrappedValue == 2), action: {
+                    self.index.wrappedValue = 2
+                })
+                
+                Spacer(minLength: 10)
+                
+                TapButton(systemImageName: "person", tapped: (self.index.wrappedValue == 3), action: {
+                    self.index.wrappedValue = 3
+                })
+            }
+            .padding(.bottom, 20)
+            .padding(.top, -30)
+            .padding(.horizontal, 25)
+    //        .background(Color.gray.opacity(0.1))
+            .animation(.spring())
+        }.background(Color.gray.opacity(0.1))
     }
 }
 

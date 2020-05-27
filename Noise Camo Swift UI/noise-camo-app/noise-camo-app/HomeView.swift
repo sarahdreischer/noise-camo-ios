@@ -11,21 +11,22 @@ import SwiftUI
 struct HomeView: View {
     let sections = ["instructions", "music player", "blog"]
     
-    init() {
-        UINavigationBar
-            .appearance()
-            .largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-
-        UINavigationBar
-            .appearance()
-            .titleTextAttributes = [.foregroundColor: UIColor.white]
-    }
+    var pageIndex: Binding<Int>
     
     var body: some View {        
         VStack(alignment: .center) {
-            Text("Set up your device")
-                .foregroundColor(.white)
-
+            NavigationLink(destination:
+            EqualizerView()
+                .modifier(PageViewWrapper(pageIndex: self.pageIndex, pageTitle: "Equalizer"))) {
+                HStack {
+                       Text("Equalizer")
+                           .foregroundColor(.white)
+                   }
+                   .frame(width: UIScreen.main.bounds.width-50, height: UIScreen.main.bounds.height/4)
+                   .background(Color("gray"))
+                   .cornerRadius(25)
+               }
+            
             Spacer()
         }
     }
@@ -35,7 +36,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             BackgroundView()
-            HomeView()
+            HomeView(pageIndex: Binding.constant(1))
         }
     }
 }

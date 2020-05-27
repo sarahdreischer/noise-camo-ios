@@ -14,7 +14,7 @@ struct Home: View {
     var body: some View {
         ZStack {
             if index == 0 {
-                HomeView()
+                HomeView(pageIndex: self.$index)
                     .modifier(PageViewWrapper(pageIndex: $index, pageTitle: "HOME"))
             } else if index == 1 {
                 EqualizerView()
@@ -34,5 +34,15 @@ struct GlobalTabView_Previews: PreviewProvider {
         Home()
             .environmentObject(audioSerivce)
             .environmentObject(eqService)
+    }
+}
+
+struct InstructionCard: View {
+    var body: some View {
+        ZStack {
+            BackgroundView()
+            Text("Set up bluetooth on your device")
+                .foregroundColor(.white)
+        }
     }
 }

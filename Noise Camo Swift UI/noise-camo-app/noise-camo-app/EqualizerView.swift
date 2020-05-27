@@ -40,6 +40,8 @@ struct EqualizerView: View {
             Spacer()
             
         }
+        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
     }
 }
     
