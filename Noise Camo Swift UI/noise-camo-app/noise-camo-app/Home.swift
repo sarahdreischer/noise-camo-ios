@@ -10,6 +10,7 @@ import SwiftUI
 
 struct Home: View {
     @ObservedObject var viewRouter: ViewRouter
+    @ObservedObject var bluetoothManager = BluetoothManager()
     @State private var setupPresent: Bool = false
     
     private let screenWidth = UIScreen.main.bounds.width
@@ -71,13 +72,7 @@ struct Home: View {
             
             Spacer()
         }.sheet(isPresented: self.$setupPresent) {
-            ZStack {
-                BackgroundView()
-                VStack {
-                    Text("Set up bluetooth")
-                        .foregroundColor(.white)
-                }
-            }
+            BluetoothSetup(bluetoothManager: self.bluetoothManager)
         }
     }
 }
