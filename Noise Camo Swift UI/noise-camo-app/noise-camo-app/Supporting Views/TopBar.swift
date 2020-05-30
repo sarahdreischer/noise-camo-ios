@@ -26,16 +26,12 @@ struct TopBar: View {
                 
                 Spacer()
                 
-//                Button(action: {
-//                    
-//                }) {
-                    Image(systemName: "person.circle")
-                        .font(.system(size: 26, weight: .regular))
-                        .foregroundColor(Color("gray-1"))
-                        .onTapGesture {
-                            self.viewRouter.currentView = "profile"
-                    }
-//                }
+                Image(systemName: "person.circle")
+                    .font(.system(size: 26, weight: .regular))
+                    .foregroundColor(Color.white)
+                    .onTapGesture {
+                        self.viewRouter.currentView = "profile"
+                }
             }
             .padding(.horizontal, 35)
             .padding(.top, 50)
