@@ -27,7 +27,7 @@ struct TopBar: View {
                 Spacer()
                 
                 Image(systemName: "person.circle")
-                    .font(.system(size: 26, weight: .regular))
+                    .font(.system(size: 30, weight: .regular))
                     .foregroundColor(Color.white)
                     .onTapGesture {
                         self.viewRouter.currentView = "profile"

@@ -62,10 +62,10 @@ struct TapButton: View {
                 .font(.system(size: (self.viewRouter.currentView == navigateToView) ? 24 : 16, weight: .regular))
                .foregroundColor(.white)
                .padding()
-                .background((self.viewRouter.currentView == navigateToView) ? Color.orange : Color("gray"))
-               .
-               clipShape(Circle())
+               .background((self.viewRouter.currentView == navigateToView) ? Color.orange : Color("gray"))
+               .clipShape(Circle())
                .padding(5)
+               .shadow(radius: 5)
        }.padding()
         .shadow(radius: 5)
             .onTapGesture {

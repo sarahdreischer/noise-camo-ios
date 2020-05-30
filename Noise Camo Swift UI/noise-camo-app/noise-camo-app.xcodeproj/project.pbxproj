@@ -22,7 +22,6 @@
 		E7D0ECC82457776D00A942C7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7D0ECC62457776D00A942C7 /* LaunchScreen.storyboard */; };
 		E7D0ECD32457776D00A942C7 /* noise_camo_appTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D0ECD22457776D00A942C7 /* noise_camo_appTests.swift */; };
 		E7D0ECDE2457776D00A942C7 /* noise_camo_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D0ECDD2457776D00A942C7 /* noise_camo_appUITests.swift */; };
-		E7D0ECEC24577E0000A942C7 /* Instruction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D0ECEB24577E0000A942C7 /* Instruction.swift */; };
 		E7FCF001245F37C3001A938D /* EqualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FCF000245F37C3001A938D /* EqualizerView.swift */; };
 		E7FCF004245F7396001A938D /* song.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E7FCF003245F7396001A938D /* song.mp3 */; };
 		E7FCF00A245F88C9001A938D /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FCF009245F88C9001A938D /* BackgroundView.swift */; };
@@ -74,7 +73,6 @@
 		E7D0ECD92457776D00A942C7 /* noise-camo-appUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "noise-camo-appUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7D0ECDD2457776D00A942C7 /* noise_camo_appUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = noise_camo_appUITests.swift; sourceTree = "<group>"; };
 		E7D0ECDF2457776D00A942C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E7D0ECEB24577E0000A942C7 /* Instruction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instruction.swift; sourceTree = "<group>"; };
 		E7FCF000245F37C3001A938D /* EqualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerView.swift; sourceTree = "<group>"; };
 		E7FCF003245F7396001A938D /* song.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = song.mp3; path = ../../../../sounds/song.mp3; sourceTree = "<group>"; };
 		E7FCF009245F88C9001A938D /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
@@ -145,7 +143,6 @@
 				E7FCF000245F37C3001A938D /* EqualizerView.swift */,
 				E779A75624705694008FCA27 /* MediaPlayer.swift */,
 				E74301E624827DFC0031C1B3 /* Profile.swift */,
-				E7D0ECEB24577E0000A942C7 /* Instruction.swift */,
 				E7D0ECC12457776D00A942C7 /* Assets.xcassets */,
 				E7D0ECC62457776D00A942C7 /* LaunchScreen.storyboard */,
 				E7D0ECC92457776D00A942C7 /* Info.plist */,
@@ -367,7 +364,6 @@
 				E7D0ECBE2457776A00A942C7 /* SceneDelegate.swift in Sources */,
 				E7FE3159247AC2E10075F6A4 /* TapBar.swift in Sources */,
 				E7FCF00A245F88C9001A938D /* BackgroundView.swift in Sources */,
-				E7D0ECEC24577E0000A942C7 /* Instruction.swift in Sources */,
 				E78E2BDF246830CB00A054A9 /* AudioService.swift in Sources */,
 				E7FCF001245F37C3001A938D /* EqualizerView.swift in Sources */,
 				E74301E5248278AA0031C1B3 /* ViewRouter.swift in Sources */,
