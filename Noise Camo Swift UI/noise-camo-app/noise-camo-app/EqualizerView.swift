@@ -11,12 +11,6 @@ import AVFoundation
 
 struct EqualizerView: View {
     @EnvironmentObject var eqService: EqualizerService
-    
-    init() {
-        UINavigationBar
-            .appearance()
-            .titleTextAttributes = [.foregroundColor: UIColor.white]
-    }
         
     var body: some View {
         VStack {
@@ -40,8 +34,6 @@ struct EqualizerView: View {
             Spacer()
             
         }
-        .navigationBarHidden(true)
-        .navigationBarBackButtonHidden(true)
     }
 }
     
