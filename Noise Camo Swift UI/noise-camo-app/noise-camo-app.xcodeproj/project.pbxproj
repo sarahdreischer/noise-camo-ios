@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E74301E5248278AA0031C1B3 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74301E4248278AA0031C1B3 /* ViewRouter.swift */; };
 		E779A75724705694008FCA27 /* MediaPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E779A75624705694008FCA27 /* MediaPlayerView.swift */; };
 		E779A75B24708C72008FCA27 /* PageViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E779A75A24708C72008FCA27 /* PageViewWrapper.swift */; };
 		E78E2BDF246830CB00A054A9 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78E2BDE246830CB00A054A9 /* AudioService.swift */; };
@@ -51,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E74301E4248278AA0031C1B3 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		E779A75624705694008FCA27 /* MediaPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerView.swift; sourceTree = "<group>"; };
 		E779A75A24708C72008FCA27 /* PageViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewWrapper.swift; sourceTree = "<group>"; };
 		E78E2BDE246830CB00A054A9 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				E7D0ECC92457776D00A942C7 /* Info.plist */,
 				E7FCF002245F736F001A938D /* Sounds */,
 				E7D0ECC32457776D00A942C7 /* Preview Content */,
+				E74301E4248278AA0031C1B3 /* ViewRouter.swift */,
 			);
 			path = "noise-camo-app";
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				E7D0ECEC24577E0000A942C7 /* Instruction.swift in Sources */,
 				E78E2BDF246830CB00A054A9 /* AudioService.swift in Sources */,
 				E7FCF001245F37C3001A938D /* EqualizerView.swift in Sources */,
+				E74301E5248278AA0031C1B3 /* ViewRouter.swift in Sources */,
 				E7FE31552479BB9C0075F6A4 /* Corners.swift in Sources */,
 				E779A75724705694008FCA27 /* MediaPlayerView.swift in Sources */,
 				E7D0ECC02457776B00A942C7 /* HomeView.swift in Sources */,

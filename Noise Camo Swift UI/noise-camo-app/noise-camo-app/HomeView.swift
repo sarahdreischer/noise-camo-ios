@@ -9,15 +9,14 @@
 import SwiftUI
 
 struct HomeView: View {
-    let sections = ["instructions", "music player", "blog"]
-    
-    var pageIndex: Binding<Int>
+    @ObservedObject var viewRouter: ViewRouter
     
     var body: some View {        
         VStack(alignment: .center) {
-            NavigationLink(destination:
-            EqualizerView()
-                .modifier(PageViewWrapper(pageIndex: self.pageIndex, pageTitle: "Equalizer"))) {
+            
+            Button(action: {
+                self.viewRouter.currentView = "equalizer"
+            }) {
                 HStack {
                        Text("Equalizer")
                            .foregroundColor(.white)
@@ -25,7 +24,7 @@ struct HomeView: View {
                    .frame(width: UIScreen.main.bounds.width-50, height: UIScreen.main.bounds.height/4)
                    .background(Color("gray"))
                    .cornerRadius(25)
-               }
+            }
             
             Spacer()
         }
@@ -36,7 +35,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             BackgroundView()
-            HomeView(pageIndex: Binding.constant(1))
+            HomeView(viewRouter: ViewRouter())
         }
     }
 }

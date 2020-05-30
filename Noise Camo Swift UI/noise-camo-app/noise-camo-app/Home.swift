@@ -9,19 +9,20 @@
 import SwiftUI
 
 struct Home: View {
-    @State var index: Int = 0
+    
+    @ObservedObject var viewRouter = ViewRouter()
     
     var body: some View {
-        ZStack {
-            if index == 0 {
-                HomeView(pageIndex: self.$index)
-                    .modifier(PageViewWrapper(pageIndex: $index, pageTitle: "HOME"))
-            } else if index == 1 {
+        VStack {
+            if self.viewRouter.currentView == "home" {
+                HomeView(viewRouter: self.viewRouter)
+                    .modifier(PageViewWrapper( pageTitle: "HOME", viewRouter: self.viewRouter))
+            } else if self.viewRouter.currentView == "equalizer" {
                 EqualizerView()
-                    .modifier(PageViewWrapper(pageIndex: $index, pageTitle: "EQUALIZER"))
+                    .modifier(PageViewWrapper(pageTitle: "EQUALIZER", viewRouter: self.viewRouter))
             } else {
                 MediaPlayerView()
-                    .modifier(PageViewWrapper(pageIndex: $index, pageTitle: "PLAYER"))
+                    .modifier(PageViewWrapper(pageTitle: "PLAYER", viewRouter: self.viewRouter))
             }
         }
     }
@@ -31,7 +32,7 @@ struct GlobalTabView_Previews: PreviewProvider {
     static let audioSerivce = AudioService()
     static let eqService = EqualizerService()
     static var previews: some View {
-        Home()
+        Home(viewRouter: ViewRouter())
             .environmentObject(audioSerivce)
             .environmentObject(eqService)
     }

@@ -10,8 +10,8 @@ import SwiftUI
 
 struct PageViewWrapper: ViewModifier {
     
-    var pageIndex: Binding<Int>
     let pageTitle: String
+    @ObservedObject var viewRouter: ViewRouter
     
     func body(content: Content) -> some View {
         ZStack {
@@ -19,7 +19,7 @@ struct PageViewWrapper: ViewModifier {
             VStack {
                 TopBar(pageTitle: pageTitle)
                 content.padding(30)
-                TapBar(index: pageIndex)
+                TapBar(viewRouter: self.viewRouter)
             }.edgesIgnoringSafeArea(.vertical)
         }
     }

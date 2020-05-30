@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TapBar: View {
-    var index: Binding<Int>
+    @ObservedObject var viewRouter: ViewRouter
     
     var body: some View {
         VStack {
@@ -21,32 +21,24 @@ struct TapBar: View {
             
             HStack {
                 
-                TapButton(systemImageName: "house", tapped: (self.index.wrappedValue == 0), action: {
-                    self.index.wrappedValue = 0
-                })
+                TapButton(systemImageName: "house", navigateToView: "home", viewRouter: self.viewRouter)
                 
                 Spacer(minLength: 10)
                 
-                TapButton(systemImageName: "slider.horizontal.3", tapped: (self.index.wrappedValue == 1), action: {
-                    self.index.wrappedValue = 1
-                })
+                TapButton(systemImageName: "slider.horizontal.3", navigateToView: "equalizer", viewRouter: self.viewRouter)
                 
                 Spacer(minLength: 10)
                 
-                TapButton(systemImageName: "music.note", tapped: (self.index.wrappedValue == 2), action: {
-                    self.index.wrappedValue = 2
-                })
+                TapButton(systemImageName: "music.note", navigateToView: "player", viewRouter: self.viewRouter)
                 
                 Spacer(minLength: 10)
                 
-                TapButton(systemImageName: "person", tapped: (self.index.wrappedValue == 3), action: {
-                    self.index.wrappedValue = 3
-                })
+                TapButton(systemImageName: "person", navigateToView: "player", viewRouter: self.viewRouter)
+                
             }
             .padding(.bottom, 20)
             .padding(.top, -30)
             .padding(.horizontal, 25)
-    //        .background(Color.gray.opacity(0.1))
             .animation(.spring())
         }.background(Color.gray.opacity(0.1))
     }
@@ -54,28 +46,30 @@ struct TapBar: View {
 
 struct TapBar_Previews: PreviewProvider {
     static var previews: some View {
-        TapBar(index: Binding.constant(2))
+        TapBar(viewRouter: ViewRouter())
     }
 }
 
 struct TapButton: View {
     var systemImageName: String
-    var tapped: Bool
-    let action: () -> Void
+    var navigateToView: String
+    
+    @ObservedObject var viewRouter: ViewRouter
     
     var body: some View {
-        Button(action: self.action) {
-            VStack {
-                Image(systemName: self.systemImageName)
-                    .font(.system(size: (self.tapped) ? 24 : 16, weight: .regular))
-                   .foregroundColor(.white)
-                   .padding()
-                    .background((self.tapped) ? Color.orange : Color("gray"))
-                   .
-                   clipShape(Circle())
-                   .padding(5)
-           }.padding()
-            .shadow(radius: 5)
+        VStack {
+            Image(systemName: self.systemImageName)
+                .font(.system(size: (self.viewRouter.currentView == navigateToView) ? 24 : 16, weight: .regular))
+               .foregroundColor(.white)
+               .padding()
+                .background((self.viewRouter.currentView == navigateToView) ? Color.orange : Color("gray"))
+               .
+               clipShape(Circle())
+               .padding(5)
+       }.padding()
+        .shadow(radius: 5)
+            .onTapGesture {
+                self.viewRouter.currentView = self.navigateToView
         }
     }
 }
