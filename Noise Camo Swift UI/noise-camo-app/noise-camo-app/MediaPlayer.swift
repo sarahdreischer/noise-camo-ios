@@ -9,7 +9,7 @@
 import SwiftUI
 import AVKit
 
-struct MediaPlayerView: View {
+struct MediaPlayer: View {
     
     @EnvironmentObject var audioService: AudioService
     @EnvironmentObject var eqService: EqualizerService
@@ -51,7 +51,7 @@ struct MediaPlayerView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             BackgroundView()
-            MediaPlayerView()
+            MediaPlayer()
                 .environmentObject(audioService)
                 .environmentObject(eqService)
         }

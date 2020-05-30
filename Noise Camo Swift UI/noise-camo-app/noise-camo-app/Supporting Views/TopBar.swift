@@ -11,6 +11,8 @@ import SwiftUI
 struct TopBar: View {
     let pageTitle: String
     
+    @ObservedObject var viewRouter: ViewRouter
+    
     private let screenWidth = UIScreen.main.bounds.width - 40
     
     var body: some View {
@@ -24,13 +26,16 @@ struct TopBar: View {
                 
                 Spacer()
                 
-                Button(action: {
-                    
-                }) {
+//                Button(action: {
+//                    
+//                }) {
                     Image(systemName: "person.circle")
                         .font(.system(size: 26, weight: .regular))
                         .foregroundColor(Color("gray-1"))
-                }
+                        .onTapGesture {
+                            self.viewRouter.currentView = "profile"
+                    }
+//                }
             }
             .padding(.horizontal, 35)
             .padding(.top, 50)
@@ -47,7 +52,7 @@ struct TopBar_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             BackgroundView()
-            TopBar(pageTitle: "Test")
+            TopBar(pageTitle: "Test", viewRouter: ViewRouter())
         }
     }
 }

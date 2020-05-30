@@ -33,7 +33,7 @@ struct TapBar: View {
                 
                 Spacer(minLength: 10)
                 
-                TapButton(systemImageName: "person", navigateToView: "player", viewRouter: self.viewRouter)
+                TapButton(systemImageName: "person", navigateToView: "profile", viewRouter: self.viewRouter)
                 
             }
             .padding(.bottom, 20)

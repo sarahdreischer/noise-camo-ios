@@ -1,49 +1,41 @@
 //
-//  GlobalTabView.swift
+//  ContentView.swift
 //  noise-camo-app
 //
-//  Created by Sarah Dreischer on 09/05/2020.
+//  Created by Sarah Dreischer on 27/04/2020.
 //  Copyright © 2020 Sarah Dreischer. All rights reserved.
 //
 
 import SwiftUI
 
 struct Home: View {
+    @ObservedObject var viewRouter: ViewRouter
     
-    @ObservedObject var viewRouter = ViewRouter()
-    
-    var body: some View {
-        VStack {
-            if self.viewRouter.currentView == "home" {
-                HomeView(viewRouter: self.viewRouter)
-                    .modifier(PageViewWrapper( pageTitle: "HOME", viewRouter: self.viewRouter))
-            } else if self.viewRouter.currentView == "equalizer" {
-                EqualizerView()
-                    .modifier(PageViewWrapper(pageTitle: "EQUALIZER", viewRouter: self.viewRouter))
-            } else {
-                MediaPlayerView()
-                    .modifier(PageViewWrapper(pageTitle: "PLAYER", viewRouter: self.viewRouter))
+    var body: some View {        
+        VStack(alignment: .center) {
+            
+            Button(action: {
+                self.viewRouter.currentView = "equalizer"
+            }) {
+                HStack {
+                       Text("Equalizer")
+                           .foregroundColor(.white)
+                   }
+                   .frame(width: UIScreen.main.bounds.width-50, height: UIScreen.main.bounds.height/4)
+                   .background(Color("gray"))
+                   .cornerRadius(25)
             }
+            
+            Spacer()
         }
     }
 }
 
-struct GlobalTabView_Previews: PreviewProvider {
-    static let audioSerivce = AudioService()
-    static let eqService = EqualizerService()
+struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        Home(viewRouter: ViewRouter())
-            .environmentObject(audioSerivce)
-            .environmentObject(eqService)
-    }
-}
-
-struct InstructionCard: View {
-    var body: some View {
         ZStack {
             BackgroundView()
-            Text("Set up bluetooth on your device")
-                .foregroundColor(.white)
+            Home(viewRouter: ViewRouter())
         }
     }
 }

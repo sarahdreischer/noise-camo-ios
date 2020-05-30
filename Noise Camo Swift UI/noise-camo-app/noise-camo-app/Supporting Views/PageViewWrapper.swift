@@ -17,7 +17,7 @@ struct PageViewWrapper: ViewModifier {
         ZStack {
             BackgroundView()
             VStack {
-                TopBar(pageTitle: pageTitle)
+                TopBar(pageTitle: pageTitle, viewRouter: viewRouter)
                 content.padding(30)
                 TapBar(viewRouter: self.viewRouter)
             }.edgesIgnoringSafeArea(.vertical)

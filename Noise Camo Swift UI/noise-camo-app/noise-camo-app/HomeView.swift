@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct HomeView: View {
+struct Home: View {
     @ObservedObject var viewRouter: ViewRouter
     
     var body: some View {        
@@ -35,7 +35,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             BackgroundView()
-            HomeView(viewRouter: ViewRouter())
+            Home(viewRouter: ViewRouter())
         }
     }
 }
