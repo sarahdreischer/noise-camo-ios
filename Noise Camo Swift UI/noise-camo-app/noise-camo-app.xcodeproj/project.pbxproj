@@ -12,6 +12,8 @@
 		E74301E92482CFB80031C1B3 /* BluetoothSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74301E82482CFB80031C1B3 /* BluetoothSetup.swift */; };
 		E74301EB2482D1220031C1B3 /* EarphonePeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74301EA2482D1220031C1B3 /* EarphonePeripheral.swift */; };
 		E74301ED2482D7F00031C1B3 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74301EC2482D7F00031C1B3 /* BluetoothManager.swift */; };
+		E74301F024831E050031C1B3 /* PageButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74301EF24831E050031C1B3 /* PageButtons.swift */; };
+		E74301F224831F800031C1B3 /* ConnectEarphonesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74301F124831F800031C1B3 /* ConnectEarphonesButton.swift */; };
 		E779A75724705694008FCA27 /* MediaPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E779A75624705694008FCA27 /* MediaPlayer.swift */; };
 		E779A75B24708C72008FCA27 /* PageViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E779A75A24708C72008FCA27 /* PageViewWrapper.swift */; };
 		E78E2BDF246830CB00A054A9 /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78E2BDE246830CB00A054A9 /* AudioService.swift */; };
@@ -60,6 +62,8 @@
 		E74301E82482CFB80031C1B3 /* BluetoothSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothSetup.swift; sourceTree = "<group>"; };
 		E74301EA2482D1220031C1B3 /* EarphonePeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarphonePeripheral.swift; sourceTree = "<group>"; };
 		E74301EC2482D7F00031C1B3 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		E74301EF24831E050031C1B3 /* PageButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageButtons.swift; sourceTree = "<group>"; };
+		E74301F124831F800031C1B3 /* ConnectEarphonesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectEarphonesButton.swift; sourceTree = "<group>"; };
 		E779A75624705694008FCA27 /* MediaPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayer.swift; sourceTree = "<group>"; };
 		E779A75A24708C72008FCA27 /* PageViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewWrapper.swift; sourceTree = "<group>"; };
 		E78E2BDE246830CB00A054A9 /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
@@ -116,6 +120,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E74301EE24831D070031C1B3 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				E7D0ECBF2457776B00A942C7 /* Home.swift */,
+				E74301EF24831E050031C1B3 /* PageButtons.swift */,
+				E74301F124831F800031C1B3 /* ConnectEarphonesButton.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		E7D0ECAF2457776A00A942C7 = {
 			isa = PBXGroup;
 			children = (
@@ -145,7 +159,7 @@
 				E7D0ECBB2457776A00A942C7 /* AppDelegate.swift */,
 				E7D0ECBD2457776A00A942C7 /* SceneDelegate.swift */,
 				E793796224674FAB00260C17 /* Main.swift */,
-				E7D0ECBF2457776B00A942C7 /* Home.swift */,
+				E74301EE24831D070031C1B3 /* Home */,
 				E7FCF000245F37C3001A938D /* EqualizerView.swift */,
 				E779A75624705694008FCA27 /* MediaPlayer.swift */,
 				E74301E624827DFC0031C1B3 /* Profile.swift */,
@@ -380,7 +394,9 @@
 				E7FCF001245F37C3001A938D /* EqualizerView.swift in Sources */,
 				E74301E5248278AA0031C1B3 /* ViewRouter.swift in Sources */,
 				E7FE31552479BB9C0075F6A4 /* Corners.swift in Sources */,
+				E74301F024831E050031C1B3 /* PageButtons.swift in Sources */,
 				E779A75724705694008FCA27 /* MediaPlayer.swift in Sources */,
+				E74301F224831F800031C1B3 /* ConnectEarphonesButton.swift in Sources */,
 				E7D0ECC02457776B00A942C7 /* Home.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

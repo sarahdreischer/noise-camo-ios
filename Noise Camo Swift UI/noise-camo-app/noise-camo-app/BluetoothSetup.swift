@@ -14,7 +14,7 @@ struct BluetoothSetup: View {
     
     var body: some View {
         ZStack {
-            BackgroundView()
+            Color("gray").edgesIgnoringSafeArea(.all)
             VStack {
                 Text("Set up bluetooth")
                     .foregroundColor(.white)

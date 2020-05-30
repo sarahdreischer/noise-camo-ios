@@ -12,20 +12,24 @@ struct Main: View {
     
     @ObservedObject var viewRouter = ViewRouter()
     
+    fileprivate func addPageBars(pageTitle: String) -> PageViewWrapper {
+        return PageViewWrapper( pageTitle: pageTitle, viewRouter: self.viewRouter)
+    }
+    
     var body: some View {
         VStack {
             if self.viewRouter.currentView == "home" {
                 Home(viewRouter: self.viewRouter)
-                    .modifier(PageViewWrapper( pageTitle: "HOME", viewRouter: self.viewRouter))
+                    .modifier(addPageBars(pageTitle: "HOME"))
             } else if self.viewRouter.currentView == "equalizer" {
                 EqualizerView()
-                    .modifier(PageViewWrapper(pageTitle: "EQUALIZER", viewRouter: self.viewRouter))
+                    .modifier(addPageBars(pageTitle: "EQUALIZER"))
             } else if self.viewRouter.currentView == "player" {
                 MediaPlayer()
-                    .modifier(PageViewWrapper(pageTitle: "PLAYER", viewRouter: self.viewRouter))
+                    .modifier(addPageBars(pageTitle: "PLAYER"))
             } else {
                 Profile()
-                    .modifier(PageViewWrapper(pageTitle: "PROFILE", viewRouter: self.viewRouter))
+                    .modifier(addPageBars(pageTitle: "PROFILE"))
             }
         }
     }
@@ -38,15 +42,5 @@ struct GlobalTabView_Previews: PreviewProvider {
         Main(viewRouter: ViewRouter())
             .environmentObject(audioSerivce)
             .environmentObject(eqService)
-    }
-}
-
-struct InstructionCard: View {
-    var body: some View {
-        ZStack {
-            BackgroundView()
-            Text("Set up bluetooth on your device")
-                .foregroundColor(.white)
-        }
     }
 }

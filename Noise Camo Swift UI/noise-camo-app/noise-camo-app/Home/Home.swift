@@ -21,54 +21,35 @@ struct Home: View {
             HStack {
                 Spacer()
                 Image(systemName: "headphones")
-                    .font(.system(size: 100,
+                    .font(.system(size: 80,
                                   weight: .light))
                     .foregroundColor(.white)
                     .brightness(0.1)
                     .padding(.top, -20)
+                    .padding(.trailing, 30)
                 
-                Spacer()
                 VStack(alignment: .leading) {
                     Image(systemName: "battery.25")
-                        .font(.system(size: 32,
+                        .font(.system(size: 25,
                                       weight: .regular))
                         .foregroundColor(.white)
-                        .padding(.bottom, 10)
+                        .padding(.bottom, 5)
                     Text("25%")
                         .font(.system(size: 20,
                                       weight: .bold))
                         .foregroundColor(.white)
                 }
                 Spacer()
-            }.frame(height: screenHeight/5)
+            }.frame(height: screenHeight/6)
             
             Button(action: {
                 self.setupPresent = true
             }) {
-                HStack {
-                    Image("bluetooth")
-                        .renderingMode(.original)
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .shadow(radius: 10)
-                    
-                    Text("Connect Earphones")
-                        .foregroundColor(.white)
-                        .font(.system(size: 20, weight: .regular))
-                        .shadow(radius: 5)
-                }
-                .frame(width: self.screenWidth - 30, height: self.screenHeight/15)
-                .background(Color("gray-1"))
-                .clipShape(Capsule())
+                ConnectEarphonesButton()
             }
             
-            HStack {
-                HomeButton(backgroundColor: Color("beige"), navigateToView: "equalizer", imageName: "slider.horizontal.3", viewRouter: self.viewRouter)
-                
-                Spacer()
-                
-                HomeButton(backgroundColor: Color("beige"), navigateToView: "player", imageName: "play.fill", viewRouter: self.viewRouter)
-            }.frame(width: self.screenWidth - 30)
+            PageButtons(viewRouter: self.viewRouter)
+                .frame(width: UIScreen.main.bounds.width - 30)
             
             Spacer()
         }.sheet(isPresented: self.$setupPresent) {
@@ -114,7 +95,7 @@ struct HomeButton: View {
             }
             .frame(height: UIScreen.main.bounds.height/8)
             .background(backgroundColor)
-            .cornerRadius(5)
+            .cornerRadius(8)
         }
     }
 }
