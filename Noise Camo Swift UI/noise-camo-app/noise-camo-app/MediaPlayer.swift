@@ -13,6 +13,8 @@ struct MediaPlayer: View {
     
     @EnvironmentObject var audioService: AudioService
     @EnvironmentObject var eqService: EqualizerService
+    @ObservedObject var songModel = SongViewModel()
+    @ObservedObject var playerModel = PlayerViewModel()
  
     private let screenWidth = UIScreen.main.bounds.width - 50
     
@@ -20,16 +22,18 @@ struct MediaPlayer: View {
         
         VStack(spacing: 10) {
             
-            Image(uiImage: self.audioService.audioData.count == 0 ? UIImage(named: "itunes")! : UIImage(data: self.audioService.audioData)!)
+            Image(uiImage: (self.songModel.songs[self.songModel.currentSongIndex].audioArtwork?.count == 0) ?
+                UIImage(named: "itunes")! :
+                UIImage(data: self.songModel.songs[self.songModel.currentSongIndex].audioArtwork!)!)
                 .resizable()
-                .frame(width: self.audioService.audioData.count == 0 ? 250 : nil, height: 250)
+                .frame(width: self.songModel.songs[self.songModel.currentSongIndex].audioArtwork?.count == 0 ? 250 : nil, height: 250)
                 .cornerRadius(15)
             
-            ArtistInfo()
+            ArtistInfo(songModel: self.songModel)
             
-            SongBar()
+            SongBar(songModel: self.songModel, playerModel: self.playerModel)
             
-            SongNavigator()
+            SongNavigator(songModel: self.songModel, playerModel: self.playerModel)
             
             Spacer()
          
@@ -38,39 +42,35 @@ struct MediaPlayer: View {
         .onAppear {
             self.eqService.setBands(bands: self.eqService.equalizer.bands)
             self.audioService.attachEqualizer(equalizer: self.eqService.equalizer)
-            self.audioService.setAudioFile(fileName: self.audioService.songs[self.audioService.currentSongIndex], fileType: "mp3")
-            self.audioService.prepareToPlay()
-            self.audioService.extractAudioData()
+            self.audioService.prepareToPlay(audioFile: self.songModel.songs[self.songModel.currentSongIndex].audioFile!)
         }
     }
 }
 
 struct MediaPlayerView_Previews: PreviewProvider {
-    static let audioService = AudioService()
-    static let eqService = EqualizerService()
     static var previews: some View {
         ZStack {
             BackgroundView()
             MediaPlayer()
-                .environmentObject(audioService)
-                .environmentObject(eqService)
+                .environmentObject(AudioService())
+                .environmentObject(EqualizerService())
         }
     }
 }
 
 struct ArtistInfo: View {
-    @EnvironmentObject var audioService: AudioService
+    @ObservedObject var songModel: SongViewModel
     
     private let screenWidth = UIScreen.main.bounds.width - 50
     
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(self.audioService.audioTitle)
+                Text(self.songModel.songs[self.songModel.currentSongIndex].audioTitle!)
                     .font(.system(size: 24))
                     .foregroundColor(.white)
                     .padding(.top)
-                Text(self.audioService.audioArtist)
+                Text(self.songModel.songs[self.songModel.currentSongIndex].audioArtist!)
                     .font(.system(size: 16))
                     .foregroundColor(Color("gray-1"))
                     .padding(.top)
@@ -82,9 +82,11 @@ struct ArtistInfo: View {
 
 struct SongBar: View {
     @EnvironmentObject var audioService: AudioService
+    @ObservedObject var songModel: SongViewModel
+    @ObservedObject var playerModel: PlayerViewModel
     
     private let screenWidth = UIScreen.main.bounds.width - 50
-    @State var timer = Timer.publish(every: 0.1, on: .main, in: .common)
+//    @State var timer = Timer.publish(every: 0.1, on: .main, in: .common)
 
     var body: some View {
         ZStack(alignment: .leading) {
@@ -93,68 +95,63 @@ struct SongBar: View {
                 .frame(width: self.screenWidth, height: 8)
             Capsule()
                 .fill(Color("top"))
-                .frame(width: self.audioService.songBarWidth, height: 8)
+                .frame(width: CGFloat(self.playerModel.songBarWidthFactor) * screenWidth, height: 8)
         }
         .padding(.top)
-        .onReceive(self.timer) { _ in
-            self.audioService.updateBarWidth(maxBarWidth: self.screenWidth)
-            
-            print(self.audioService.finished)
-            self.audioService.finished = (self.audioService.audioPlayerNode.currentTime + self.audioService.songTimeAdjustment >= self.audioService.getActualSongDuration())
-        }
-        .onReceive(self.audioService.$paused) { paused in
-            if paused {
-                self.cancelTimer()
-                self.audioService.songBarWidth = self.audioService.barWidthAtPause
+        .onReceive(playerModel.timer) { _ in
+            if !self.songModel.songs[self.songModel.currentSongIndex].finished {
+                PlayerHelper.updateSongBarWidthFactor(playerModel: self.playerModel, songModel: self.songModel, audioService: self.audioService)
             }
+            SongHelper.songFinished(songModel: self.songModel, audioService: self.audioService, playerModel: self.playerModel)
         }
-        .onReceive(self.audioService.$playing) { playing in
-            if playing {
-                self.instantiateTimer()
-                self.timer.connect()
-            }
-        }
-        .onReceive(self.audioService.$finished) { finished in
-            if finished {
-                self.audioService.songBarWidth = self.screenWidth
-                self.cancelTimer()
-            }
-        }
-    }
-    
-    func instantiateTimer() {
-        self.timer = Timer.publish (every: 0.1, on: .main, in: .common)
-        return
-    }
-
-    func cancelTimer() {
-        self.timer.connect().cancel()
-        return
+//        .onReceive(self.timer) { _ in
+//            self.audioService.updateBarWidth(maxBarWidth: self.screenWidth)
+//
+//            print(self.audioService.finished)
+//            self.audioService.finished = (self.audioService.audioPlayerNode.currentTime + self.audioService.songTimeAdjustment >= self.audioService.getActualSongDuration())
+//        }
+//        .onReceive(self.songModel.songs[self.songModel.currentSongIndex]) { paused in
+//            if paused {
+//                self.cancelTimer()
+//                self.audioService.songBarWidth = self.audioService.barWidthAtPause
+//            }
+//        }
+//        .onReceive(self.audioService.$playing) { playing in
+//            if playing {
+//                self.instantiateTimer()
+//                self.timer.connect()
+//            }
+//        }
+//        .onReceive(self.audioService.$finished) { finished in
+//            if finished {
+//                self.audioService.songBarWidth = self.screenWidth
+//                self.cancelTimer()
+//            }
+//        }
     }
 }
 
 struct SongNavigator: View {
     @EnvironmentObject var audioService: AudioService
+    @ObservedObject var songModel: SongViewModel
+    @ObservedObject var playerModel: PlayerViewModel
     
     private let screenWidth = UIScreen.main.bounds.width - 50
     
     var body: some View {
         HStack(spacing: UIScreen.main.bounds.width / 5 - 50) {
             Button(action: {
-                if self.audioService.currentSongIndex > 0 {
-                    self.audioService.currentSongIndex -= 1
-                    self.changeSongs()
-                }
+                SongHelper.changeSong(songModel: self.songModel, audioService: self.audioService, playerModel: self.playerModel)
             }) {
                 Image(systemName: "backward.fill")
                     .font(.title)
             }
             Button(action: {
                 let decrease = self.audioService.getActualSongTime(at: -15)
-                let duration = self.audioService.getActualSongDuration()
+                let duration = self.audioService.getActualSongDuration(songFileLength: self.songModel.songs[self.songModel.currentSongIndex].length)
                 self.audioService.audioPlayerNode.seekTo(
                     value: Float((decrease < 0) ? 0 : decrease),
-                    audioFile: self.audioService.audioFile,
+                    audioFile: self.songModel.songs[self.songModel.currentSongIndex].audioFile!,
                     duration: Float(duration + self.audioService.songTimeAdjustment)
                 )
                 self.audioService.songTimeAdjustment = (decrease < 0) ? 0 : decrease
@@ -165,18 +162,20 @@ struct SongNavigator: View {
             
             Button(action: {
                 if self.audioService.audioPlayerNode.isPlaying {
-                    self.audioService.barWidthAtPause = self.audioService.songBarWidth
+                    self.audioService.barWidthAtPause = CGFloat(self.playerModel.songBarWidthFactor)
                     self.audioService.audioPlayerNode.pause()
-                    
-                    self.audioService.paused = true
-                    self.audioService.playing = false
+                    self.songModel.songs[self.songModel.currentSongIndex].paused = true
+                    self.songModel.songs[self.songModel.currentSongIndex].playing = false
                 } else {
-                    if self.audioService.finished {
-                        self.changeSongs()
+                    if self.songModel.songs[self.songModel.currentSongIndex].finished == true {
+                        SongHelper.changeSong(songModel: self.songModel, audioService: self.audioService, playerModel: self.playerModel)
                     } else {
-                        self.audioService.paused = false
+                        self.songModel.songs[self.songModel.currentSongIndex].paused = false
+                        
+                        self.playerModel.timer.connect()
                         self.audioService.audioPlayerNode.play()
-                        self.audioService.playing = true
+                        
+                        self.songModel.songs[self.songModel.currentSongIndex].playing = true
                     }
                 }
             }) {
@@ -186,10 +185,10 @@ struct SongNavigator: View {
             
             Button(action: {
                 let increase = self.audioService.getActualSongTime(at: 15)
-                let duration = self.audioService.getActualSongDuration()
+                let duration = self.audioService.getActualSongDuration(songFileLength: self.songModel.songs[self.songModel.currentSongIndex].length)
                 self.audioService.audioPlayerNode.seekTo(
                     value: (increase < duration) ? Float(increase) : Float(duration),
-                    audioFile: self.audioService.audioFile,
+                    audioFile: self.songModel.songs[self.songModel.currentSongIndex].audioFile!,
                     duration: Float(duration)
                 )
                 self.audioService.songTimeAdjustment += 15
@@ -199,10 +198,7 @@ struct SongNavigator: View {
             }
             
             Button(action: {
-                if self.audioService.songs.count - 1 != self.audioService.currentSongIndex {
-                    self.audioService.currentSongIndex += 1
-                    self.changeSongs()
-                }
+                SongHelper.changeSong(songModel: self.songModel, audioService: self.audioService, playerModel: self.playerModel)
             }) {
                 Image(systemName: "forward.fill")
                     .font(.title)
@@ -210,22 +206,5 @@ struct SongNavigator: View {
         }
         .padding(.top, 25)
         .foregroundColor(.white)
-    }
-    
-    
-    func changeSongs() {
-        self.audioService.audioPlayerNode.stop()
-        self.audioService.setAudioFile(
-            fileName: self.audioService.songs[self.audioService.currentSongIndex], fileType: "mp3")
-        self.audioService.audioData = .init(count: 0)
-        self.audioService.audioTitle = ""
-        self.audioService.audioArtist = ""
-        self.audioService.prepareToPlay()
-        self.audioService.extractAudioData()
-        self.audioService.songBarWidth = 0
-        self.audioService.songTimeAdjustment = 0
-        self.audioService.audioPlayerNode.play()
-        self.audioService.playing = true
-        self.audioService.finished = false
     }
 }

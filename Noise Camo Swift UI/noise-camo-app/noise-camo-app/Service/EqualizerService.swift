@@ -15,8 +15,7 @@ class EqualizerService: ObservableObject {
     @Published var equalizer: AVAudioUnitEQ
     
     init() {
-        currentGain = Array(repeating: 0.0, count: EqualizerData().frequencies.count)
-        
+        currentGain = Array(repeating: 0.0, count: EqualizerData().frequencies.count)  
         equalizer = AVAudioUnitEQ(numberOfBands: EqualizerData().frequencies.count)
     }
     
