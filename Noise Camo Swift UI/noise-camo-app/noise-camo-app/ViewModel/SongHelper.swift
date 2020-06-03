@@ -10,24 +10,97 @@ import Foundation
 import AVFoundation
 
 struct SongHelper {
+    static func playSong(songModel: SongViewModel, audioService: AudioService, playerModel: PlayerViewModel) {
+        if songModel.songs[songModel.currentSongIndex].playing {
+            print("Song paused")
+            pauseSong(songModel: songModel, audioServices: audioService)
+        } else if songModel.songs[songModel.currentSongIndex].paused {
+            print("Song unpaused")
+            songModel.songs[songModel.currentSongIndex].paused = false
+            songModel.songs[songModel.currentSongIndex].playing = true
+            audioService.audioPlayerNode.play()
+        } else {
+            playerModel.reset()
+            audioService.prepareToPlay(audioFile: songModel.songs[songModel.currentSongIndex].audioFile!)
+            songModel.resetCurrentSong()
+            audioService.audioPlayerNode.play()
+            playerModel.timer.connect()
+            songModel.songs[songModel.currentSongIndex].playing = true
+            songModel.songs[songModel.currentSongIndex].sampleRate = audioService.audioPlayerNode.sampleRate
+            songModel.updateDuration()
+            print(songModel.songs[songModel.currentSongIndex])
+        }
+    }
     
-    static func changeSong(songModel: SongViewModel, audioService: AudioService, playerModel: PlayerViewModel) {
+    static func pauseSong(songModel: SongViewModel, audioServices: AudioService) {
+        audioServices.audioPlayerNode.pause()
+        songModel.songs[songModel.currentSongIndex].paused = true
+        songModel.songs[songModel.currentSongIndex].playing = false
+    }
+    
+    static func changeSong(_ direction: SongDirection, songModel: SongViewModel, audioService: AudioService, playerModel: PlayerViewModel) {
         audioService.audioPlayerNode.stop()
-        songModel.currentSongIndex = (songModel.currentSongIndex < (songModel.songs.count-1)) ? (songModel.currentSongIndex+1) : 0
-        playerModel.songBarWidthFactor = 0
-        audioService.initSong()
-        audioService.prepareToPlay(audioFile: songModel.songs[songModel.currentSongIndex].audioFile!)
-        audioService.audioPlayerNode.play()
-        songModel.songs[songModel.currentSongIndex].playing = true
-        songModel.songs[songModel.currentSongIndex].finished = false
+        songModel.currentSongIndex = direction.getNewIndex(index: songModel.currentSongIndex, count: songModel.songs.count)
+        playerModel.reset()
+        songModel.resetCurrentSong()
+        playSong(songModel: songModel, audioService: audioService, playerModel: playerModel)
+        print(songModel.songs[songModel.currentSongIndex])
     }
     
     static func songFinished(songModel: SongViewModel, audioService: AudioService, playerModel: PlayerViewModel) {
-        if audioService.getActualSongTime(at: 0) >= audioService.getActualSongDuration(songFileLength: songModel.songs[songModel.currentSongIndex].length) {
+        if (audioService.getActualSongTime(songAdjustmentTime: songModel.songs[songModel.currentSongIndex].audioAdjustmentTime) >= songModel.songs[songModel.currentSongIndex].duration) {
             print("Song is finished")
+            songModel.songs[songModel.currentSongIndex].playing = false
             songModel.songs[songModel.currentSongIndex].finished = true
             PlayerHelper.cancelTimer(playerModel: playerModel)
         }
     }
+    
+    static func jumpTo(_ second: Double, _ direction: SongDirection, songModel: SongViewModel, audioService: AudioService) {
+        if songModel.songs[songModel.currentSongIndex].playing {
+            let position = audioService.getActualSongTime(songAdjustmentTime: songModel.songs[songModel.currentSongIndex].audioAdjustmentTime)
+            let duration = songModel.songs[songModel.currentSongIndex].duration
+            let newPosition = direction.getNewTimePosition(position: position, change: second, duration: duration)
+            audioService.audioPlayerNode.seekTo(
+                value: Float(newPosition),
+                audioFile: songModel.songs[songModel.currentSongIndex].audioFile!,
+                duration: Float(duration)
+            )
+            songModel.songs[songModel.currentSongIndex].audioAdjustmentTime = direction.getNewAdjustmentTime(current: songModel.songs[songModel.currentSongIndex].audioAdjustmentTime, newPosition: newPosition, oldPosition: position)
+        }
+    }
+    
+    static func updatePlayingTime(songModel: SongViewModel, audioService: AudioService) {
+        songModel.songs[songModel.currentSongIndex].playingTime = audioService.getActualSongTime(songAdjustmentTime: songModel.songs[songModel.currentSongIndex].audioAdjustmentTime)
+    }
 
+}
+
+enum SongDirection: CaseIterable {
+    case backward, forward
+    func getNewIndex(index: Int, count: Int) -> Int {
+        switch self {
+        case .backward:
+            return (index == 0) ? (count-1) : (index-1)
+        case .forward:
+            return (index == (count-1)) ? 0 : index+1
+        }
+    }
+    func getNewTimePosition(position: Double, change: Double, duration: Double) -> Double {
+        switch self {
+        case .backward:
+            print(position-change)
+            return ((position - change) < 0) ? 0 : (position - change)
+        case .forward:
+            return ((position + change) < duration) ? (position + change) : duration
+        }
+    }
+    func getNewAdjustmentTime(current: Double, newPosition: Double, oldPosition: Double) -> Double {
+        switch self {
+        case .backward:
+            return current - (oldPosition - newPosition)
+        case .forward:
+            return current + (newPosition - oldPosition)
+        }
+    }
 }

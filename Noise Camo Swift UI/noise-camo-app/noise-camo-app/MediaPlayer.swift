@@ -42,7 +42,6 @@ struct MediaPlayer: View {
         .onAppear {
             self.eqService.setBands(bands: self.eqService.equalizer.bands)
             self.audioService.attachEqualizer(equalizer: self.eqService.equalizer)
-            self.audioService.prepareToPlay(audioFile: self.songModel.songs[self.songModel.currentSongIndex].audioFile!)
         }
     }
 }
@@ -84,9 +83,7 @@ struct SongBar: View {
     @EnvironmentObject var audioService: AudioService
     @ObservedObject var songModel: SongViewModel
     @ObservedObject var playerModel: PlayerViewModel
-    
     private let screenWidth = UIScreen.main.bounds.width - 50
-//    @State var timer = Timer.publish(every: 0.1, on: .main, in: .common)
 
     var body: some View {
         ZStack(alignment: .leading) {
@@ -99,35 +96,12 @@ struct SongBar: View {
         }
         .padding(.top)
         .onReceive(playerModel.timer) { _ in
-            if !self.songModel.songs[self.songModel.currentSongIndex].finished {
+            if !self.songModel.songs[self.songModel.currentSongIndex].finished && !self.songModel.songs[self.songModel.currentSongIndex].paused {
+                SongHelper.songFinished(songModel: self.songModel, audioService: self.audioService, playerModel: self.playerModel)
+                SongHelper.updatePlayingTime(songModel: self.songModel, audioService: self.audioService)
                 PlayerHelper.updateSongBarWidthFactor(playerModel: self.playerModel, songModel: self.songModel, audioService: self.audioService)
             }
-            SongHelper.songFinished(songModel: self.songModel, audioService: self.audioService, playerModel: self.playerModel)
         }
-//        .onReceive(self.timer) { _ in
-//            self.audioService.updateBarWidth(maxBarWidth: self.screenWidth)
-//
-//            print(self.audioService.finished)
-//            self.audioService.finished = (self.audioService.audioPlayerNode.currentTime + self.audioService.songTimeAdjustment >= self.audioService.getActualSongDuration())
-//        }
-//        .onReceive(self.songModel.songs[self.songModel.currentSongIndex]) { paused in
-//            if paused {
-//                self.cancelTimer()
-//                self.audioService.songBarWidth = self.audioService.barWidthAtPause
-//            }
-//        }
-//        .onReceive(self.audioService.$playing) { playing in
-//            if playing {
-//                self.instantiateTimer()
-//                self.timer.connect()
-//            }
-//        }
-//        .onReceive(self.audioService.$finished) { finished in
-//            if finished {
-//                self.audioService.songBarWidth = self.screenWidth
-//                self.cancelTimer()
-//            }
-//        }
     }
 }
 
@@ -141,64 +115,35 @@ struct SongNavigator: View {
     var body: some View {
         HStack(spacing: UIScreen.main.bounds.width / 5 - 50) {
             Button(action: {
-                SongHelper.changeSong(songModel: self.songModel, audioService: self.audioService, playerModel: self.playerModel)
+                SongHelper.changeSong(SongDirection.backward, songModel: self.songModel, audioService: self.audioService, playerModel: self.playerModel)
             }) {
                 Image(systemName: "backward.fill")
                     .font(.title)
             }
             Button(action: {
-                let decrease = self.audioService.getActualSongTime(at: -15)
-                let duration = self.audioService.getActualSongDuration(songFileLength: self.songModel.songs[self.songModel.currentSongIndex].length)
-                self.audioService.audioPlayerNode.seekTo(
-                    value: Float((decrease < 0) ? 0 : decrease),
-                    audioFile: self.songModel.songs[self.songModel.currentSongIndex].audioFile!,
-                    duration: Float(duration + self.audioService.songTimeAdjustment)
-                )
-                self.audioService.songTimeAdjustment = (decrease < 0) ? 0 : decrease
+                SongHelper.jumpTo(15, SongDirection.backward, songModel: self.songModel, audioService: self.audioService)
             }) {
                 Image(systemName: "gobackward.15")
                     .font(.title)
             }
             
             Button(action: {
-                if self.audioService.audioPlayerNode.isPlaying {
-                    self.audioService.barWidthAtPause = CGFloat(self.playerModel.songBarWidthFactor)
-                    self.audioService.audioPlayerNode.pause()
-                    self.songModel.songs[self.songModel.currentSongIndex].paused = true
-                    self.songModel.songs[self.songModel.currentSongIndex].playing = false
-                } else {
-                    if self.songModel.songs[self.songModel.currentSongIndex].finished == true {
-                        SongHelper.changeSong(songModel: self.songModel, audioService: self.audioService, playerModel: self.playerModel)
-                    } else {
-                        self.songModel.songs[self.songModel.currentSongIndex].paused = false
-                        
-                        self.playerModel.timer.connect()
-                        self.audioService.audioPlayerNode.play()
-                        
-                        self.songModel.songs[self.songModel.currentSongIndex].playing = true
-                    }
-                }
+                SongHelper.playSong(songModel: self.songModel, audioService: self.audioService, playerModel: self.playerModel)
             }) {
-                Image(systemName: self.audioService.audioPlayerNode.isPlaying ? "pause.fill" : "play.fill")
+                Image(systemName: self.songModel.songs[self.songModel.currentSongIndex].playing ? "pause.fill" : "play.fill")
                     .font(.system(size: 50))
             }
             
             Button(action: {
-                let increase = self.audioService.getActualSongTime(at: 15)
-                let duration = self.audioService.getActualSongDuration(songFileLength: self.songModel.songs[self.songModel.currentSongIndex].length)
-                self.audioService.audioPlayerNode.seekTo(
-                    value: (increase < duration) ? Float(increase) : Float(duration),
-                    audioFile: self.songModel.songs[self.songModel.currentSongIndex].audioFile!,
-                    duration: Float(duration)
-                )
-                self.audioService.songTimeAdjustment += 15
+                SongHelper.jumpTo(15, SongDirection.forward, songModel: self.songModel, audioService: self.audioService)
             }) {
                 Image(systemName: "goforward.15")
                     .font(.title)
             }
             
             Button(action: {
-                SongHelper.changeSong(songModel: self.songModel, audioService: self.audioService, playerModel: self.playerModel)
+                SongHelper
+                    .changeSong(SongDirection.forward, songModel: self.songModel, audioService: self.audioService, playerModel: self.playerModel)
             }) {
                 Image(systemName: "forward.fill")
                     .font(.title)

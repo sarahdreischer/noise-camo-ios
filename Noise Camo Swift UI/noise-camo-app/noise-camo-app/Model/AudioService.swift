@@ -50,19 +50,6 @@ class AudioService: ObservableObject {
 
     @Published var audioPlayerNode: AVAudioPlayerNode = AVAudioPlayerNode()
     
-//    @Published var songBarWidth: CGFloat = 0
-    
-    @Published var barWidthAtPause: CGFloat = 0
-    
-    var sampleRate: Float = 0
-    var songTimeAdjustment: Double = 0
-
-    
-    func initSong() {
-        songTimeAdjustment = 0
-        sampleRate = 0
-    }
-    
     func attachEqualizer(equalizer: AVAudioUnitEQ) {
         self.audioEngine.attach(self.audioPlayerNode)
         self.audioEngine.attach(equalizer)
@@ -72,12 +59,8 @@ class AudioService: ObservableObject {
             format: nil)
     }
     
-    func getActualSongTime(at: Double) -> Double {
-        return self.audioPlayerNode.currentTime + self.songTimeAdjustment + at
-    }
-    
-    func getActualSongDuration(songFileLength: Double) -> Double {
-        return self.audioPlayerNode.duration(fileLength: songFileLength)
+    func getActualSongTime(songAdjustmentTime: Double) -> Double {
+        return self.audioPlayerNode.currentTime + songAdjustmentTime
     }
     
     func prepareToPlay(audioFile: AVAudioFile) {

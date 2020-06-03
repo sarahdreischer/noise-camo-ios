@@ -20,6 +20,10 @@ struct SongModel: Identifiable {
     var finished: Bool
     var playing: Bool
     var length: Double
+    var audioAdjustmentTime: Double
+    var sampleRate: Double
+    var duration: Double
+    var playingTime: Double
     
     init(audioFile: AVAudioFile, audioArtwork: Data, audioTitle: String, audioArtist: String, audioLength: Double) {
         id = UUID()
@@ -31,5 +35,19 @@ struct SongModel: Identifiable {
         finished = false
         playing = false
         length = audioLength
+        audioAdjustmentTime = 0
+        sampleRate = 0
+        duration = 0
+        playingTime = 0
+    }
+    
+    public mutating func reset() {
+        paused = false
+        finished = false
+        playing = false
+        audioAdjustmentTime = 0
+        sampleRate = 0
+        duration = 0
+        playingTime = 0
     }
 }

@@ -29,7 +29,6 @@ class SongViewModel: ObservableObject {
                     var songTitle = ""
                     var songArtist = ""
                     let asset = AVAsset(url: url)
-                    
                     extractAudioMetadata(asset, &songArtwork, &songTitle, &songArtist)
                     self.songs.append(
                         SongModel.init(audioFile: audioFile, audioArtwork: songArtwork, audioTitle: songTitle, audioArtist: songArtist, audioLength: Double(audioFile.length))
@@ -44,10 +43,19 @@ class SongViewModel: ObservableObject {
     }
     
     fileprivate func extractAudioMetadata(_ asset: AVAsset, _ songArtwork: inout Data, _ songTitle: inout String, _ songArtist: inout String) {
-        for i in asset.commonMetadata {
-            if i.commonKey?.rawValue == "artwork" { songArtwork = i.value as! Data }
-            if i.commonKey?.rawValue == "title" { songTitle = i.value as! String }
-            if i.commonKey?.rawValue == "artist" { songArtist = i.value as! String }
+        asset.commonMetadata.forEach { attribute in
+            if attribute.commonKey?.rawValue == "artwork" { songArtwork = attribute.value as! Data }
+            else if attribute.commonKey?.rawValue == "title" { songTitle = attribute.value as! String }
+            else if attribute.commonKey?.rawValue == "artist" { songArtist = attribute.value as! String }
         }
+    }
+    
+    public func resetCurrentSong() {
+        print("Resetting \(String(describing: songs[currentSongIndex].audioTitle))")
+        songs[currentSongIndex].reset()
+    }
+    
+    public func updateDuration() {
+        songs[currentSongIndex].duration = songs[currentSongIndex].length / songs[currentSongIndex].sampleRate
     }
 }

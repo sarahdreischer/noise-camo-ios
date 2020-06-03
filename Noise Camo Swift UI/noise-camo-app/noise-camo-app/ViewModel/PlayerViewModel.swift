@@ -11,4 +11,9 @@ import Foundation
 class PlayerViewModel: ObservableObject {
     @Published var songBarWidthFactor: Double = 0
     @Published var timer = Timer.publish(every: 0.1, on: .main, in: .common)
+    
+    public func reset() {
+        songBarWidthFactor = 0
+        PlayerHelper.instantiateTimer(playerModel: self)
+    }
 }
