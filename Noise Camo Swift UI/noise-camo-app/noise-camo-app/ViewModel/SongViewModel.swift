@@ -19,8 +19,7 @@ class SongViewModel: ObservableObject {
     
     private func getSongs() {
         let songList = ["song", "black", "bad"]
-        
-        for song in songList {
+        songList.forEach { song in
             do {
                 if let path = Bundle.main.path(forResource: song, ofType: "mp3") {
                     let url = NSURL.fileURL(withPath: path)

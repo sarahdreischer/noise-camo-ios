@@ -9,7 +9,7 @@
 import SwiftUI
 import AVKit
 
-struct MediaPlayer: View {
+struct MediaPlayerView: View {
     
     @EnvironmentObject var audioService: AudioService
     @EnvironmentObject var eqService: EqualizerService
@@ -29,7 +29,7 @@ struct MediaPlayer: View {
                 .frame(width: self.songModel.songs[self.songModel.currentSongIndex].audioArtwork?.count == 0 ? 250 : nil, height: 250)
                 .cornerRadius(15)
             
-            ArtistInfo(songModel: self.songModel)
+            ArtistInfoView(songModel: self.songModel)
             
             SongBar(songModel: self.songModel, playerModel: self.playerModel)
             
@@ -50,14 +50,14 @@ struct MediaPlayerView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             BackgroundView()
-            MediaPlayer()
+            MediaPlayerView()
                 .environmentObject(AudioService())
                 .environmentObject(EqualizerService())
         }
     }
 }
 
-struct ArtistInfo: View {
+struct ArtistInfoView: View {
     @ObservedObject var songModel: SongViewModel
     
     private let screenWidth = UIScreen.main.bounds.width - 50

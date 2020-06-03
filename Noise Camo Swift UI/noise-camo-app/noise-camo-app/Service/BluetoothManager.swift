@@ -41,7 +41,7 @@ class BluetoothManager: NSObject, ObservableObject, CBCentralManagerDelegate  {
 //            centralManager.scanForPeripherals(withServices:
 //                [batterServiceCBUUID, genericServiceCBUUID, heartRateServiceCBUUID])
 //            centralManager.scanForPeripherals(withServices: nil)
-            centralManager.scanForPeripherals(withServices: [EarphonePeripheral.earphoneUUID])
+//            centralManager.scanForPeripherals(withServices: [EarphonePeripheral.earphoneUUID])
             print("Central.state is poweredOn")
         case .unknown:
             print("Central.state is unknown")

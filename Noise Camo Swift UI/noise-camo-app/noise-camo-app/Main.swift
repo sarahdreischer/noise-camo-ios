@@ -25,7 +25,7 @@ struct Main: View {
                 EqualizerView()
                     .modifier(addPageBars(pageTitle: "EQUALIZER"))
             } else if self.viewRouter.currentView == "player" {
-                MediaPlayer()
+                MediaPlayerView()
                     .modifier(addPageBars(pageTitle: "PLAYER"))
             } else {
                 Profile()

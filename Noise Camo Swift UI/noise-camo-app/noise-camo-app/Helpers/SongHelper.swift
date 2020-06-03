@@ -21,8 +21,8 @@ struct SongHelper {
             audioService.audioPlayerNode.play()
         } else {
             playerModel.reset()
-            audioService.prepareToPlay(audioFile: songModel.songs[songModel.currentSongIndex].audioFile!)
             songModel.resetCurrentSong()
+            audioService.prepareToPlay(audioFile: songModel.songs[songModel.currentSongIndex].audioFile!)
             audioService.audioPlayerNode.play()
             playerModel.timer.connect()
             songModel.songs[songModel.currentSongIndex].playing = true
@@ -74,33 +74,4 @@ struct SongHelper {
         songModel.songs[songModel.currentSongIndex].playingTime = audioService.getActualSongTime(songAdjustmentTime: songModel.songs[songModel.currentSongIndex].audioAdjustmentTime)
     }
 
-}
-
-enum SongDirection: CaseIterable {
-    case backward, forward
-    func getNewIndex(index: Int, count: Int) -> Int {
-        switch self {
-        case .backward:
-            return (index == 0) ? (count-1) : (index-1)
-        case .forward:
-            return (index == (count-1)) ? 0 : index+1
-        }
-    }
-    func getNewTimePosition(position: Double, change: Double, duration: Double) -> Double {
-        switch self {
-        case .backward:
-            print(position-change)
-            return ((position - change) < 0) ? 0 : (position - change)
-        case .forward:
-            return ((position + change) < duration) ? (position + change) : duration
-        }
-    }
-    func getNewAdjustmentTime(current: Double, newPosition: Double, oldPosition: Double) -> Double {
-        switch self {
-        case .backward:
-            return current - (oldPosition - newPosition)
-        case .forward:
-            return current + (newPosition - oldPosition)
-        }
-    }
 }
