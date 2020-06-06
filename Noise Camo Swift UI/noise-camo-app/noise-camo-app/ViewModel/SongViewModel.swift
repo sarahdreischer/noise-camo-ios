@@ -83,6 +83,16 @@ class SongViewModel: ObservableObject {
             format: nil)
     }
     
+    public func prepareToPlay() {
+        self.audioPlayerNode.scheduleFile(songs[currentSongIndex].audioFile!, at: nil, completionHandler: nil)
+        self.audioEngine.prepare()
+        do {
+        try self.audioEngine.start()
+        } catch _ {
+            print("Something went wrong when Audio Engine was started.")
+        }
+    }
+    
     public func play() {
         instantiateTimer()
         if !songs[currentSongIndex].paused {
@@ -136,14 +146,12 @@ class SongViewModel: ObservableObject {
                 } else {
                     songs[currentSongIndex].audioAdjustmentTime += second
                 }
-                print("Update audio adjustment time +\(second)")
             } else {
                 if songs[currentSongIndex].audioAdjustmentTime - second < 0 {
                     songs[currentSongIndex].audioAdjustmentTime = 0
                 } else {
                     songs[currentSongIndex].audioAdjustmentTime -= second
                 }
-                print("Update audio adjustment time -\(second)")
             }
             audioPlayerNode.seekTo(
             value: Float(audioPlayerNode.currentTime + songs[currentSongIndex].audioAdjustmentTime),
@@ -162,27 +170,12 @@ class SongViewModel: ObservableObject {
         print("Playing time is \(songs[currentSongIndex].playingTime)")
     }
     
-    public func reset() {
-        songBarWidthFactor = 0
-        self.instantiateTimer()
-    }
-    
     public func instantiateTimer() {
         self.timer = Timer.publish (every: 0.1, on: .main, in: .common)
     }
 
     public func cancelTimer() {
         self.timer.connect().cancel()
-    }
-    
-    public func prepareToPlay() {
-        self.audioPlayerNode.scheduleFile(songs[currentSongIndex].audioFile!, at: nil, completionHandler: nil)
-        self.audioEngine.prepare()
-        do {
-        try self.audioEngine.start()
-        } catch _ {
-            print("Something went wrong when Audio Engine was started.")
-        }
     }
     
     fileprivate func extractAudioMetadata(_ asset: AVAsset, _ songArtwork: inout Data, _ songTitle: inout String, _ songArtist: inout String) {
