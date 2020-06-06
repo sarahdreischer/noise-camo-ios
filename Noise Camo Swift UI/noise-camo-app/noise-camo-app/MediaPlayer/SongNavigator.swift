@@ -22,7 +22,7 @@ struct SongNavigator: View {
                     .font(.title)
             }
             Button(action: {
-                self.songModel.seekTo(15, SongDirection.backward)
+                self.songModel.jumpTo(15, SongDirection.backward)
             }) {
                 Image(systemName: "gobackward.15")
                     .font(.title)
@@ -40,7 +40,7 @@ struct SongNavigator: View {
             }
             
             Button(action: {
-                self.songModel.seekTo(15, SongDirection.forward)
+                self.songModel.jumpTo(15, SongDirection.forward)
             }) {
                 Image(systemName: "goforward.15")
                     .font(.title)

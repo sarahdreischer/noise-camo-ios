@@ -20,25 +20,31 @@ struct SongBar: View {
             Capsule()
                 .fill(Color("top"))
                 .frame(width: CGFloat(self.songModel.songBarWidthFactor) * screenWidth, height: 8)
+                .gesture(DragGesture()
+                    .onChanged({ value in
+                        let x = value.location.x
+                        self.songModel.songBarWidthFactor = Double(x / self.screenWidth)
+                    }).onEnded({ (value) in
+                        let factor = value.location.x / self.screenWidth
+                        let time = Double(factor) * self.songModel.songs[self.songModel.currentSongIndex].duration
+                        self.songModel.seekTo(time)
+                    }))
         }
         .padding(.top)
         .onReceive(songModel.timer) { _ in
             self.songModel.checkIfSongFinished()
             self.songModel.updatePlayingTime()
             self.songModel.updateSongBarWidthFactor()
-            
-//            if !self.songModel.songs[self.songModel.currentSongIndex].finished && !self.songModel.songs[self.songModel.currentSongIndex].paused {
-//                SongHelper.songFinished(songModel: self.songModel, audioService: self.audioService, playerModel: self.playerModel)
-//                SongHelper.updatePlayingTime(songModel: self.songModel, audioService: self.audioService)
-//                MediaPlayerHelper.updateSongBarWidthFactor(playerModel: self.playerModel, songModel: self.songModel, audioService: self.audioService)
-//            }
         }
     }
 }
 
 
-//struct SongBar_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SongBar()
-//    }
-//}
+struct SongBar_Previews: PreviewProvider {
+    static var previews: some View {
+        ZStack {
+            BackgroundView()
+            SongBar(songModel: SongViewModel())
+        }
+    }
+}

@@ -138,7 +138,7 @@ class SongViewModel: ObservableObject {
         }
     }
     
-    public func seekTo(_ second: Double, _ direction: SongDirection) {
+    public func jumpTo(_ second: Double, _ direction: SongDirection) {
         if songs[currentSongIndex].playing {
             if direction == SongDirection.forward {
                 if songs[currentSongIndex].playingTime + second > songs[currentSongIndex].duration {
@@ -158,6 +158,12 @@ class SongViewModel: ObservableObject {
             audioFile: songs[currentSongIndex].audioFile!,
             duration: Float(songs[currentSongIndex].duration))
         }
+    }
+    
+    public func seekTo(_ time: Double) {
+        songs[currentSongIndex].audioAdjustmentTime = time
+        audioPlayerNode.seekTo(value: Float(time), audioFile: songs[currentSongIndex].audioFile!, duration: Float(songs[currentSongIndex].duration))
+        if !songs[currentSongIndex].playing { pause() }
     }
     
     public func updateSongBarWidthFactor() {
@@ -185,5 +191,4 @@ class SongViewModel: ObservableObject {
             else if attribute.commonKey?.rawValue == "artist" { songArtist = attribute.value as! String }
         }
     }
-
 }
