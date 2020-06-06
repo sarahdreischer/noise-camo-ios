@@ -11,6 +11,8 @@ import SwiftUI
 struct Main: View {
     
     @ObservedObject var viewRouter = ViewRouter()
+    @ObservedObject var songModel: SongViewModel
+//    @ObservedObject var playerModel: PlayerViewModel
     
     fileprivate func addPageBars(pageTitle: String) -> PageViewWrapper {
         return PageViewWrapper( pageTitle: pageTitle, viewRouter: self.viewRouter)
@@ -25,7 +27,7 @@ struct Main: View {
                 EqualizerView()
                     .modifier(addPageBars(pageTitle: "EQUALIZER"))
             } else if self.viewRouter.currentView == "player" {
-                MediaPlayerView()
+                MediaPlayerView(songModel: songModel)
                     .modifier(addPageBars(pageTitle: "PLAYER"))
             } else {
                 Profile()
@@ -39,7 +41,7 @@ struct GlobalTabView_Previews: PreviewProvider {
     static let audioSerivce = AudioService()
     static let eqService = EqualizerService()
     static var previews: some View {
-        Main(viewRouter: ViewRouter())
+        Main(viewRouter: ViewRouter(), songModel: SongViewModel())
             .environmentObject(audioSerivce)
             .environmentObject(eqService)
     }

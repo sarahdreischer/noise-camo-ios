@@ -9,7 +9,9 @@
 import Foundation
 
 enum SongDirection: CaseIterable {
+    
     case backward, forward
+    
     func getNewIndex(index: Int, count: Int) -> Int {
         switch self {
         case .backward:

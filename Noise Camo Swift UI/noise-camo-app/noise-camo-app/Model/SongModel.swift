@@ -50,4 +50,8 @@ struct SongModel: Identifiable {
         duration = 0
         playingTime = 0
     }
+    
+    public mutating func updateDuration() {
+        duration = length / sampleRate
+    }
 }

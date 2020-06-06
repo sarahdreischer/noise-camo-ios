@@ -9,44 +9,45 @@
 import SwiftUI
 
 struct SongNavigator: View {
-    @EnvironmentObject var audioService: AudioService
     @ObservedObject var songModel: SongViewModel
-    @ObservedObject var playerModel: PlayerViewModel
     
     private let screenWidth = UIScreen.main.bounds.width - 50
     
     var body: some View {
         HStack(spacing: UIScreen.main.bounds.width / 5 - 50) {
             Button(action: {
-                SongHelper.changeSong(SongDirection.backward, songModel: self.songModel, audioService: self.audioService, playerModel: self.playerModel)
+                self.songModel.next(SongDirection.backward)
             }) {
                 Image(systemName: "backward.fill")
                     .font(.title)
             }
             Button(action: {
-                SongHelper.jumpTo(15, SongDirection.backward, songModel: self.songModel, audioService: self.audioService)
+                self.songModel.seekTo(15, SongDirection.backward)
             }) {
                 Image(systemName: "gobackward.15")
                     .font(.title)
             }
             
             Button(action: {
-                SongHelper.playSong(songModel: self.songModel, audioService: self.audioService, playerModel: self.playerModel)
+                if !self.songModel.songs[self.songModel.currentSongIndex].playing {
+                    self.songModel.play()
+                } else {
+                    self.songModel.pause()
+                }
             }) {
                 Image(systemName: self.songModel.songs[self.songModel.currentSongIndex].playing ? "pause.fill" : "play.fill")
                     .font(.system(size: 50))
             }
             
             Button(action: {
-                SongHelper.jumpTo(15, SongDirection.forward, songModel: self.songModel, audioService: self.audioService)
+                self.songModel.seekTo(15, SongDirection.forward)
             }) {
                 Image(systemName: "goforward.15")
                     .font(.title)
             }
             
             Button(action: {
-                SongHelper
-                    .changeSong(SongDirection.forward, songModel: self.songModel, audioService: self.audioService, playerModel: self.playerModel)
+                self.songModel.next(SongDirection.forward)
             }) {
                 Image(systemName: "forward.fill")
                     .font(.title)

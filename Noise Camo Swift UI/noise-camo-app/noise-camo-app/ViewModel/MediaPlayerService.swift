@@ -1,27 +1,32 @@
+////
+////  MediaPlayerService.swift
+////  noise-camo-app
+////
+////  Created by Sarah Dreischer on 05/06/2020.
+////  Copyright © 2020 Sarah Dreischer. All rights reserved.
+////
+//// Service layer connects SongViewModel, PlayerViewModel and AudioService layers
+////
 //
-//  SongHelper.swift
-//  noise-camo-app
+//import Foundation
+//import SwiftUI
 //
-//  Created by Sarah Dreischer on 31/05/2020.
-//  Copyright © 2020 Sarah Dreischer. All rights reserved.
-//
-
-import Foundation
-import AVFoundation
-
-struct SongHelper {
-//    static func playSong(songModel: SongViewModel, audioService: AudioService, playerModel: PlayerViewModel) {
-//        if songModel.songs[songModel.currentSongIndex].playing {
-//            print("Song paused")
-//            pauseSong(songModel: songModel, audioServices: audioService)
-//        } else if songModel.songs[songModel.currentSongIndex].paused {
-//            print("Song unpaused")
-//            songModel.songs[songModel.currentSongIndex].paused = false
-//            songModel.songs[songModel.currentSongIndex].playing = true
-//            audioService.audioPlayerNode.play()
+//struct MediaPlayerService: View {
+//    
+//    @ObservedObject var songs: SongViewModel
+//    var player: PlayerViewModel
+//    var audio: AudioService
+//    
+//    public func play() {
+//        if songs[songs.currentSongIndex].playing {
+//            songs.pause()
+//            audio.pause()
+//        } else if songs[songs.currentSongIndex].paused {
+//            songs.play()
+//            audio.play()
 //        } else {
-//            playerModel.reset()
-//            songModel.songs[songModel.currentSongIndex].reset()
+//            player.reset()
+//            songs[songs.currentSongIndex].reset()
 //            audioService.prepareToPlay(audioFile: songModel.songs[songModel.currentSongIndex].audioFile!)
 //            audioService.audioPlayerNode.play()
 //            playerModel.timer.connect()
@@ -52,7 +57,7 @@ struct SongHelper {
 //            print("Song is finished")
 //            songModel.songs[songModel.currentSongIndex].playing = false
 //            songModel.songs[songModel.currentSongIndex].finished = true
-//            PlayerHelper.cancelTimer(playerModel: playerModel)
+//            MediaPlayerHelper.cancelTimer(playerModel: playerModel)
 //        }
 //    }
 //    
@@ -73,5 +78,4 @@ struct SongHelper {
 //    static func updatePlayingTime(songModel: SongViewModel, audioService: AudioService) {
 //        songModel.songs[songModel.currentSongIndex].playingTime = audioService.getActualSongTime(songAdjustmentTime: songModel.songs[songModel.currentSongIndex].audioAdjustmentTime)
 //    }
-
-}
+//}
