@@ -20,7 +20,7 @@ struct Main: View {
     var body: some View {
         VStack {
             if self.viewRouter.currentView == "home" {
-                Home(viewRouter: self.viewRouter)
+                HomeView(viewRouter: self.viewRouter)
                     .modifier(addPageBars(pageTitle: "HOME"))
             } else if self.viewRouter.currentView == "equalizer" {
                 EqualizerView()
@@ -39,7 +39,6 @@ struct Main: View {
 struct GlobalTabView_Previews: PreviewProvider {
     static let eqService = EqualizerService()
     static var previews: some View {
-        Main(viewRouter: ViewRouter(), songModel: SongViewModel())
-            .environmentObject(eqService)
+        Main(songModel: SongViewModel()).environmentObject(eqService)
     }
 }

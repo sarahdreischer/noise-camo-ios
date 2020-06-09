@@ -18,7 +18,7 @@ struct SongBar: View {
                 .fill(Color.white.opacity(0.6))
                 .frame(width: self.screenWidth, height: 8)
             Capsule()
-                .fill(Color("top"))
+                .fill(Color("background"))
                 .frame(width: CGFloat(self.songModel.songBarWidthFactor) * screenWidth, height: 8)
                 .gesture(DragGesture()
                     .onChanged({ value in
@@ -31,6 +31,11 @@ struct SongBar: View {
                     }))
         }
         .padding(.top)
+        .onAppear {
+            if (self.songModel.songs[self.songModel.currentSongIndex].playing) {
+                self.songModel.timer.connect()
+            }
+        }
         .onReceive(songModel.timer) { _ in
             self.songModel.checkIfSongFinished()
             self.songModel.updatePlayingTime()

@@ -19,32 +19,21 @@ struct HomeView: View {
                 Image("earphone-background1")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/2.8)
-                
+                    .frame(height: UIScreen.main.bounds.height/3.5)
+                    .clipShape(Corners(corner: [.bottomLeft, .bottomRight], size: CGSize(width: 25, height: 25)))
                 VStack {
                     TopBarView(viewRouter: viewRouter)
-                    Spacer()
                     HStack {
-                        BatteryView()
+                        BatteryView().scaleEffect(0.7)
                         Spacer()
-                    }.padding([.leading, .bottom], 10)
+                    }
+                    .padding([.leading, .bottom], 10)
                 }
             }
-            .frame(height: UIScreen.main.bounds.height/2.8)
-            .edgesIgnoringSafeArea(.all)
-            
-            
-            Button(action: {
-                self.setupPresent = true
-            }) {
-                ConnectEarphonesButton()
-            }
-            
-            PageButtons(viewRouter: self.viewRouter)
-                .frame(width: UIScreen.main.bounds.width - 30)
-            
+            NavigatorButtonsView(viewRouter: self.viewRouter)
             Spacer()
         }
+        .edgesIgnoringSafeArea(.top)
         .sheet(isPresented: self.$setupPresent) {
             BluetoothSetup(bluetoothManager: self.bluetoothManager)
         }

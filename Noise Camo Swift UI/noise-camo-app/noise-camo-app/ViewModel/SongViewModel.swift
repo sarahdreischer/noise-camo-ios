@@ -168,12 +168,10 @@ class SongViewModel: ObservableObject {
     
     public func updateSongBarWidthFactor() {
         songBarWidthFactor = songs[currentSongIndex].playingTime / songs[currentSongIndex].duration
-        print("Current songbar width factor is \(songBarWidthFactor)")
     }
     
     public func updatePlayingTime() {
         songs[currentSongIndex].playingTime = audioPlayerNode.currentTime + songs[currentSongIndex].audioAdjustmentTime
-        print("Playing time is \(songs[currentSongIndex].playingTime)")
     }
     
     public func instantiateTimer() {

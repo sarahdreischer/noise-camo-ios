@@ -17,10 +17,12 @@ struct PageViewWrapper: ViewModifier {
         ZStack {
             BackgroundView()
             VStack {
-                TopBar(pageTitle: pageTitle, viewRouter: viewRouter)
-                content.padding(30)
+                content.padding(30).edgesIgnoringSafeArea(.vertical)
+                Spacer()
                 TapBar(viewRouter: self.viewRouter)
-            }.edgesIgnoringSafeArea(.vertical)
+                    .offset(y: 30)
+                    .edgesIgnoringSafeArea(.bottom)
+            }
         }
     }
 }

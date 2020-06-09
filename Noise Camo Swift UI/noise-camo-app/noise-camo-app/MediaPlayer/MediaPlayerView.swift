@@ -40,7 +40,6 @@ struct MediaPlayerView: View {
         .onAppear {
             self.eqService.setBands(bands: self.eqService.equalizer.bands)
             self.songModel.attachEqualizer(equalizer: self.eqService.equalizer)
-            self.songModel.prepareToPlay()
         }
     }
 }

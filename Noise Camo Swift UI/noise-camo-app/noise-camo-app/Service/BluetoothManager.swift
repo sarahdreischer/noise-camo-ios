@@ -13,7 +13,6 @@ class BluetoothManager: NSObject, ObservableObject, CBCentralManagerDelegate  {
     var centralManager: CBCentralManager!
     let batterServiceCBUUID = CBUUID(string: "0x180F")
     let genericServiceCBUUID = CBUUID(string: "0x1800")
-    
     let heartRateServiceCBUUID = CBUUID(string: "0x180D")
     var heartRatePeripheral: CBPeripheral!
     

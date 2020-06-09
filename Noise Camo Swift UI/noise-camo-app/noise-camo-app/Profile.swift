@@ -12,7 +12,7 @@ struct Profile: View {
     var body: some View {
         VStack {
             Spacer()
-            Text("Profile")
+            Text("Profile").foregroundColor(.white)
             Spacer()
         }
     }

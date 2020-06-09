@@ -60,7 +60,7 @@ struct EQSlider: View {
             GeometryReader { geometry in
                 HStack {
                     Slider(value: self.$sliderValue, in: -10...10, step: 1)
-                        .accentColor(Color.orange)
+                        .accentColor(Color("background"))
                         .rotationEffect(.degrees(-90), anchor: .center)
                         .frame(width: geometry.size.height, height: geometry.size.width)
                 }
@@ -93,7 +93,7 @@ struct EQButton: View {
             .inExpandingRectangle()
             .frame(height: 35)
             .fixedSize(horizontal: false, vertical: true)
-            .background(Color("gray"))
+            .background(Color("background"))
             .cornerRadius(5)
     }
 }
