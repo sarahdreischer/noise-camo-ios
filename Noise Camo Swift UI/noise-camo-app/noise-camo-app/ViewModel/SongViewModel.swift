@@ -93,6 +93,11 @@ class SongViewModel: ObservableObject {
         }
     }
     
+    public func connectTimer() {
+        instantiateTimer()
+        timer.connect()
+    }
+    
     public func play() {
         instantiateTimer()
         if !songs[currentSongIndex].paused {

@@ -16,7 +16,7 @@ struct SingleNavigatorButtonView: View {
         VStack(alignment: .center, spacing: 20) {
             ZStack {
                 Rectangle()
-                    .foregroundColor(Color("background"))
+                    .foregroundColor(Color("background").opacity(0.3))
                     .frame(width: UIScreen.main.bounds.width/3.5, height: UIScreen.main.bounds.height/7)
                     .cornerRadius(15)
                 
@@ -33,11 +33,8 @@ struct SingleNavigatorButtonView: View {
                     Text(buttonText)
                         .foregroundColor(.white)
                         .font(.callout)
-                    
                 }
-                
             }.shadow(color: Color("gray").opacity(0.6), radius: 1, x: 1, y: 1)
-            
         }
         .padding(.vertical)
     }

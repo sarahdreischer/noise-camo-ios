@@ -10,8 +10,8 @@ import SwiftUI
 
 struct HomeView: View {
     @ObservedObject var viewRouter: ViewRouter
-    @ObservedObject var bluetoothManager = BluetoothManager()
-    @State private var setupPresent: Bool = false
+//    @ObservedObject var bluetoothManager = BluetoothManager()
+//    @State private var setupPresent: Bool = false
     
     var body: some View {        
         VStack(alignment: .center) {
@@ -20,9 +20,10 @@ struct HomeView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(height: UIScreen.main.bounds.height/3.5)
+                    .opacity(0.9)
                     .clipShape(Corners(corner: [.bottomLeft, .bottomRight], size: CGSize(width: 25, height: 25)))
                 VStack {
-                    TopBarView(viewRouter: viewRouter)
+                    TopBarView(viewRouter: viewRouter).offset(y: -30)
                     HStack {
                         BatteryView().scaleEffect(0.7)
                         Spacer()
@@ -34,9 +35,9 @@ struct HomeView: View {
             Spacer()
         }
         .edgesIgnoringSafeArea(.top)
-        .sheet(isPresented: self.$setupPresent) {
-            BluetoothSetup(bluetoothManager: self.bluetoothManager)
-        }
+//        .sheet(isPresented: self.$setupPresent) {
+//            BluetoothSetup(bluetoothManager: self.bluetoothManager)
+//        }
     }
 }
 

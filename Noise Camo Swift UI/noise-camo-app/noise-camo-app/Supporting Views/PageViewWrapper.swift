@@ -20,9 +20,8 @@ struct PageViewWrapper: ViewModifier {
                 content.padding(30).edgesIgnoringSafeArea(.vertical)
                 Spacer()
                 TapBar(viewRouter: self.viewRouter)
-                    .offset(y: 30)
-                    .edgesIgnoringSafeArea(.bottom)
             }
+            .edgesIgnoringSafeArea(.bottom)
         }
     }
 }

@@ -33,13 +33,15 @@ struct SongBar: View {
         .padding(.top)
         .onAppear {
             if (self.songModel.songs[self.songModel.currentSongIndex].playing) {
-                self.songModel.timer.connect()
+                self.songModel.connectTimer()
             }
         }
         .onReceive(songModel.timer) { _ in
             self.songModel.checkIfSongFinished()
             self.songModel.updatePlayingTime()
             self.songModel.updateSongBarWidthFactor()
+            
+            print(self.songModel.songs[self.songModel.currentSongIndex].playingTime)
         }
     }
 }

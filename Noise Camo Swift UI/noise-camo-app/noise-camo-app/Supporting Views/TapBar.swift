@@ -12,35 +12,26 @@ struct TapBar: View {
     @ObservedObject var viewRouter: ViewRouter
     
     var body: some View {
-        VStack {
+        HStack {
+            TapButton(systemImageName: "house", navigateToView: "home", viewRouter: self.viewRouter)
             
-            Rectangle()
-                .frame(width: UIScreen.main.bounds.width, height: 1.0, alignment: .bottom)
-                .foregroundColor(.white)
-                .padding(.bottom)
+            Spacer(minLength: 10)
             
-            HStack {
-                
-                TapButton(systemImageName: "house", navigateToView: "home", viewRouter: self.viewRouter)
-                
-                Spacer(minLength: 10)
-                
-                TapButton(systemImageName: "slider.horizontal.3", navigateToView: "equalizer", viewRouter: self.viewRouter)
-                
-                Spacer(minLength: 10)
-                
-                TapButton(systemImageName: "music.note", navigateToView: "player", viewRouter: self.viewRouter)
-                
-                Spacer(minLength: 10)
-                
-                TapButton(systemImageName: "person", navigateToView: "profile", viewRouter: self.viewRouter)
-                
-            }
-            .padding(.bottom, 20)
-            .padding(.top, -30)
-            .padding(.horizontal, 25)
-            .animation(.spring())
-        }.background(Color.gray.opacity(0.1))
+            TapButton(systemImageName: "slider.horizontal.3", navigateToView: "equalizer", viewRouter: self.viewRouter)
+            
+            Spacer(minLength: 10)
+            
+            TapButton(systemImageName: "music.note", navigateToView: "player", viewRouter: self.viewRouter)
+            
+            Spacer(minLength: 10)
+            
+            TapButton(systemImageName: "person", navigateToView: "profile", viewRouter: self.viewRouter)
+            
+        }
+        .padding(.bottom, 20)
+        .padding(.horizontal, 25)
+        .animation(.spring())
+        .background(Color("background").opacity(0.2))
     }
 }
 
