@@ -10,12 +10,12 @@
 		E706A4FA248D5F7500472E1C /* BatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E706A4F9248D5F7500472E1C /* BatteryView.swift */; };
 		E706A4FC248D628100472E1C /* NavigatorButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E706A4FB248D628100472E1C /* NavigatorButtonsView.swift */; };
 		E706A4FE248D62CD00472E1C /* SingleNavigatorButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E706A4FD248D62CD00472E1C /* SingleNavigatorButtonView.swift */; };
+		E706A5012491968B00472E1C /* EqualizerSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E706A5002491968B00472E1C /* EqualizerSliderView.swift */; };
+		E706A503249196E000472E1C /* EqualizerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E706A502249196E000472E1C /* EqualizerButtonView.swift */; };
 		E74301E5248278AA0031C1B3 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74301E4248278AA0031C1B3 /* ViewRouter.swift */; };
 		E74301E724827DFC0031C1B3 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74301E624827DFC0031C1B3 /* Profile.swift */; };
 		E74301E92482CFB80031C1B3 /* BluetoothSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74301E82482CFB80031C1B3 /* BluetoothSetup.swift */; };
 		E74301ED2482D7F00031C1B3 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74301EC2482D7F00031C1B3 /* BluetoothManager.swift */; };
-		E74301F024831E050031C1B3 /* PageButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74301EF24831E050031C1B3 /* PageButtons.swift */; };
-		E74301F224831F800031C1B3 /* ConnectEarphonesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74301F124831F800031C1B3 /* ConnectEarphonesButton.swift */; };
 		E779A75724705694008FCA27 /* MediaPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E779A75624705694008FCA27 /* MediaPlayerView.swift */; };
 		E779A75B24708C72008FCA27 /* PageViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E779A75A24708C72008FCA27 /* PageViewWrapper.swift */; };
 		E77EDF6A248D5D8D0050E61C /* TopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77EDF69248D5D8D0050E61C /* TopBarView.swift */; };
@@ -67,12 +67,12 @@
 		E706A4F9248D5F7500472E1C /* BatteryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryView.swift; sourceTree = "<group>"; };
 		E706A4FB248D628100472E1C /* NavigatorButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorButtonsView.swift; sourceTree = "<group>"; };
 		E706A4FD248D62CD00472E1C /* SingleNavigatorButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleNavigatorButtonView.swift; sourceTree = "<group>"; };
+		E706A5002491968B00472E1C /* EqualizerSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerSliderView.swift; sourceTree = "<group>"; };
+		E706A502249196E000472E1C /* EqualizerButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerButtonView.swift; sourceTree = "<group>"; };
 		E74301E4248278AA0031C1B3 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		E74301E624827DFC0031C1B3 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		E74301E82482CFB80031C1B3 /* BluetoothSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothSetup.swift; sourceTree = "<group>"; };
 		E74301EC2482D7F00031C1B3 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
-		E74301EF24831E050031C1B3 /* PageButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageButtons.swift; sourceTree = "<group>"; };
-		E74301F124831F800031C1B3 /* ConnectEarphonesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectEarphonesButton.swift; sourceTree = "<group>"; };
 		E779A75624705694008FCA27 /* MediaPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerView.swift; sourceTree = "<group>"; };
 		E779A75A24708C72008FCA27 /* PageViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewWrapper.swift; sourceTree = "<group>"; };
 		E77EDF69248D5D8D0050E61C /* TopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
@@ -134,12 +134,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E706A4FF249194E400472E1C /* Equalizer */ = {
+			isa = PBXGroup;
+			children = (
+				E78E2BEB246A08D300A054A9 /* GridStack.swift */,
+				E7FCF000245F37C3001A938D /* EqualizerView.swift */,
+				E706A5002491968B00472E1C /* EqualizerSliderView.swift */,
+				E706A502249196E000472E1C /* EqualizerButtonView.swift */,
+			);
+			path = Equalizer;
+			sourceTree = "<group>";
+		};
+		E706A5042491978200472E1C /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				E74301E624827DFC0031C1B3 /* Profile.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		E706A505249198E200472E1C /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				E74301E82482CFB80031C1B3 /* BluetoothSetup.swift */,
+			);
+			path = Bluetooth;
+			sourceTree = "<group>";
+		};
 		E74301EE24831D070031C1B3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				E7D0ECBF2457776B00A942C7 /* HomeView.swift */,
-				E74301EF24831E050031C1B3 /* PageButtons.swift */,
-				E74301F124831F800031C1B3 /* ConnectEarphonesButton.swift */,
 				E77EDF69248D5D8D0050E61C /* TopBarView.swift */,
 				E706A4F9248D5F7500472E1C /* BatteryView.swift */,
 				E706A4FB248D628100472E1C /* NavigatorButtonsView.swift */,
@@ -151,6 +176,7 @@
 		E74301F52483F5F80031C1B3 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				E7831ED82488566400821204 /* SongDirection.swift */,
 				E7831ECA2483FF7800821204 /* SongViewModel.swift */,
 				E74301E4248278AA0031C1B3 /* ViewRouter.swift */,
 			);
@@ -166,14 +192,6 @@
 				E7831ED5248855E600821204 /* SongNavigator.swift */,
 			);
 			path = MediaPlayer;
-			sourceTree = "<group>";
-		};
-		E7831ED72488562600821204 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				E7831ED82488566400821204 /* SongDirection.swift */,
-			);
-			path = Helpers;
 			sourceTree = "<group>";
 		};
 		E7D0ECAF2457776A00A942C7 = {
@@ -199,19 +217,17 @@
 		E7D0ECBA2457776A00A942C7 /* noise-camo-app */ = {
 			isa = PBXGroup;
 			children = (
-				E7831ED72488562600821204 /* Helpers */,
+				E706A505249198E200472E1C /* Bluetooth */,
+				E706A5042491978200472E1C /* Account */,
+				E706A4FF249194E400472E1C /* Equalizer */,
 				E7831ED02488546E00821204 /* MediaPlayer */,
 				E74301F52483F5F80031C1B3 /* ViewModel */,
 				E7FE314D2479903C0075F6A4 /* Service */,
-				E7FCF008245F889F001A938D /* Supporting Views */,
+				E7FCF008245F889F001A938D /* Main */,
 				E7FCF005245F7590001A938D /* Model */,
-				E7D0ECBB2457776A00A942C7 /* AppDelegate.swift */,
-				E7D0ECBD2457776A00A942C7 /* SceneDelegate.swift */,
-				E793796224674FAB00260C17 /* Main.swift */,
 				E74301EE24831D070031C1B3 /* Home */,
-				E7FCF000245F37C3001A938D /* EqualizerView.swift */,
-				E74301E624827DFC0031C1B3 /* Profile.swift */,
-				E74301E82482CFB80031C1B3 /* BluetoothSetup.swift */,
+				E7D0ECBD2457776A00A942C7 /* SceneDelegate.swift */,
+				E7D0ECBB2457776A00A942C7 /* AppDelegate.swift */,
 				E7D0ECC12457776D00A942C7 /* Assets.xcassets */,
 				E7D0ECC62457776D00A942C7 /* LaunchScreen.storyboard */,
 				E7D0ECC92457776D00A942C7 /* Info.plist */,
@@ -266,16 +282,16 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		E7FCF008245F889F001A938D /* Supporting Views */ = {
+		E7FCF008245F889F001A938D /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				E7FCF009245F88C9001A938D /* BackgroundView.swift */,
-				E78E2BEB246A08D300A054A9 /* GridStack.swift */,
 				E779A75A24708C72008FCA27 /* PageViewWrapper.swift */,
 				E7FE31542479BB9C0075F6A4 /* Corners.swift */,
 				E7FE3158247AC2E10075F6A4 /* TapBar.swift */,
+				E793796224674FAB00260C17 /* Main.swift */,
 			);
-			path = "Supporting Views";
+			path = Main;
 			sourceTree = "<group>";
 		};
 		E7FE314D2479903C0075F6A4 /* Service */ = {
@@ -425,6 +441,7 @@
 				E77EDF6A248D5D8D0050E61C /* TopBarView.swift in Sources */,
 				E793796324674FAB00260C17 /* Main.swift in Sources */,
 				E706A4FC248D628100472E1C /* NavigatorButtonsView.swift in Sources */,
+				E706A5012491968B00472E1C /* EqualizerSliderView.swift in Sources */,
 				E779A75B24708C72008FCA27 /* PageViewWrapper.swift in Sources */,
 				E7831ECB2483FF7800821204 /* SongViewModel.swift in Sources */,
 				E7FE314C24798EC20075F6A4 /* EqualizerData.swift in Sources */,
@@ -439,6 +456,7 @@
 				E7FCF00A245F88C9001A938D /* BackgroundView.swift in Sources */,
 				E7831ED92488566400821204 /* SongDirection.swift in Sources */,
 				E74301ED2482D7F00031C1B3 /* BluetoothManager.swift in Sources */,
+				E706A503249196E000472E1C /* EqualizerButtonView.swift in Sources */,
 				E7FCF001245F37C3001A938D /* EqualizerView.swift in Sources */,
 				E706A4FE248D62CD00472E1C /* SingleNavigatorButtonView.swift in Sources */,
 				E7831ED42488554A00821204 /* SongBar.swift in Sources */,
@@ -446,9 +464,7 @@
 				E7831ED6248855E600821204 /* SongNavigator.swift in Sources */,
 				E74301E5248278AA0031C1B3 /* ViewRouter.swift in Sources */,
 				E7FE31552479BB9C0075F6A4 /* Corners.swift in Sources */,
-				E74301F024831E050031C1B3 /* PageButtons.swift in Sources */,
 				E779A75724705694008FCA27 /* MediaPlayerView.swift in Sources */,
-				E74301F224831F800031C1B3 /* ConnectEarphonesButton.swift in Sources */,
 				E7D0ECC02457776B00A942C7 /* HomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

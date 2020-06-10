@@ -15,7 +15,7 @@ struct EqualizerSliderView: View {
     
     var body: some View {
         VStack {
-            Text("-10dB")
+            Text("+10dB")
             GeometryReader { geometry in
                 HStack {
                     Slider(value: self.$sliderValue, in: -10...10, step: 1)
@@ -24,7 +24,7 @@ struct EqualizerSliderView: View {
                         .frame(width: geometry.size.height, height: geometry.size.width)
                 }
             }
-            Text("+10dB")
+            Text("-10dB")
             Text(label)
                 .foregroundColor(.gray)
         }.font(.custom("Avenir", size: 10))

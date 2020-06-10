@@ -108,11 +108,11 @@ class SongViewModel: ObservableObject {
             print("Song unpaused")
             songs[currentSongIndex].paused = false
         }
-        songs[currentSongIndex].playing = true
         self.audioPlayerNode.play()
+        connectTimer()
+        songs[currentSongIndex].playing = true
         songs[currentSongIndex].sampleRate = audioPlayerNode.sampleRate
         songs[currentSongIndex].updateDuration()
-        timer.connect()
     }
     
     public func pause() {
