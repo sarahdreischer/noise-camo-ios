@@ -12,6 +12,7 @@ struct Main: View {
     
     @ObservedObject var viewRouter = ViewRouter()
     @ObservedObject var songModel: SongViewModel
+    @ObservedObject var bluetoothManager: BluetoothManager
     
     fileprivate func addPageBars(pageTitle: String) -> PageViewWrapper {
         return PageViewWrapper( pageTitle: pageTitle, viewRouter: self.viewRouter)
@@ -20,7 +21,7 @@ struct Main: View {
     var body: some View {
         VStack {
             if self.viewRouter.currentView == "home" {
-                HomeView(viewRouter: self.viewRouter)
+                HomeView(bluetoothManager: self.bluetoothManager, viewRouter: self.viewRouter)
                     .modifier(addPageBars(pageTitle: "HOME"))
             } else if self.viewRouter.currentView == "equalizer" {
                 EqualizerView()
@@ -39,6 +40,6 @@ struct Main: View {
 struct GlobalTabView_Previews: PreviewProvider {
     static let eqService = EqualizerService()
     static var previews: some View {
-        Main(songModel: SongViewModel()).environmentObject(eqService)
+        Main(songModel: SongViewModel(), bluetoothManager: BluetoothManager()).environmentObject(eqService)
     }
 }

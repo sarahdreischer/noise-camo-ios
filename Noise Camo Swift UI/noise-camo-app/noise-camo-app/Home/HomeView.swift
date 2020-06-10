@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    @ObservedObject var bluetoothManager: BluetoothManager
     @ObservedObject var viewRouter: ViewRouter
 //    @ObservedObject var bluetoothManager = BluetoothManager()
 //    @State private var setupPresent: Bool = false
@@ -31,7 +32,7 @@ struct HomeView: View {
                     .padding([.leading, .bottom], 10)
                 }
             }
-            NavigatorButtonsView(viewRouter: self.viewRouter)
+            NavigatorButtonsView(bluetoothManager: self.bluetoothManager, viewRouter: self.viewRouter)
             Spacer()
         }
         .edgesIgnoringSafeArea(.top)
@@ -45,7 +46,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             BackgroundView()
-            HomeView(viewRouter: ViewRouter())
+            HomeView(bluetoothManager: BluetoothManager(), viewRouter: ViewRouter())
         }
     }
 }

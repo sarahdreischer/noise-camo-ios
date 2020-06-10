@@ -50,7 +50,7 @@ struct TapButton: View {
     var body: some View {
         VStack {
             Image(systemName: self.systemImageName)
-                .font(.system(size: (self.viewRouter.currentView == navigateToView) ? 24 : 16, weight: .regular))
+                .font(.system(size: (self.viewRouter.currentView == navigateToView) ? 16 : 16, weight: .regular))
                .foregroundColor(.white)
                .padding()
                .background((self.viewRouter.currentView == navigateToView) ? Color("background") : Color("gray"))

@@ -36,7 +36,8 @@ struct MediaPlayerView: View {
             Spacer()
          
         }
-        .scaleEffect(0.9)
+        .padding(.horizontal, 20)
+        .padding(.top, 50)
         .onAppear {
             self.eqService.setBands(bands: self.eqService.equalizer.bands)
             self.songModel.attachEqualizer(equalizer: self.eqService.equalizer)

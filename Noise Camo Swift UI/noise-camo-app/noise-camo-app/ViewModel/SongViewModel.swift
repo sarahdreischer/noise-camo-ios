@@ -46,7 +46,7 @@ class SongViewModel: ObservableObject {
     @Published var songs = [SongModel]()
     @Published var currentSongIndex = 0
     @Published var songBarWidthFactor: Double = 0
-    @Published var timer = Timer.publish(every: 0.1, on: .main, in: .common)
+    @Published var timer = Timer.publish(every: 0.5, on: .main, in: .common)
     @Published var audioEngine: AVAudioEngine = AVAudioEngine()
     @Published var audioPlayerNode: AVAudioPlayerNode = AVAudioPlayerNode()
     private let songList = ["song", "black", "bad"]
@@ -145,21 +145,27 @@ class SongViewModel: ObservableObject {
     
     public func jumpTo(_ second: Double, _ direction: SongDirection) {
         if songs[currentSongIndex].playing {
+            var actualSecond = second
             if direction == SongDirection.forward {
                 if songs[currentSongIndex].playingTime + second > songs[currentSongIndex].duration {
                     songs[currentSongIndex].audioAdjustmentTime = songs[currentSongIndex].duration - 1
+                    actualSecond = songs[currentSongIndex].duration
                 } else {
                     songs[currentSongIndex].audioAdjustmentTime += second
+                    actualSecond = songs[currentSongIndex].playingTime + second
                 }
             } else {
                 if songs[currentSongIndex].audioAdjustmentTime - second < 0 {
                     songs[currentSongIndex].audioAdjustmentTime = 0
+                    actualSecond = 0
                 } else {
                     songs[currentSongIndex].audioAdjustmentTime -= second
+                    actualSecond = songs[currentSongIndex].playingTime - second
                 }
             }
+            print("Jump to \(actualSecond) second")
             audioPlayerNode.seekTo(
-            value: Float(audioPlayerNode.currentTime + songs[currentSongIndex].audioAdjustmentTime),
+            value: Float(actualSecond),
             audioFile: songs[currentSongIndex].audioFile!,
             duration: Float(songs[currentSongIndex].duration))
         }
