@@ -124,12 +124,13 @@ class SongViewModel: ObservableObject {
     
     public func stop() {
         self.audioPlayerNode.stop()
+        cancelTimer()
     }
     
     public func next(_ direction: SongDirection) {
         stop()
         currentSongIndex = direction.getNewIndex(index: currentSongIndex, count: songs.count)
-        songs[currentSongIndex].reset()
+//        songs[currentSongIndex].reset()
         play()
         print(currentSongIndex)
     }
