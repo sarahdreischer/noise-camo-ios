@@ -33,7 +33,7 @@ struct SongRowView: View {
 struct SongRow_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-             Color.black.edgesIgnoringSafeArea(.all)
+            Color.black.edgesIgnoringSafeArea(.all)
             SongRowView(musicAsset: MusicAssetViewModel(item: MusicFetcher().mockTrack()))
         }
     }

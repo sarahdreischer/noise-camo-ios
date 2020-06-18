@@ -22,7 +22,7 @@ struct SongListView: View {
                 })
                 .sheet(isPresented: self.$tapped) {
                     PlayerView(viewModel: self.viewModel)
-                }
+            }
         }.listRowBackground(Color.black)
     }
     
@@ -33,10 +33,3 @@ struct SongListView: View {
         UITableView.appearance().backgroundColor = .black
     }
 }
-
-
-//struct SongListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SongListView()
-//    }
-//}

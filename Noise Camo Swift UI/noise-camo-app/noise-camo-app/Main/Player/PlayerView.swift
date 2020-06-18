@@ -21,11 +21,12 @@ struct PlayerView: View {
             VStack(alignment: .center) {
                 musicImage
                 
-                HStack {
-                    musicInformation
-                    Spacer()
-                }
+                musicInformation.padding(.bottom, 20)
+                
+                musicNavigator
             }
+        }.onAppear {
+            self.viewModel.initialisePlayerNode()
         }
     }
 }
@@ -38,32 +39,63 @@ private extension PlayerView {
         .resizable()
         .frame(width: viewModel.song?.artwork.count == 0 ? 250 : nil, height: 250)
         .cornerRadius(15)
+        .padding(.horizontal)
     }
     
     var musicInformation: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .center) {
             Text(viewModel.song?.title ?? "no title")
-                .font(.title)
+                .font(.subheadline)
                 .foregroundColor(.white)
                 .padding(.top)
             Text(viewModel.song?.artist ?? "no artist")
                 .font(.caption)
                 .foregroundColor(Color("gray-1"))
                 .padding(.top)
-        }.padding(.leading, 30)
+        }
+    }
+    
+    var musicNavigator: some View {
+        HStack(spacing: 20) {
+            Button(action: {
+                self.viewModel.backward()
+            }) {
+                Image(systemName: "backward")
+                    .font(.system(size: 30, weight: .regular))
+                    .foregroundColor(.white)
+            }
+            
+            Button(action: {
+                self.viewModel.backward(15)
+            }) {
+                Image(systemName: "gobackward.15")
+                    .font(.system(size: 30, weight: .regular))
+                    .foregroundColor(.white)
+            }
+            
+            Button(action: {
+                self.viewModel.play()
+            }) {
+                Image(systemName: "play")
+                    .font(.system(size: 50, weight: .regular))
+                    .foregroundColor(.white)
+            }
+            
+            Button(action: {
+                self.viewModel.forward(15)
+            }) {
+                Image(systemName: "goforward.15")
+                    .font(.system(size: 30, weight: .regular))
+                    .foregroundColor(.white)
+            }
+            
+            Button(action: {
+                self.viewModel.forward()
+            }) {
+                Image(systemName: "forward")
+                    .font(.system(size: 30, weight: .regular))
+                    .foregroundColor(.white)
+            }
+        }
     }
 }
-
-//struct PlayerView_Previews: PreviewProvider {
-//    let musicFetcher = MusicFetcher()
-//    var viewModel: PlayerViewModel
-//    init() {
-//        viewModel = PlayerViewModel(musicFetcher: musicFetcher)
-//    }
-//    static var previews: some View {
-//        ZStack {
-//            Color.black.edgesIgnoringSafeArea(.all)
-//            PlayerView(viewModel: self.viewModel)
-//        }
-//    }
-//}

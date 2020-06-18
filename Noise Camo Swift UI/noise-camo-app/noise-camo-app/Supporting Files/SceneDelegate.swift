@@ -43,7 +43,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate {
         let contentView = Main(songModel: SongViewModel(), bluetoothManager: BluetoothManager())
         
         let fetcher = MusicFetcher()
-        let viewModel = PlayerViewModel(musicFetcher: fetcher)
+        let controller = MusicController(audioNode: fetcher.audioNode)
+        let viewModel = PlayerViewModel(musicFetcher: fetcher, musicController: controller)
         let playerView = PlayerView(viewModel: viewModel)
         let songListView = SongListView(viewModel: viewModel)
 

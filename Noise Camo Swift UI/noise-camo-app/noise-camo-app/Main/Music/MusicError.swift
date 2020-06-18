@@ -9,5 +9,8 @@
 import Foundation
 
 enum MusicError: Error {
+    
     case parsing(description: String)
+    
+    case controlling(description: String)
 }

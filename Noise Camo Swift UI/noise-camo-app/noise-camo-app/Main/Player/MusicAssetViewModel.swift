@@ -27,7 +27,7 @@ struct MusicAssetViewModel: Identifiable {
     var artist: String {
         return item.commonMetadata.filter { $0.commonKey?.rawValue == "artist" }.map { $0.value as! String }.first ?? ""
     }
-    
+
     init(item: AVURLAsset) {
         self.item = item
     }

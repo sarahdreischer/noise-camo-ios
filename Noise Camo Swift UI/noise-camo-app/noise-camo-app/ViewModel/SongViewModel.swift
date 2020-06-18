@@ -24,19 +24,19 @@ extension AVAudioPlayerNode {
         return 0
     }
     
-    func seekTo(value: Float, audioFile: AVAudioFile, duration: Float) {
-        if self.lastRenderTime != nil && duration != Float.infinity {
-            let sampleRate = self.outputFormat(forBus: 0).sampleRate
-            let newSampleTime = AVAudioFramePosition(Int(sampleRate * Double(value)))
-            let length = duration - value
-            let framesToPlay = AVAudioFrameCount(Float(sampleRate) * length)
-            self.stop()
-            if framesToPlay > 1000 {
-                self.scheduleSegment(audioFile, startingFrame: newSampleTime, frameCount: framesToPlay, at: nil,completionHandler: nil)
-            }
-        }
-        self.play()
-    }
+//    func seekTo(value: Float, audioFile: AVAudioFile, duration: Float) {
+//        if self.lastRenderTime != nil && duration != Float.infinity {
+//            let sampleRate = self.outputFormat(forBus: 0).sampleRate
+//            let newSampleTime = AVAudioFramePosition(Int(sampleRate * Double(value)))
+//            let length = duration - value
+//            let framesToPlay = AVAudioFrameCount(Float(sampleRate) * length)
+//            self.stop()
+//            if framesToPlay > 1000 {
+//                self.scheduleSegment(audioFile, startingFrame: newSampleTime, frameCount: framesToPlay, at: nil,completionHandler: nil)
+//            }
+//        }
+//        self.play()
+//    }
     
     func duration(fileLength: Double) -> TimeInterval {
         return Double(fileLength / sampleRate)
@@ -165,16 +165,16 @@ class SongViewModel: ObservableObject {
                 }
             }
             print("Jump to \(actualSecond) second")
-            audioPlayerNode.seekTo(
-            value: Float(actualSecond),
-            audioFile: songs[currentSongIndex].audioFile!,
-            duration: Float(songs[currentSongIndex].duration))
+//            audioPlayerNode.seekTo(
+//            value: Float(actualSecond),
+//            audioFile: songs[currentSongIndex].audioFile!,
+//            duration: Float(songs[currentSongIndex].duration))
         }
     }
     
     public func seekTo(_ time: Double) {
         songs[currentSongIndex].audioAdjustmentTime = time
-        audioPlayerNode.seekTo(value: Float(time), audioFile: songs[currentSongIndex].audioFile!, duration: Float(songs[currentSongIndex].duration))
+//        audioPlayerNode.seekTo(value: Float(time), audioFile: songs[currentSongIndex].audioFile!, duration: Float(songs[currentSongIndex].duration))
         if !songs[currentSongIndex].playing { pause() }
     }
     
