@@ -30,4 +30,10 @@ extension MusicFetcher: MusicFetchable {
         let url = NSURL.fileURL(withPath: path)
         return Just(AVURLAsset(url: url, options: nil)).setFailureType(to: MusicError.self).eraseToAnyPublisher()
     }
+    
+    func mockTrack() -> AVURLAsset {
+        let path = Bundle.main.path(forResource: "song", ofType: "mp3")
+        let url = NSURL.fileURL(withPath: path!)
+        return AVURLAsset(url: url, options: nil)
+    }
 }

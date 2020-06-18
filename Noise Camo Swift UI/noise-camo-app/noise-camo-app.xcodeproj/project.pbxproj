@@ -18,8 +18,8 @@
 		E725115524958DCB00952D96 /* song.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E725115424958DCB00952D96 /* song.mp3 */; };
 		E72511592495904300952D96 /* MusicFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72511582495904300952D96 /* MusicFetcher.swift */; };
 		E725115B2495908500952D96 /* MusicError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E725115A2495908500952D96 /* MusicError.swift */; };
-		E725115D2496546900952D96 /* PlayerAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E725115C2496546900952D96 /* PlayerAssetViewModel.swift */; };
-		E72511622496615A00952D96 /* MusicPublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72511612496615A00952D96 /* MusicPublisherTests.swift */; };
+		E725115D2496546900952D96 /* MusicAssetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E725115C2496546900952D96 /* MusicAssetViewModel.swift */; };
+		E72511622496615A00952D96 /* MusicFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72511612496615A00952D96 /* MusicFetcherTests.swift */; };
 		E7251164249661C700952D96 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7251163249661C700952D96 /* PlayerView.swift */; };
 		E72511662496637600952D96 /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72511652496637600952D96 /* PlayerViewModel.swift */; };
 		E74301E5248278AA0031C1B3 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74301E4248278AA0031C1B3 /* ViewRouter.swift */; };
@@ -45,6 +45,8 @@
 		E7D0ECC82457776D00A942C7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7D0ECC62457776D00A942C7 /* LaunchScreen.storyboard */; };
 		E7D0ECD32457776D00A942C7 /* noise_camo_appTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D0ECD22457776D00A942C7 /* noise_camo_appTests.swift */; };
 		E7D0ECDE2457776D00A942C7 /* noise_camo_appUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D0ECDD2457776D00A942C7 /* noise_camo_appUITests.swift */; };
+		E7F73D35249BEA51002D0FD2 /* SongListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F73D34249BEA51002D0FD2 /* SongListView.swift */; };
+		E7F73D37249BED4C002D0FD2 /* SongRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F73D36249BED4C002D0FD2 /* SongRowView.swift */; };
 		E7FCF001245F37C3001A938D /* EqualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FCF000245F37C3001A938D /* EqualizerView.swift */; };
 		E7FCF00A245F88C9001A938D /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FCF009245F88C9001A938D /* BackgroundView.swift */; };
 		E7FE314C24798EC20075F6A4 /* EqualizerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE314B24798EC20075F6A4 /* EqualizerData.swift */; };
@@ -85,8 +87,8 @@
 		E725115424958DCB00952D96 /* song.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = song.mp3; sourceTree = "<group>"; };
 		E72511582495904300952D96 /* MusicFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicFetcher.swift; sourceTree = "<group>"; };
 		E725115A2495908500952D96 /* MusicError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicError.swift; sourceTree = "<group>"; };
-		E725115C2496546900952D96 /* PlayerAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerAssetViewModel.swift; sourceTree = "<group>"; };
-		E72511612496615A00952D96 /* MusicPublisherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPublisherTests.swift; sourceTree = "<group>"; };
+		E725115C2496546900952D96 /* MusicAssetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAssetViewModel.swift; sourceTree = "<group>"; };
+		E72511612496615A00952D96 /* MusicFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicFetcherTests.swift; sourceTree = "<group>"; };
 		E7251163249661C700952D96 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		E72511652496637600952D96 /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		E74301E4248278AA0031C1B3 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
@@ -118,6 +120,8 @@
 		E7D0ECD92457776D00A942C7 /* noise-camo-appUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "noise-camo-appUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7D0ECDD2457776D00A942C7 /* noise_camo_appUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = noise_camo_appUITests.swift; sourceTree = "<group>"; };
 		E7D0ECDF2457776D00A942C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E7F73D34249BEA51002D0FD2 /* SongListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListView.swift; sourceTree = "<group>"; };
+		E7F73D36249BED4C002D0FD2 /* SongRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongRowView.swift; sourceTree = "<group>"; };
 		E7FCF000245F37C3001A938D /* EqualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerView.swift; sourceTree = "<group>"; };
 		E7FCF009245F88C9001A938D /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		E7FE314B24798EC20075F6A4 /* EqualizerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerData.swift; sourceTree = "<group>"; };
@@ -218,6 +222,7 @@
 				E7D0ECBB2457776A00A942C7 /* AppDelegate.swift */,
 				E7D0ECC12457776D00A942C7 /* Assets.xcassets */,
 				E7D0ECC62457776D00A942C7 /* LaunchScreen.storyboard */,
+				E7D0ECC92457776D00A942C7 /* Info.plist */,
 				E7FCF002245F736F001A938D /* Sounds */,
 			);
 			path = "Supporting Files";
@@ -244,9 +249,11 @@
 		E725115E2496546D00952D96 /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				E725115C2496546900952D96 /* PlayerAssetViewModel.swift */,
+				E725115C2496546900952D96 /* MusicAssetViewModel.swift */,
 				E7251163249661C700952D96 /* PlayerView.swift */,
 				E72511652496637600952D96 /* PlayerViewModel.swift */,
+				E7F73D34249BEA51002D0FD2 /* SongListView.swift */,
+				E7F73D36249BED4C002D0FD2 /* SongRowView.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -316,7 +323,6 @@
 			isa = PBXGroup;
 			children = (
 				E725115624958F9600952D96 /* Main */,
-				E7D0ECC92457776D00A942C7 /* Info.plist */,
 				E725115324958C8D00952D96 /* Supporting Files */,
 				E706A5062492C54B00472E1C /* View */,
 				E74301F52483F5F80031C1B3 /* ViewModel */,
@@ -342,7 +348,7 @@
 				E72511672496641600952D96 /* PlayerTests */,
 				E7D0ECD22457776D00A942C7 /* noise_camo_appTests.swift */,
 				E7D0ECD42457776D00A942C7 /* Info.plist */,
-				E72511612496615A00952D96 /* MusicPublisherTests.swift */,
+				E72511612496615A00952D96 /* MusicFetcherTests.swift */,
 			);
 			path = "noise-camo-appTests";
 			sourceTree = "<group>";
@@ -547,6 +553,7 @@
 				E78E2BEC246A08D300A054A9 /* GridStack.swift in Sources */,
 				E725115B2495908500952D96 /* MusicError.swift in Sources */,
 				E706A50F2492E30700472E1C /* SpotifyManager.swift in Sources */,
+				E7F73D37249BED4C002D0FD2 /* SongRowView.swift in Sources */,
 				E71EA0D3249433EB0043B88C /* SpotifyView.swift in Sources */,
 				E74301E724827DFC0031C1B3 /* Profile.swift in Sources */,
 				E72511592495904300952D96 /* MusicFetcher.swift in Sources */,
@@ -565,9 +572,10 @@
 				E7831ED6248855E600821204 /* SongNavigator.swift in Sources */,
 				E74301E5248278AA0031C1B3 /* ViewRouter.swift in Sources */,
 				E7FE31552479BB9C0075F6A4 /* Corners.swift in Sources */,
+				E7F73D35249BEA51002D0FD2 /* SongListView.swift in Sources */,
 				E779A75724705694008FCA27 /* MediaPlayerView.swift in Sources */,
 				E7D0ECC02457776B00A942C7 /* HomeView.swift in Sources */,
-				E725115D2496546900952D96 /* PlayerAssetViewModel.swift in Sources */,
+				E725115D2496546900952D96 /* MusicAssetViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,7 +583,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E72511622496615A00952D96 /* MusicPublisherTests.swift in Sources */,
+				E72511622496615A00952D96 /* MusicFetcherTests.swift in Sources */,
 				E7D0ECD32457776D00A942C7 /* noise_camo_appTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -744,7 +752,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = "noise-camo-app/Info.plist";
+				INFOPLIST_FILE = "noise-camo-app/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -772,7 +780,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				INFOPLIST_FILE = "noise-camo-app/Info.plist";
+				INFOPLIST_FILE = "noise-camo-app/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

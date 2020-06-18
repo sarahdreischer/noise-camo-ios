@@ -11,9 +11,9 @@ import SwiftUI
 import Combine
 
 class PlayerViewModel: ObservableObject, Identifiable {
-    @Published var song: String = ""
+    @Published var song: MusicAssetViewModel?
     
-    @Published var dataSource: [PlayerAssetViewModel] = []
+    @Published var dataSource: [MusicAssetViewModel] = []
     
     private let musicFetcher: MusicFetchable
     
@@ -24,7 +24,6 @@ class PlayerViewModel: ObservableObject, Identifiable {
     init(musicFetcher: MusicFetchable) {
         self.musicFetcher = musicFetcher
         songs.forEach { fetchMusic(forSong: $0) }
-        song = songs.first ?? ""
     }
     
     func fetchMusic(forSong song: String) {
@@ -32,9 +31,9 @@ class PlayerViewModel: ObservableObject, Identifiable {
         .sink(receiveCompletion: { err in
             print(".sink() received the completion", String(describing: err))
         }, receiveValue: { asset in
-            let playerViewModel = PlayerAssetViewModel(item: asset)
-            print(playerViewModel.artist)
-            self.dataSource.append(playerViewModel)
+            let musicAssetViewModel = MusicAssetViewModel(item: asset)
+            print(musicAssetViewModel.artist)
+            self.dataSource.append(musicAssetViewModel)
         })
         .store(in: &disposables)
     }

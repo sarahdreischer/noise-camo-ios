@@ -45,6 +45,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate {
         let fetcher = MusicFetcher()
         let viewModel = PlayerViewModel(musicFetcher: fetcher)
         let playerView = PlayerView(viewModel: viewModel)
+        let songListView = SongListView(viewModel: viewModel)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
@@ -53,7 +54,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, SPTAppRemoteDelegate {
 //                .environmentObject(audioService)
 //                .environmentObject(eqService))
             
-            window.rootViewController = UIHostingController(rootView: playerView)
+            window.rootViewController = UIHostingController(rootView: songListView)
             
             self.window = window
             window.makeKeyAndVisible()
