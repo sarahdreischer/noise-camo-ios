@@ -16,6 +16,10 @@ struct MusicAssetViewModel: Identifiable, Hashable {
         return title + artist
     }
     
+    var url: URL {
+        return item.url
+    }
+    
     var artwork: Data {
         return item.commonMetadata.filter { $0.commonKey?.rawValue == "artwork" }.map { $0.value as! Data}.first ?? Data.init(count: 0)
     }

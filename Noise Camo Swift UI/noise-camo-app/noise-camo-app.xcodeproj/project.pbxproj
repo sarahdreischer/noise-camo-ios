@@ -48,7 +48,7 @@
 		E7F73D35249BEA51002D0FD2 /* SongListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F73D34249BEA51002D0FD2 /* SongListView.swift */; };
 		E7F73D37249BED4C002D0FD2 /* SongRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F73D36249BED4C002D0FD2 /* SongRowView.swift */; };
 		E7F73D39249C096B002D0FD2 /* MusicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F73D38249C096B002D0FD2 /* MusicController.swift */; };
-		E7F73D3F249C2C09002D0FD2 /* Array+Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F73D3E249C2C09002D0FD2 /* Array+Filter.swift */; };
+		E7F73D3F249C2C09002D0FD2 /* ArrayUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F73D3E249C2C09002D0FD2 /* ArrayUtils.swift */; };
 		E7FCF001245F37C3001A938D /* EqualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FCF000245F37C3001A938D /* EqualizerView.swift */; };
 		E7FCF00A245F88C9001A938D /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FCF009245F88C9001A938D /* BackgroundView.swift */; };
 		E7FE314C24798EC20075F6A4 /* EqualizerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE314B24798EC20075F6A4 /* EqualizerData.swift */; };
@@ -125,7 +125,7 @@
 		E7F73D34249BEA51002D0FD2 /* SongListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListView.swift; sourceTree = "<group>"; };
 		E7F73D36249BED4C002D0FD2 /* SongRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongRowView.swift; sourceTree = "<group>"; };
 		E7F73D38249C096B002D0FD2 /* MusicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicController.swift; sourceTree = "<group>"; };
-		E7F73D3E249C2C09002D0FD2 /* Array+Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Filter.swift"; sourceTree = "<group>"; };
+		E7F73D3E249C2C09002D0FD2 /* ArrayUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayUtils.swift; sourceTree = "<group>"; };
 		E7FCF000245F37C3001A938D /* EqualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerView.swift; sourceTree = "<group>"; };
 		E7FCF009245F88C9001A938D /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		E7FE314B24798EC20075F6A4 /* EqualizerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerData.swift; sourceTree = "<group>"; };
@@ -379,7 +379,7 @@
 		E7F73D3D249C2BFC002D0FD2 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				E7F73D3E249C2C09002D0FD2 /* Array+Filter.swift */,
+				E7F73D3E249C2C09002D0FD2 /* ArrayUtils.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -565,7 +565,7 @@
 				E793796324674FAB00260C17 /* Main.swift in Sources */,
 				E706A4FC248D628100472E1C /* NavigatorButtonsView.swift in Sources */,
 				E706A5012491968B00472E1C /* EqualizerSliderView.swift in Sources */,
-				E7F73D3F249C2C09002D0FD2 /* Array+Filter.swift in Sources */,
+				E7F73D3F249C2C09002D0FD2 /* ArrayUtils.swift in Sources */,
 				E779A75B24708C72008FCA27 /* PageViewWrapper.swift in Sources */,
 				E7831ECB2483FF7800821204 /* SongViewModel.swift in Sources */,
 				E7FE314C24798EC20075F6A4 /* EqualizerData.swift in Sources */,

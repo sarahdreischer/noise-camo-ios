@@ -7,19 +7,11 @@
 //
 
 import Foundation
+import AVFoundation
 import SwiftUI
 import Combine
 
 class PlayerViewModel: ObservableObject, Identifiable {
-    @Published var song: MusicAssetViewModel?
-    
-    @Published var dataSource: [MusicAssetViewModel] = []
-    
-    
-    
-    @Published var paused: Bool = true
-    
-    
     
     private let musicFetcher: MusicFetchable
     
@@ -28,6 +20,12 @@ class PlayerViewModel: ObservableObject, Identifiable {
     private var disposables = Set<AnyCancellable>()
     
     private let songs = ["song", "bad", "black"]
+    
+    @Published var song: MusicAssetViewModel?
+    
+    @Published var dataSource: [MusicAssetViewModel] = []
+    
+    @Published var paused: Bool = true
     
     init(musicFetcher: MusicFetchable, musicController: MusicControllable) {
         self.musicFetcher = musicFetcher
@@ -54,13 +52,7 @@ class PlayerViewModel: ObservableObject, Identifiable {
     
     func playOrPause() {
         do {
-            if paused {
-                try musicController.play()
-                print("\(String(describing: song?.title)) is playing")
-            } else {
-                musicController.pause()
-                print("\(String(describing: song?.title)) is paused")
-            }
+            try (paused) ? musicController.play() : musicController.pause()
             paused.toggle()
         } catch {
             print("Couldn't start song, unexpected error: \(error)")
@@ -68,10 +60,21 @@ class PlayerViewModel: ObservableObject, Identifiable {
     }
     
     func backward(_ sec: Int = 0) {
-        print("Go backward by \(sec) seconds")
+        if sec == 0 {
+            let index = dataSource.firstIndex(where: { $0.id == self.song?.id })
+            song = (index == 0) ? dataSource[dataSource.count - 1] : dataSource[(index ?? 1) - 1]
+        } else {
+            try? musicController.seekToTime(sec, forSong: AVAudioFile.init(forReading: song?.url ?? dataSource[0].url))
+            print("Go backward by \(sec) seconds")
+        }
     }
     
     func forward(_ sec: Int = 0) {
-        print("Go forward by \(sec) seconds")
+        if sec == 0 {
+            let index = dataSource.firstIndex(where: { $0.id == self.song?.id })
+            song = (index == (dataSource.count - 1)) ? dataSource[0] : dataSource[(index ?? 0) + 1]
+        } else {
+            print("Go forward by \(sec) seconds")
+        }
     }
 }

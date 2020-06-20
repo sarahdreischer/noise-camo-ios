@@ -13,11 +13,11 @@ import Combine
 protocol MusicControllable {
     func play() throws
 
-    func pause()
+    func pause() throws
     
     func skip(nextSong song: AVAudioFile) throws
     
-    func seekToTime(_ sec: Int, nextSong song: AVAudioFile) throws
+    func seekToTime(_ sec: Int, forSong song: AVAudioFile) throws
 }
 
 class MusicController {
@@ -34,15 +34,16 @@ extension MusicController: MusicControllable {
         if !audioNode.isPlaying { throw MusicError.controlling(description: "Cannot play audio file") }
     }
     
-    func pause() {
+    func pause() throws {
         audioNode.pause()
+        if audioNode.isPlaying { throw MusicError.controlling(description: "Cannot pause audio file") }
     }
     
     func skip(nextSong song: AVAudioFile) {
         audioNode.scheduleFile(song, at: nil, completionHandler: nil)
     }
     
-    func seekToTime(_ sec: Int, nextSong song: AVAudioFile) throws {
+    func seekToTime(_ sec: Int, forSong song: AVAudioFile) throws {
         try? audioNode.seekTo(positionInSeconds: sec, audioFile: song)
     }
 }
@@ -58,11 +59,8 @@ extension AVAudioPlayerNode {
                 let framesToPlay = AVAudioFrameCount(sampleRate * newLength)
                 self.stop()
                 if framesToPlay > 1000 {
-                    self.scheduleSegment(audioFile,
-                                         startingFrame: newTimePosition,
-                                         frameCount: framesToPlay,
-                                         at: nil,
-                                         completionHandler: nil)
+                    self.scheduleSegment(audioFile, startingFrame: newTimePosition, frameCount: framesToPlay,
+                                         at: nil, completionHandler: nil)
                 }
             } else {
                 throw MusicError.controlling(description: "Song duration is infinity")

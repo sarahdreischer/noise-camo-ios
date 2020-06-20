@@ -39,7 +39,7 @@ private extension PlayerView {
         .resizable()
         .frame(width: viewModel.song?.artwork.count == 0 ? 250 : nil, height: 250)
         .cornerRadius(15)
-        .padding(.horizontal)
+        .padding(.horizontal, viewModel.song?.artwork.count == 0 ? 0 : 40)
     }
     
     var musicInformation: some View {
