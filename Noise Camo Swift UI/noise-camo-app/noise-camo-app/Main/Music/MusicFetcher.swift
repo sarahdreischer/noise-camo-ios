@@ -44,13 +44,17 @@ extension MusicFetcher: MusicFetchable {
     
     private func initAudioEngine() {
         equalizer.setBands(bands: equalizer.equalizer.bands)
+        connectAudioNodes()
+        print("Starting the audio engine...")
+        audioEngine.prepare()
+        try? audioEngine.start()
+    }
+    
+    private func connectAudioNodes() {
         audioEngine.attach(audioNode)
         audioEngine.attach(equalizer.equalizer)
         audioEngine.connect(audioNode, to: equalizer.equalizer, format: nil)
         audioEngine.connect(equalizer.equalizer, to: audioEngine.outputNode, format: nil)
-        print("Starting the audio engine...")
-        audioEngine.prepare()
-        try? audioEngine.start()
     }
     
     private func initAudioNode(forSong song: String) throws {

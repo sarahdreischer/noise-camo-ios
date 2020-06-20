@@ -15,6 +15,12 @@ class PlayerViewModel: ObservableObject, Identifiable {
     
     @Published var dataSource: [MusicAssetViewModel] = []
     
+    
+    
+    @Published var paused: Bool = true
+    
+    
+    
     private let musicFetcher: MusicFetchable
     
     private let musicController: MusicControllable
@@ -42,19 +48,23 @@ class PlayerViewModel: ObservableObject, Identifiable {
     }
     
     func initialisePlayerNode() {
-//        let index = dataSource.firstIndex { $0 as AnyObject === song as AnyObject }
-        let index = 0
-        try? musicFetcher.initPlayerEngine(forSong: songs[index])
+        let index = dataSource.firstIndex(where: { $0.id == self.song?.id })
+        try? musicFetcher.initPlayerEngine(forSong: songs[index ?? 0])
     }
     
-    func play() {
-        try? musicController.play()
-        print("\(String(describing: song?.title)) is playing")
-    }
-    
-    func pause() {
-        musicController.pause()
-        print("\(String(describing: song?.title)) is paused")
+    func playOrPause() {
+        do {
+            if paused {
+                try musicController.play()
+                print("\(String(describing: song?.title)) is playing")
+            } else {
+                musicController.pause()
+                print("\(String(describing: song?.title)) is paused")
+            }
+            paused.toggle()
+        } catch {
+            print("Couldn't start song, unexpected error: \(error)")
+        }
     }
     
     func backward(_ sec: Int = 0) {

@@ -31,7 +31,7 @@ class MusicController {
 extension MusicController: MusicControllable {
     func play() throws {
         audioNode.play()
-        if audioNode.isPlaying { throw MusicError.controlling(description: "Cannot play audio file") }
+        if !audioNode.isPlaying { throw MusicError.controlling(description: "Cannot play audio file") }
     }
     
     func pause() {

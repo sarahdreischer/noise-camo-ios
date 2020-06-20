@@ -74,9 +74,9 @@ private extension PlayerView {
             }
             
             Button(action: {
-                self.viewModel.play()
+                self.viewModel.playOrPause()
             }) {
-                Image(systemName: "play")
+                Image(systemName: (self.viewModel.paused) ? "play" : "pause")
                     .font(.system(size: 50, weight: .regular))
                     .foregroundColor(.white)
             }

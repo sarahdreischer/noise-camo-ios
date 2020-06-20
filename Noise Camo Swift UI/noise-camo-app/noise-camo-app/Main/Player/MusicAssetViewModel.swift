@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-struct MusicAssetViewModel: Identifiable {
+struct MusicAssetViewModel: Identifiable, Hashable {
     private let item: AVURLAsset
     
     var id: String {
