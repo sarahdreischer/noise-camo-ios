@@ -48,8 +48,8 @@ class PlayerViewModel: ObservableObject, Identifiable {
     }
     
     func initialisePlayerNode() {
-        let index = dataSource.firstIndex(where: { $0.id == self.song?.id })
-        try? musicFetcher.initPlayerEngine(forSong: songs[index ?? 0])
+        let index = getSongIndex(fromDataSource: song ?? dataSource[0])
+        try? musicFetcher.initPlayerEngine(forSong: songs[index])
     }
     
     func playOrPause() {
@@ -68,8 +68,8 @@ class PlayerViewModel: ObservableObject, Identifiable {
     
     func backward(_ sec: Int = 0) {
         if sec == 0 {
-            let index = dataSource.firstIndex(where: { $0.id == self.song?.id })
-            song = (index == 0) ? dataSource[dataSource.count - 1] : dataSource[(index ?? 1) - 1]
+            let index = getSongIndex(fromDataSource: song)
+            song = (index == 0) ? dataSource[dataSource.count - 1] : dataSource[index - 1]
             try? musicController.skip(nextSong: AVAudioFile.init(forReading: song?.url ?? dataSource[0].url))
             try? (paused) ? musicController.pause() : musicController.play()
         } else {
@@ -81,8 +81,8 @@ class PlayerViewModel: ObservableObject, Identifiable {
     
     func forward(_ sec: Int = 0) {
         if sec == 0 {
-            let index = dataSource.firstIndex(where: { $0.id == self.song?.id })
-            song = (index == (dataSource.count - 1)) ? dataSource[0] : dataSource[(index ?? 0) + 1]
+            let index = getSongIndex(fromDataSource: song)
+            song = (index == (dataSource.count - 1)) ? dataSource[0] : dataSource[index + 1]
             try? musicController.skip(nextSong: AVAudioFile.init(forReading: song?.url ?? dataSource[0].url))
             try? (paused) ? musicController.pause() : musicController.play()
         } else {
@@ -93,5 +93,9 @@ class PlayerViewModel: ObservableObject, Identifiable {
             }
             print("Go forward by \(sec) seconds")
         }
+    }
+    
+    private func getSongIndex(fromDataSource song: MusicAssetViewModel?) -> Int {
+        return dataSource.firstIndex(where: { $0.id == song?.id }) ?? 0
     }
 }
