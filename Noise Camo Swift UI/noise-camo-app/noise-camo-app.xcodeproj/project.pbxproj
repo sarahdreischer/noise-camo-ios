@@ -14,6 +14,7 @@
 		E706A503249196E000472E1C /* EqualizerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E706A502249196E000472E1C /* EqualizerButtonView.swift */; };
 		E706A5092492CB3000472E1C /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E706A5082492CB3000472E1C /* SpotifyiOS.framework */; };
 		E706A50F2492E30700472E1C /* SpotifyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E706A50E2492E30700472E1C /* SpotifyManager.swift */; };
+		E71322AE249FD7CF009F5041 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71322AD249FD7CF009F5041 /* CustomNavigationBar.swift */; };
 		E71EA0D3249433EB0043B88C /* SpotifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71EA0D2249433EB0043B88C /* SpotifyView.swift */; };
 		E725115524958DCB00952D96 /* song.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E725115424958DCB00952D96 /* song.mp3 */; };
 		E72511592495904300952D96 /* MusicFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72511582495904300952D96 /* MusicFetcher.swift */; };
@@ -85,6 +86,7 @@
 		E706A5082492CB3000472E1C /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
 		E706A50A2492CE8600472E1C /* noise-camo-app-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "noise-camo-app-Bridging-Header.h"; sourceTree = "<group>"; };
 		E706A50E2492E30700472E1C /* SpotifyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyManager.swift; sourceTree = "<group>"; };
+		E71322AD249FD7CF009F5041 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		E71EA0D2249433EB0043B88C /* SpotifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyView.swift; sourceTree = "<group>"; };
 		E725115424958DCB00952D96 /* song.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = song.mp3; sourceTree = "<group>"; };
 		E72511582495904300952D96 /* MusicFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicFetcher.swift; sourceTree = "<group>"; };
@@ -380,6 +382,7 @@
 			isa = PBXGroup;
 			children = (
 				E7F73D3E249C2C09002D0FD2 /* ArrayUtils.swift */,
+				E71322AD249FD7CF009F5041 /* CustomNavigationBar.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -577,6 +580,7 @@
 				E725115B2495908500952D96 /* MusicError.swift in Sources */,
 				E7F73D39249C096B002D0FD2 /* MusicController.swift in Sources */,
 				E706A50F2492E30700472E1C /* SpotifyManager.swift in Sources */,
+				E71322AE249FD7CF009F5041 /* CustomNavigationBar.swift in Sources */,
 				E7F73D37249BED4C002D0FD2 /* SongRowView.swift in Sources */,
 				E71EA0D3249433EB0043B88C /* SpotifyView.swift in Sources */,
 				E74301E724827DFC0031C1B3 /* Profile.swift in Sources */,

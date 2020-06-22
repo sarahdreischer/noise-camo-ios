@@ -17,7 +17,8 @@ struct PlayerView: View {
     
     var body: some View {
         ZStack {
-            Color("music-background").edgesIgnoringSafeArea(.all)
+            Color.gray.edgesIgnoringSafeArea(.all)
+            
             VStack(alignment: .center) {
                 musicImage
                 

@@ -31,5 +31,7 @@ struct SongListView: View {
         UITableView.appearance().separatorStyle = .none
         UITableViewCell.appearance().backgroundColor = .black
         UITableView.appearance().backgroundColor = .black
+        
+//        CustomNavigationBar(UIColor.white).appearance
     }
 }

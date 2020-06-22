@@ -27,6 +27,8 @@ class PlayerViewModel: ObservableObject, Identifiable {
     
     @Published var paused: Bool = true
     
+    @Published var finished: Bool = false
+    
     init(musicFetcher: MusicFetchable, musicController: MusicControllable) {
         self.musicFetcher = musicFetcher
         self.musicController = musicController
@@ -52,7 +54,12 @@ class PlayerViewModel: ObservableObject, Identifiable {
     
     func playOrPause() {
         do {
-            try (paused) ? musicController.play() : musicController.pause()
+            if (!finished) {
+                try (paused) ? musicController.play() : musicController.pause()
+            } else {
+                try musicController.skip(nextSong: AVAudioFile.init(forReading: song?.url ?? dataSource[0].url))
+                try musicController.play()
+            }
             paused.toggle()
         } catch {
             print("Couldn't start song, unexpected error: \(error)")
@@ -63,8 +70,11 @@ class PlayerViewModel: ObservableObject, Identifiable {
         if sec == 0 {
             let index = dataSource.firstIndex(where: { $0.id == self.song?.id })
             song = (index == 0) ? dataSource[dataSource.count - 1] : dataSource[(index ?? 1) - 1]
+            try? musicController.skip(nextSong: AVAudioFile.init(forReading: song?.url ?? dataSource[0].url))
+            try? (paused) ? musicController.pause() : musicController.play()
         } else {
-            try? musicController.seekToTime(sec, forSong: AVAudioFile.init(forReading: song?.url ?? dataSource[0].url))
+            try? musicController.seekToTime(-1 * sec, forSong: AVAudioFile.init(forReading: song?.url ?? dataSource[0].url))
+            try? musicController.play()
             print("Go backward by \(sec) seconds")
         }
     }
@@ -73,7 +83,14 @@ class PlayerViewModel: ObservableObject, Identifiable {
         if sec == 0 {
             let index = dataSource.firstIndex(where: { $0.id == self.song?.id })
             song = (index == (dataSource.count - 1)) ? dataSource[0] : dataSource[(index ?? 0) + 1]
+            try? musicController.skip(nextSong: AVAudioFile.init(forReading: song?.url ?? dataSource[0].url))
+            try? (paused) ? musicController.pause() : musicController.play()
         } else {
+            try? musicController.seekToTime(sec, forSong: AVAudioFile.init(forReading: song?.url ?? dataSource[0].url))
+            if !musicController.isPlaying() {
+                paused = true
+                finished = true
+            }
             print("Go forward by \(sec) seconds")
         }
     }
