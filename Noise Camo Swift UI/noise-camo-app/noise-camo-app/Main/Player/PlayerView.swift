@@ -11,20 +11,33 @@ import SwiftUI
 struct PlayerView: View {
     @ObservedObject var viewModel: PlayerViewModel
     
+    @State var equalizerShow: Bool = false
+    
     init(viewModel: PlayerViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
         ZStack {
-            Color.gray.edgesIgnoringSafeArea(.all)
+            Color.black.edgesIgnoringSafeArea(.all)
             
             VStack(alignment: .center) {
+                TitleView(title: "Player")
+                
+                Spacer()
+                
                 musicImage
                 
                 musicInformation.padding(.bottom, 20)
                 
                 musicNavigator
+                
+                Spacer()
+                
+                musicModifierBar
+                
+                Spacer()
+                
             }
         }.onAppear {
             self.viewModel.initialisePlayerNode()
@@ -37,10 +50,10 @@ private extension PlayerView {
         Image(uiImage: (viewModel.song?.artwork.count == 0 ?
             UIImage(named: "itunes")! :
             UIImage(data: viewModel.song!.artwork))!)
-        .resizable()
-        .frame(width: viewModel.song?.artwork.count == 0 ? 250 : nil, height: 250)
-        .cornerRadius(15)
-        .padding(.horizontal, viewModel.song?.artwork.count == 0 ? 0 : 40)
+            .resizable()
+            .frame(width: viewModel.song?.artwork.count == 0 ? 250 : nil, height: 250)
+            .cornerRadius(15)
+            .padding(.horizontal, viewModel.song?.artwork.count == 0 ? 0 : 40)
     }
     
     var musicInformation: some View {
@@ -97,6 +110,19 @@ private extension PlayerView {
                     .font(.system(size: 30, weight: .regular))
                     .foregroundColor(.white)
             }
+        }
+    }
+    
+    var musicModifierBar: some View {
+        Image(systemName: "slider.horizontal.3")
+            .font(.title)
+            .rotationEffect(.degrees(-90), anchor: .center)
+            .foregroundColor(.white)
+            .onTapGesture(perform: {
+                self.equalizerShow.toggle()
+            })
+            .sheet(isPresented: self.$equalizerShow) {
+                EqualizerView2()
         }
     }
 }

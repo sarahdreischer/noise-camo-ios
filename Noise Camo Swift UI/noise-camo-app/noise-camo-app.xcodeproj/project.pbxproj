@@ -15,6 +15,9 @@
 		E706A5092492CB3000472E1C /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E706A5082492CB3000472E1C /* SpotifyiOS.framework */; };
 		E706A50F2492E30700472E1C /* SpotifyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E706A50E2492E30700472E1C /* SpotifyManager.swift */; };
 		E71322AE249FD7CF009F5041 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71322AD249FD7CF009F5041 /* CustomNavigationBar.swift */; };
+		E71322B324A78878009F5041 /* EqualizerView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71322B224A78878009F5041 /* EqualizerView2.swift */; };
+		E71322B624A7893B009F5041 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71322B524A7893B009F5041 /* TitleView.swift */; };
+		E71322B824A78B9A009F5041 /* SingleSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71322B724A78B9A009F5041 /* SingleSliderView.swift */; };
 		E71EA0D3249433EB0043B88C /* SpotifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71EA0D2249433EB0043B88C /* SpotifyView.swift */; };
 		E725115524958DCB00952D96 /* song.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E725115424958DCB00952D96 /* song.mp3 */; };
 		E72511592495904300952D96 /* MusicFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72511582495904300952D96 /* MusicFetcher.swift */; };
@@ -87,6 +90,9 @@
 		E706A50A2492CE8600472E1C /* noise-camo-app-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "noise-camo-app-Bridging-Header.h"; sourceTree = "<group>"; };
 		E706A50E2492E30700472E1C /* SpotifyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyManager.swift; sourceTree = "<group>"; };
 		E71322AD249FD7CF009F5041 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
+		E71322B224A78878009F5041 /* EqualizerView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerView2.swift; sourceTree = "<group>"; };
+		E71322B524A7893B009F5041 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		E71322B724A78B9A009F5041 /* SingleSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSliderView.swift; sourceTree = "<group>"; };
 		E71EA0D2249433EB0043B88C /* SpotifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyView.swift; sourceTree = "<group>"; };
 		E725115424958DCB00952D96 /* song.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = song.mp3; sourceTree = "<group>"; };
 		E72511582495904300952D96 /* MusicFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicFetcher.swift; sourceTree = "<group>"; };
@@ -213,6 +219,24 @@
 			path = Frameworks;
 			sourceTree = "<group>";
 		};
+		E71322B124A7871F009F5041 /* Equalizer */ = {
+			isa = PBXGroup;
+			children = (
+				E71322B224A78878009F5041 /* EqualizerView2.swift */,
+				E71322B724A78B9A009F5041 /* SingleSliderView.swift */,
+			);
+			path = Equalizer;
+			sourceTree = "<group>";
+		};
+		E71322B424A78928009F5041 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				E71322B524A7893B009F5041 /* TitleView.swift */,
+				E74301E4248278AA0031C1B3 /* ViewRouter.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		E71EA0D4249433F00043B88C /* Spotify */ = {
 			isa = PBXGroup;
 			children = (
@@ -237,6 +261,7 @@
 		E725115624958F9600952D96 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				E71322B124A7871F009F5041 /* Equalizer */,
 				E725115E2496546D00952D96 /* Player */,
 				E725115724958FEF00952D96 /* Music */,
 			);
@@ -289,7 +314,6 @@
 			children = (
 				E7831ED82488566400821204 /* SongDirection.swift */,
 				E7831ECA2483FF7800821204 /* SongViewModel.swift */,
-				E74301E4248278AA0031C1B3 /* ViewRouter.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -373,6 +397,7 @@
 		E7F73D3C249C2BE4002D0FD2 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				E71322B424A78928009F5041 /* UI */,
 				E7F73D3D249C2BFC002D0FD2 /* Extensions */,
 			);
 			path = Utilities;
@@ -566,6 +591,7 @@
 				E74301E92482CFB80031C1B3 /* BluetoothSetup.swift in Sources */,
 				E77EDF6A248D5D8D0050E61C /* TopBarView.swift in Sources */,
 				E793796324674FAB00260C17 /* Main.swift in Sources */,
+				E71322B324A78878009F5041 /* EqualizerView2.swift in Sources */,
 				E706A4FC248D628100472E1C /* NavigatorButtonsView.swift in Sources */,
 				E706A5012491968B00472E1C /* EqualizerSliderView.swift in Sources */,
 				E7F73D3F249C2C09002D0FD2 /* ArrayUtils.swift in Sources */,
@@ -591,6 +617,7 @@
 				E7FCF00A245F88C9001A938D /* BackgroundView.swift in Sources */,
 				E7831ED92488566400821204 /* SongDirection.swift in Sources */,
 				E74301ED2482D7F00031C1B3 /* BluetoothManager.swift in Sources */,
+				E71322B824A78B9A009F5041 /* SingleSliderView.swift in Sources */,
 				E7251164249661C700952D96 /* PlayerView.swift in Sources */,
 				E706A503249196E000472E1C /* EqualizerButtonView.swift in Sources */,
 				E7FCF001245F37C3001A938D /* EqualizerView.swift in Sources */,
@@ -598,6 +625,7 @@
 				E7831ED42488554A00821204 /* SongBar.swift in Sources */,
 				E7831EC72483F94D00821204 /* SongModel.swift in Sources */,
 				E7831ED6248855E600821204 /* SongNavigator.swift in Sources */,
+				E71322B624A7893B009F5041 /* TitleView.swift in Sources */,
 				E74301E5248278AA0031C1B3 /* ViewRouter.swift in Sources */,
 				E7FE31552479BB9C0075F6A4 /* Corners.swift in Sources */,
 				E7F73D35249BEA51002D0FD2 /* SongListView.swift in Sources */,

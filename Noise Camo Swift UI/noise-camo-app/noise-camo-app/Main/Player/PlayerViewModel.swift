@@ -87,12 +87,14 @@ class PlayerViewModel: ObservableObject, Identifiable {
             try? (paused) ? musicController.pause() : musicController.play()
         } else {
             try? musicController.seekToTime(sec, forSong: AVAudioFile.init(forReading: song?.url ?? dataSource[0].url))
-            if !musicController.isPlaying() {
-                paused = true
-                finished = true
-            }
+            if !musicController.isPlaying() { setSongFinished() }
             print("Go forward by \(sec) seconds")
         }
+    }
+    
+    private func setSongFinished() {
+        paused = true
+        finished = true
     }
     
     private func getSongIndex(fromDataSource song: MusicAssetViewModel?) -> Int {
