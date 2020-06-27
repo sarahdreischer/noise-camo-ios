@@ -10,12 +10,12 @@ import SwiftUI
 
 struct EqualizerView2: View {
     
-    @State var slider1: Float = 50
-    @State var slider2: Float = 40
-    @State var slider3: Float = 70
-    @State var slider4: Float = 20
-    @State var slider5: Float = 10
-    @State var slider6: Float = 40
+    @State var slider1: Float = 0.6
+    @State var slider2: Float = 0.4
+    @State var slider3: Float = 0.7
+    @State var slider4: Float = 0.2
+    @State var slider5: Float = 0.1
+    @State var slider6: Float = 0.4
     
     var body: some View {
         ZStack {
@@ -47,17 +47,17 @@ struct EqualizerView2_Previews: PreviewProvider {
 private extension EqualizerView2 {
     var equalizerSlider: some View {
         HStack {
-            SingleSliderView(percentage: $slider1, label: "60kHz")
+            SingleSliderView(currentValue: $slider1, label: "60kHz")
             
-            SingleSliderView(percentage: $slider2, label: "150kHz")
+            SingleSliderView(currentValue: $slider2, label: "150kHz")
             
-            SingleSliderView(percentage: $slider3, label: "400kHz")
+            SingleSliderView(currentValue: $slider3, label: "400kHz")
             
-            SingleSliderView(percentage: $slider4, label: "1000kHz")
+            SingleSliderView(currentValue: $slider4, label: "1000kHz")
             
-            SingleSliderView(percentage: $slider5, label: "2400kHz")
+            SingleSliderView(currentValue: $slider5, label: "2400kHz")
             
-            SingleSliderView(percentage: $slider6, label: "15000kHz")
+            SingleSliderView(currentValue: $slider6, label: "15000kHz")
         }
     }
     

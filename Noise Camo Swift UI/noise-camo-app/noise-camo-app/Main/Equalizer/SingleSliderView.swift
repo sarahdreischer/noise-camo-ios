@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SingleSliderView: View {
-    @Binding var percentage: Float
+    @Binding var currentValue: Float
     
     let label: String
     
@@ -32,23 +32,19 @@ struct SingleSliderView: View {
                             .fill(Color.black)
                     }
                     .frame(width: 15, height: 15)
-                    .offset(y: geometry.size.height * CGFloat( -1 * self.percentage / 100))
-                    .gesture(DragGesture()
+                    .offset(y: geometry.size.height * CGFloat( -1 * self.currentValue))
+                    .gesture(DragGesture(minimumDistance: 0)
                     .onChanged{ value in
-                        self.percentage = Float((value.location.y / geometry.size.height) * 100)
-                        print(self.percentage)
-                    }
-                    .onEnded{ value in
-                        self.percentage = Float((value.location.y / geometry.size.height) * 100)
-                        
-                        print(self.percentage)
+                        self.currentValue = self.clampSliderValue(
+                            yOffset: value.location.y,
+                            height: geometry.size.height)
                         }
                     )
                     
                     
                     Rectangle()
                         .foregroundColor(.white)
-                        .frame(width: 1, height: geometry.size.height * CGFloat(self.percentage / 100))
+                        .frame(width: 1, height: geometry.size.height * CGFloat(self.currentValue))
                 }
             }
             
@@ -59,6 +55,17 @@ struct SingleSliderView: View {
             Text(label).foregroundColor(.gray)
         }.font(.custom("Avenir", size: 10))
     }
+    
+    private func clampSliderValue(yOffset: CGFloat, height: CGFloat) -> Float {
+        let offset = -1 * yOffset
+        let factor = Float(offset / height)
+        print("height: \(height) + offset: \(offset) + factor \(factor) + round factor \(getFixedValue(factor))")
+        return (offset <= height && offset >= 0) ? factor : getFixedValue(factor)
+    }
+    
+    private func getFixedValue(_ factor: Float) -> Float{
+        return (factor < 0) ? 0 : 1
+    }
 }
 
 struct SingleSliderView_Previews: PreviewProvider {
@@ -66,7 +73,7 @@ struct SingleSliderView_Previews: PreviewProvider {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
             SingleSliderView(
-                percentage: Binding.constant(50),
+                currentValue: Binding.constant(0.5),
                 label: "test")
         }
     }
