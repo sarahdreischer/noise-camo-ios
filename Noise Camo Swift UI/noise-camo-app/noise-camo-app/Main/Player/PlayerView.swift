@@ -39,8 +39,6 @@ struct PlayerView: View {
                 Spacer()
                 
             }
-        }.onAppear {
-            self.viewModel.initialisePlayerNode()
         }
     }
 }

@@ -21,6 +21,8 @@ class PlayerViewModel: ObservableObject, Identifiable {
     
     private let songs = ["song", "bad", "black"]
     
+    private var songTimer: AnyCancellable?
+    
     @Published var song: MusicAssetViewModel?
     
     @Published var dataSource: [MusicAssetViewModel] = []
@@ -33,6 +35,16 @@ class PlayerViewModel: ObservableObject, Identifiable {
         self.musicFetcher = musicFetcher
         self.musicController = musicController
         songs.forEach { fetchMusic(forSong: $0) }
+        
+        self.songTimer = Timer.publish(every: 0.5, on: RunLoop.main, in: .common)
+            .autoconnect()
+            .sink { [unowned self] _ in
+                self.paused = !musicController.isPlaying()
+                print("Song is paused: \(self.paused)")
+                self.finished = musicController.isFinished(audioFile: try! self.getAudioFile())
+                if (self.finished) { self.paused = true }
+                print("Song is finished: \(self.finished)")
+        }
     }
     
     func fetchMusic(forSong song: String) {
@@ -60,7 +72,6 @@ class PlayerViewModel: ObservableObject, Identifiable {
                 try musicController.skip(nextSong: AVAudioFile.init(forReading: song?.url ?? dataSource[0].url))
                 try musicController.play()
             }
-            paused.toggle()
         } catch {
             print("Couldn't start song, unexpected error: \(error)")
         }
@@ -69,35 +80,37 @@ class PlayerViewModel: ObservableObject, Identifiable {
     func backward(_ sec: Int = 0) {
         if sec == 0 {
             let index = getSongIndex(fromDataSource: song)
-            song = (index == 0) ? dataSource[dataSource.count - 1] : dataSource[index - 1]
-            try? musicController.skip(nextSong: AVAudioFile.init(forReading: song?.url ?? dataSource[0].url))
-            try? (paused) ? musicController.pause() : musicController.play()
+            skipToSong(songIndex: index - 1)
         } else {
-            try? musicController.seekToTime(-1 * sec, forSong: AVAudioFile.init(forReading: song?.url ?? dataSource[0].url))
-            try? musicController.play()
-            print("Go backward by \(sec) seconds")
+            try? musicController.seekToTime(-1 * sec, forSong: getAudioFile())
+            if !paused { try? musicController.play() }
         }
     }
     
     func forward(_ sec: Int = 0) {
         if sec == 0 {
             let index = getSongIndex(fromDataSource: song)
-            song = (index == (dataSource.count - 1)) ? dataSource[0] : dataSource[index + 1]
-            try? musicController.skip(nextSong: AVAudioFile.init(forReading: song?.url ?? dataSource[0].url))
-            try? (paused) ? musicController.pause() : musicController.play()
+            skipToSong(songIndex: index + 1)
         } else {
-            try? musicController.seekToTime(sec, forSong: AVAudioFile.init(forReading: song?.url ?? dataSource[0].url))
-            if !musicController.isPlaying() { setSongFinished() }
-            print("Go forward by \(sec) seconds")
+            try? musicController.seekToTime(sec, forSong: getAudioFile())
+            if !paused { try? musicController.play() }
         }
-    }
-    
-    private func setSongFinished() {
-        paused = true
-        finished = true
     }
     
     private func getSongIndex(fromDataSource song: MusicAssetViewModel?) -> Int {
         return dataSource.firstIndex(where: { $0.id == song?.id }) ?? 0
+    }
+    
+    private func skipToSong(songIndex: Int) {
+        if songIndex > dataSource.count - 1 { song = dataSource[songIndex - dataSource.count] }
+        else if songIndex < 0 { song = dataSource[dataSource.count + songIndex] }
+        else { song = dataSource[songIndex] }
+        
+        try? musicController.skip(nextSong: getAudioFile())
+        if !paused { try? musicController.play() }
+    }
+    
+    private func getAudioFile() throws -> AVAudioFile {
+        return try AVAudioFile.init(forReading: self.song?.url ?? self.dataSource[0].url)
     }
 }

@@ -21,30 +21,20 @@ struct SingleSliderView: View {
             
             GeometryReader { geometry in
                 ZStack(alignment: .bottom) {
-                    Rectangle()
-                        .foregroundColor(.gray)
-                        .frame(width: 1)
                     
-                    ZStack {
-                        Circle()
-                            .stroke(Color.white, lineWidth: 5)
-                        Circle()
-                            .fill(Color.black)
-                    }
-                    .frame(width: 15, height: 15)
-                    .offset(y: geometry.size.height * CGFloat( -1 * self.currentValue))
-                    .gesture(DragGesture(minimumDistance: 0)
-                    .onChanged{ value in
-                        self.currentValue = self.clampSliderValue(
-                            yOffset: value.location.y,
-                            height: geometry.size.height)
-                        }
+                    self.sliderBar(height: geometry.size.height)
+                    
+                    self.sliderCircle
+                        .offset(y: geometry.size.height * CGFloat( -1 * self.currentValue))
+                        .gesture(DragGesture(minimumDistance: 0)
+                            .onChanged{ value in
+                                self.currentValue = self.clampSliderValue(
+                                    yOffset: value.location.y,
+                                    height: geometry.size.height)
+                            }
                     )
                     
                     
-                    Rectangle()
-                        .foregroundColor(.white)
-                        .frame(width: 1, height: geometry.size.height * CGFloat(self.currentValue))
                 }
             }
             
@@ -76,5 +66,29 @@ struct SingleSliderView_Previews: PreviewProvider {
                 currentValue: Binding.constant(0.5),
                 label: "test")
         }
+    }
+}
+
+private extension SingleSliderView {
+    func sliderBar(height: CGFloat) -> some View {
+        ZStack(alignment: .bottom) {
+            Rectangle()
+                .foregroundColor(.gray)
+                .frame(width: 1)
+            
+            Rectangle()
+                .foregroundColor(.white)
+                .frame(width: 1, height: height * CGFloat(self.currentValue))
+        }
+    }
+    
+    var sliderCircle: some View {
+        ZStack {
+            Circle()
+                .stroke(Color.white, lineWidth: 5)
+            Circle()
+                .fill(Color.black)
+        }
+        .frame(width: 15, height: 15)
     }
 }

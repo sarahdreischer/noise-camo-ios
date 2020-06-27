@@ -12,7 +12,7 @@ import Combine
 
 protocol MusicControllable {
     func play() throws
-
+    
     func pause() throws
     
     func skip(nextSong song: AVAudioFile) throws
@@ -20,6 +20,8 @@ protocol MusicControllable {
     func seekToTime(_ sec: Int, forSong song: AVAudioFile) throws
     
     func isPlaying() -> Bool
+    
+    func isFinished(audioFile: AVAudioFile) -> Bool
 }
 
 class MusicController {
@@ -51,7 +53,7 @@ extension MusicController: MusicControllable {
     func seekToTime(_ sec: Int, forSong song: AVAudioFile) throws {
         do {
             try audioNode.seekTo(positionInSeconds: sec, adjustmentTime: audioAdjustmentTime, audioFile: song)
-            audioAdjustmentTime = getNewAudioTimeAdjustment(lastAdjustmentTime: audioAdjustmentTime, newTime: sec)
+            updateAudioAdjustmentTime(addedSeconds: sec)
         } catch { audioAdjustmentTime = 0 }
     }
     
@@ -59,8 +61,12 @@ extension MusicController: MusicControllable {
         return audioNode.isPlaying
     }
     
-    private func getNewAudioTimeAdjustment(lastAdjustmentTime: Int, newTime: Int) -> Int {
-        return lastAdjustmentTime + newTime
+    func isFinished(audioFile: AVAudioFile) -> Bool {
+        return audioNode.isFinished(adjustmentTime: audioAdjustmentTime, audioFile: audioFile)
+    }
+    
+    private func updateAudioAdjustmentTime(addedSeconds: Int) {
+        audioAdjustmentTime += addedSeconds
     }
 }
 
@@ -68,29 +74,47 @@ extension AVAudioPlayerNode {
     func seekTo(positionInSeconds: Int, adjustmentTime: Int, audioFile: AVAudioFile) throws {
         if self.lastRenderTime != nil {
             let sampleRate = self.outputFormat(forBus: 0).sampleRate
-            let newTimePosition = Double(positionInSeconds) + (Double(self.lastRenderTime!.sampleTime) / sampleRate) + Double(adjustmentTime)
-            let newFramePosition = AVAudioFramePosition(newTimePosition * sampleRate)
             let duration = Double(audioFile.length) / sampleRate
-            self.play(at: AVAudioTime.init(sampleTime: newFramePosition, atRate: sampleRate))
+            let newPlayerTime = Double(positionInSeconds) + getPlayerTime(adjustmentTime: adjustmentTime)
+            let newFramePosition = AVAudioFramePosition(newPlayerTime * sampleRate)
+            
             if duration != Double.infinity {
-                let newLength = duration - newTimePosition
-                if newLength >= 0 && newLength <= duration {
-                    let framesToPlay = AVAudioFrameCount(sampleRate * newLength)
+                let newDuration = duration - newPlayerTime
+                if newDuration >= 0 && newDuration <= duration {
+                    let framesToPlay = AVAudioFrameCount(sampleRate * newDuration)
                     self.stop()
                     scheduleSegment(audioFile, startingFrame: newFramePosition, frameCount: framesToPlay, at: nil, completionHandler: nil)
-                    self.play()
-                } else if newLength <= 0 {
-                    self.stop()
-                    throw MusicError.controlling(description: "Song has finished.")
+                    
                 } else {
                     self.stop()
-                    scheduleFile(audioFile, at: nil, completionHandler: nil)
-                    self.play()
-                    throw MusicError.controlling(description: "Song is fully loaded.")
+                    if (newDuration <= 0) { throw MusicError.controlling(description: "Song has finished.") }
+                    if (newDuration >= duration) {
+                        scheduleFile(audioFile, at: nil, completionHandler: nil)
+                        throw MusicError.controlling(description: "Song is fully loaded.")
+                    }
                 }
             } else {
                 throw MusicError.controlling(description: "Song duration is infinity")
             }
         }
+    }
+    
+    func isFinished(adjustmentTime: Int, audioFile: AVAudioFile) -> Bool {
+        let currentTime = self.getPlayerTime(adjustmentTime: adjustmentTime)
+        if currentTime != -1 {
+            let sampleRate = self.outputFormat(forBus: 0).sampleRate
+            let duration = Double(audioFile.length) / sampleRate
+            if duration != Double.infinity {
+                return (currentTime >= duration) ? true : false
+            }
+        }
+        return false        // change to error because current playing time can't be found
+    }
+    
+    func getPlayerTime(adjustmentTime: Int) -> Double {
+        if let nodeTime = lastRenderTime, let playerTime = playerTime(forNodeTime: nodeTime) {
+            return (Double(playerTime.sampleTime) / playerTime.sampleRate) + Double(adjustmentTime)
+        }
+        return -1
     }
 }
