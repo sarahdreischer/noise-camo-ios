@@ -23,27 +23,32 @@ class PlayerViewModel: ObservableObject, Identifiable {
     
     private var songTimer: AnyCancellable?
     
+    private var songLoaded: Bool = false
+    
     @Published var song: MusicAssetViewModel?
     
     @Published var dataSource: [MusicAssetViewModel] = []
     
-    @Published var paused: Bool = true
+    @Published var paused: Bool = false
     
-    @Published var finished: Bool = false
+    @Published var finished: Bool = true
     
     init(musicFetcher: MusicFetchable, musicController: MusicControllable) {
         self.musicFetcher = musicFetcher
         self.musicController = musicController
         songs.forEach { fetchMusic(forSong: $0) }
-        
-        self.songTimer = Timer.publish(every: 0.5, on: RunLoop.main, in: .common)
-            .autoconnect()
-            .sink { [unowned self] _ in
-                self.paused = !musicController.isPlaying()
-                print("Song is paused: \(self.paused)")
-                self.finished = musicController.isFinished(audioFile: try! self.getAudioFile())
-                if (self.finished) { self.paused = true }
-                print("Song is finished: \(self.finished)")
+        self.songTimer = startTimer()
+    }
+    
+    func startTimer() -> AnyCancellable {
+        return Timer.publish(every: 0.5, on: RunLoop.main, in: .common)
+        .autoconnect()
+        .sink { [unowned self] _ in
+            self.paused = !self.musicController.isPlaying()
+            print("Song is paused: \(self.paused)")
+            self.finished = self.musicController.isFinished(audioFile: try! self.getAudioFile())
+            if (self.finished) { self.paused = true }
+            print("Song is finished: \(self.finished)")
         }
     }
     
@@ -69,7 +74,10 @@ class PlayerViewModel: ObservableObject, Identifiable {
             if (!finished) {
                 try (paused) ? musicController.play() : musicController.pause()
             } else {
-                try musicController.skip(nextSong: AVAudioFile.init(forReading: song?.url ?? dataSource[0].url))
+//                if (!songLoaded) {
+                    try musicController.skip(nextSong: getAudioFile())
+//                    songLoaded.toggle()
+//                }
                 try musicController.play()
             }
         } catch {
@@ -105,7 +113,6 @@ class PlayerViewModel: ObservableObject, Identifiable {
         if songIndex > dataSource.count - 1 { song = dataSource[songIndex - dataSource.count] }
         else if songIndex < 0 { song = dataSource[dataSource.count + songIndex] }
         else { song = dataSource[songIndex] }
-        
         try? musicController.skip(nextSong: getAudioFile())
         if !paused { try? musicController.play() }
     }

@@ -29,6 +29,8 @@ class MusicController {
     
     private var audioAdjustmentTime: Int = 0
     
+    private var wasPaused: Bool = false
+    
     init(audioNode: AVAudioPlayerNode) {
         self.audioNode = audioNode
     }
@@ -38,11 +40,13 @@ extension MusicController: MusicControllable {
     func play() throws {
         audioNode.play()
         if !audioNode.isPlaying { throw MusicError.controlling(description: "Cannot play audio file") }
+        wasPaused = false
     }
     
     func pause() throws {
         audioNode.pause()
         if audioNode.isPlaying { throw MusicError.controlling(description: "Cannot pause audio file") }
+        wasPaused = true
     }
     
     func skip(nextSong song: AVAudioFile) {
@@ -62,7 +66,7 @@ extension MusicController: MusicControllable {
     }
     
     func isFinished(audioFile: AVAudioFile) -> Bool {
-        return audioNode.isFinished(adjustmentTime: audioAdjustmentTime, audioFile: audioFile)
+        return audioNode.isFinished(adjustmentTime: audioAdjustmentTime, audioFile: audioFile, wasPaused: wasPaused)
     }
     
     private func updateAudioAdjustmentTime(addedSeconds: Int) {
@@ -99,7 +103,7 @@ extension AVAudioPlayerNode {
         }
     }
     
-    func isFinished(adjustmentTime: Int, audioFile: AVAudioFile) -> Bool {
+    func isFinished(adjustmentTime: Int, audioFile: AVAudioFile, wasPaused: Bool) -> Bool {
         let currentTime = self.getPlayerTime(adjustmentTime: adjustmentTime)
         if currentTime != -1 {
             let sampleRate = self.outputFormat(forBus: 0).sampleRate
@@ -108,7 +112,7 @@ extension AVAudioPlayerNode {
                 return (currentTime >= duration) ? true : false
             }
         }
-        return false        // change to error because current playing time can't be found
+        return (wasPaused) ? false : true // change to error because current playing time can't be found
     }
     
     func getPlayerTime(adjustmentTime: Int) -> Double {
