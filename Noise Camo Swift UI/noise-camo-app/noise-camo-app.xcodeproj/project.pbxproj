@@ -12,7 +12,7 @@
 		E706A4FE248D62CD00472E1C /* SingleNavigatorButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E706A4FD248D62CD00472E1C /* SingleNavigatorButtonView.swift */; };
 		E706A5012491968B00472E1C /* EqualizerSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E706A5002491968B00472E1C /* EqualizerSliderView.swift */; };
 		E706A503249196E000472E1C /* EqualizerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E706A502249196E000472E1C /* EqualizerButtonView.swift */; };
-		E706A5092492CB3000472E1C /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E706A5082492CB3000472E1C /* SpotifyiOS.framework */; };
+		E706A5092492CB3000472E1C /* SpotifyiOS.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = E706A5082492CB3000472E1C /* SpotifyiOS.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E706A50F2492E30700472E1C /* SpotifyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E706A50E2492E30700472E1C /* SpotifyManager.swift */; };
 		E71322AE249FD7CF009F5041 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71322AD249FD7CF009F5041 /* CustomNavigationBar.swift */; };
 		E71322B324A78878009F5041 /* EqualizerView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71322B224A78878009F5041 /* EqualizerView2.swift */; };
@@ -86,7 +86,7 @@
 		E706A4FD248D62CD00472E1C /* SingleNavigatorButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleNavigatorButtonView.swift; sourceTree = "<group>"; };
 		E706A5002491968B00472E1C /* EqualizerSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerSliderView.swift; sourceTree = "<group>"; };
 		E706A502249196E000472E1C /* EqualizerButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualizerButtonView.swift; sourceTree = "<group>"; };
-		E706A5082492CB3000472E1C /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
+		E706A5082492CB3000472E1C /* SpotifyiOS.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = SpotifyiOS.xcframework; sourceTree = "<group>"; };
 		E706A50A2492CE8600472E1C /* noise-camo-app-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "noise-camo-app-Bridging-Header.h"; sourceTree = "<group>"; };
 		E706A50E2492E30700472E1C /* SpotifyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyManager.swift; sourceTree = "<group>"; };
 		E71322AD249FD7CF009F5041 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
@@ -149,7 +149,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E706A5092492CB3000472E1C /* SpotifyiOS.framework in Frameworks */,
+				E706A5092492CB3000472E1C /* SpotifyiOS.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,7 +214,7 @@
 		E706A5072492CB1C00472E1C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E706A5082492CB3000472E1C /* SpotifyiOS.framework */,
+				E706A5082492CB3000472E1C /* SpotifyiOS.xcframework */,
 			);
 			path = Frameworks;
 			sourceTree = "<group>";
