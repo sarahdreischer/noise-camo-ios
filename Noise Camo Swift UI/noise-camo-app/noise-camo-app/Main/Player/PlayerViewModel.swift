@@ -44,11 +44,13 @@ class PlayerViewModel: ObservableObject, Identifiable {
         return Timer.publish(every: 0.5, on: RunLoop.main, in: .common)
         .autoconnect()
         .sink { [unowned self] _ in
+            guard let audioFile = try? self.getAudioFile() else {
+                // No song loaded yet — nothing to poll
+                return
+            }
             self.paused = !self.musicController.isPlaying()
-            print("Song is paused: \(self.paused)")
-            self.finished = self.musicController.isFinished(audioFile: try! self.getAudioFile())
-            if (self.finished) { self.paused = true }
-            print("Song is finished: \(self.finished)")
+            self.finished = self.musicController.isFinished(audioFile: audioFile)
+            if self.finished { self.paused = true }
         }
     }
     
@@ -65,6 +67,7 @@ class PlayerViewModel: ObservableObject, Identifiable {
     }
     
     func initialisePlayerNode() {
+        guard !dataSource.isEmpty else { return }
         let index = getSongIndex(fromDataSource: song ?? dataSource[0])
         try? musicFetcher.initPlayerEngine(forSong: songs[index])
     }
@@ -118,6 +121,9 @@ class PlayerViewModel: ObservableObject, Identifiable {
     }
     
     private func getAudioFile() throws -> AVAudioFile {
-        return try AVAudioFile.init(forReading: self.song?.url ?? self.dataSource[0].url)
+        guard let url = self.song?.url ?? self.dataSource.first?.url else {
+            throw MusicError.controlling(description: "No song available to load")
+        }
+        return try AVAudioFile(forReading: url)
     }
 }
