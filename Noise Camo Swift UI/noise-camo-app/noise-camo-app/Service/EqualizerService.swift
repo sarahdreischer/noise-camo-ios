@@ -28,7 +28,7 @@ class EqualizerService: ObservableObject {
            for i in 0...(bands.count - 1) {
             bands[i].frequency  = Float(EqualizerData().frequencies[i])
                bands[i].bypass     = false
-               bands[i].gain = Float(currentGain[0])
+               bands[i].gain = Float(currentGain[i])
                bands[i].filterType = getShelf(currentGain[i])
            }
     }
